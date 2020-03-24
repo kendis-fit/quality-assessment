@@ -3,8 +3,8 @@ import { Model, Column, DataType, Table, HasMany, BelongsTo, ForeignKey } from "
 import { StatusModificate } from "./requirement.enum";
 
 @Table({ tableName: "requirements" })
-export class Requirement extends Model<Requirement> {
-    
+export class Requirement extends Model<Requirement>
+{    
     @Column({
         type: DataType.BIGINT,
         primaryKey: true

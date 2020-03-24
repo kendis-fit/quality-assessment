@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
-import { ProfileController } from "./profile.controller";
+import { RequirementController } from "./requirement.controller";
 import { DatabaseModule } from "src/database/database.module";
 
 @Module({
     imports: [DatabaseModule],
-	controllers: [ProfileController],
+	controllers: [RequirementController],
 })
-export class ProfileModule {}
+export class RequirementModule {}

@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 
-import { ProfileModule } from "./profile/profile.module";
+import { RequirementModule } from "./requirement/requirement.module";
 
 @Module({
-	imports: [ProfileModule]
+	imports: [RequirementModule]
 })
 export class AppModule {}
