@@ -1,8 +1,7 @@
-export class RequirementProfile
-{
-    public profile: any;
+export class RequirementProfile {
+	public profile: any;
 
-    public constructor({ profile }) {
-        this.profile = profile;
-    }
+	public constructor({ profile }) {
+		this.profile = profile;
+	}
 }

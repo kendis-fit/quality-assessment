@@ -1,5 +1,4 @@
-export class CreateRequirement
-{
-    public name: string;
-    public parentId: number;
+export class CreateRequirement {
+	public name: string;
+	public parentId: number;
 }
