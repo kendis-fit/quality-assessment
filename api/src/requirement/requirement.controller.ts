@@ -6,8 +6,6 @@ import {
 	Post,
 	Body,
 	Delete,
-	Res,
-	HttpStatus
 } from "@nestjs/common";
 
 import { CreateRequirement } from "./dto/create-requirement.dto";
@@ -35,7 +33,9 @@ export class RequirementController {
 	public createRequirement(@Body() requirement: CreateRequirement) {}
 
 	@Delete(":id")
-	public deleteRequirement(@Param("id") id: number) {}
+	public deleteRequirement(@Param("id") id: number) {
+		this.requirementService.deleteById(id);
+	}
 
 	@Get(":id/indexes/:indexId")
 	public getIndexByRequirement(

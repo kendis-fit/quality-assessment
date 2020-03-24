@@ -6,9 +6,11 @@ import {
 	HasMany,
 	BelongsTo,
 	ForeignKey,
+	CreatedAt,
 } from "sequelize-typescript";
 
 import { StatusModificate } from "./requirement.enum";
+import IIndex from "./interfaces/index.interface";
 
 @Table({ tableName: "requirements" })
 export class Requirement extends Model<Requirement> {
@@ -25,11 +27,22 @@ export class Requirement extends Model<Requirement> {
 
 	@Column({
 		type: DataType.JSONB,
+		allowNull: true
 	})
-	public profile: any;
+	public profile: IIndex[];
 
+	@Column({
+		type: DataType.BIGINT,
+		allowNull: true
+	})
 	@ForeignKey(() => Requirement)
-	public parentId?: number;
+	public parentId!: number;
+
+	@CreatedAt
+	@Column({
+		type: DataType.DATE
+	})
+	public createdAt: Date;
 
 	@BelongsTo(() => Requirement)
 	public parent: Requirement;
