@@ -1,12 +1,17 @@
-import { Controller, Get, Query, Param, Put, Post, Body, Delete } from "@nestjs/common";
+import { Controller, Get, Param, Put, Post, Body, Delete } from "@nestjs/common";
 
 import { CreateRequirement } from "./dto/create-requirement.dto";
+import { RequirementProfile } from "./dto/requirement-profile.dto";
+import { RequirementService } from "./requirement.service";
 
 @Controller("sr/requirements")
-export class RequirementController {
+export class RequirementController
+{
+	public constructor(private requirementService: RequirementService) {}
 
 	@Get(":id")
-	public getRequirement(@Param("id")id: number) {
+	public getRequirement(@Param("id")id: number): Promise<RequirementProfile> {
+		return this.requirementService.findById(id);		
 	}
 
 	@Put(":id")
