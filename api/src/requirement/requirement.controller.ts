@@ -6,6 +6,8 @@ import {
 	Post,
 	Body,
 	Delete,
+	Res,
+	HttpStatus
 } from "@nestjs/common";
 
 import { CreateRequirement } from "./dto/create-requirement.dto";
@@ -17,14 +19,17 @@ export class RequirementController {
 	public constructor(private requirementService: RequirementService) {}
 
 	@Get(":id")
-	public getRequirement(
+	public async getRequirement(
 		@Param("id") id: number,
 	): Promise<RequirementProfile> {
-		return this.requirementService.findById(id);
+		const requirement = await this.requirementService.findById(id);
+		return new RequirementProfile(requirement);
 	}
 
 	@Put(":id")
-	public updateRequirement(@Param("id") id: number) {}
+	public updateRequirement(@Param("id") id: number, @Body() profile: any): void {
+		this.requirementService.update(id, profile);
+	}
 
 	@Post()
 	public createRequirement(@Body() requirement: CreateRequirement) {}
