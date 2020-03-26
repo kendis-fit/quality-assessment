@@ -6,6 +6,7 @@ import { SEQUELIZE } from 'src/database/database.providers';
 import IIndex from 'src/requirement/interfaces/index.interface';
 import { Requirement } from 'src/requirement/requirement.entity';
 import { REQUIREMENT_REPOSITORY } from 'src/requirement/requirement.providers';
+import { CreateRequirement } from "./dto/create-requirement.dto";
 
 @Injectable()
 export class ProjectService {
@@ -20,7 +21,6 @@ export class ProjectService {
 	) {}
 
     public async findAll(offset: number, size: number): Promise<Requirement[]> {
-        
         if (size > 100) {
             throw new HttpException("", HttpStatus.BAD_REQUEST);
         }
@@ -31,7 +31,6 @@ export class ProjectService {
     }
 
     public async findById(id: number): Promise<Requirement> {
-
         const requirement = await this.requirements.findByPk(id);
         
         if (!requirement) {
@@ -40,7 +39,9 @@ export class ProjectService {
         return requirement;
     }
 
-    public create(project: any) {
-
+    public async create(project: CreateRequirement): Promise<Requirement> {
+        const newProject = new Requirement({ ...project, profile: [...this.profile] });
+        await newProject.save();
+        return newProject;
     }
 }

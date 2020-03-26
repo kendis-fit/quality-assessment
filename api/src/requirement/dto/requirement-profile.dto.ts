@@ -1,7 +1,10 @@
-export class RequirementProfile {
-	public profile: any;
+import IIndex from "../interfaces/index.interface";
 
-	public constructor({ profile }) {
+export class RequirementProfile {
+
+	public profile: IIndex[];
+
+	public constructor({ profile }: RequirementProfile) {
 		this.profile = profile;
 	}
 }

@@ -2,6 +2,8 @@ import { Controller, Get, Query, Post, Param, Body } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { RequirementListView } from './dto/requirement-list-view.dto';
 import { RequirementView } from './dto/requirement-view.dto';
+import { CreateRequirement } from 'src/requirement/dto/create-requirement.dto';
+import { CreatedRequirement } from 'src/requirement/dto/created-requirement.dto';
 
 @Controller('sr/project')
 export class ProjectController {
@@ -10,20 +12,20 @@ export class ProjectController {
 
     @Get()
     public async getProjects(@Query("offset")offset: number, @Query("size")size: number): Promise<RequirementListView[]> {
-        
         const projects = await this.projectService.findAll(offset, size);
         return projects.map(project => new RequirementListView(project));
     }
 
     @Get(":id")
     public async getProjectById(@Param("id")id: number): Promise<RequirementView> {
-        
         const project = await this.projectService.findById(id);
         return new RequirementView(project);
     }
 
     @Post()
-    public createProject(@Body()project: any) {
+    public async createProject(@Body()project: CreateRequirement): Promise<CreatedRequirement> {
+        const newProject = await this.projectService.create(project);
+        return new CreatedRequirement(newProject);
     }
 
     @Get(":id/indexes/:indexId")
