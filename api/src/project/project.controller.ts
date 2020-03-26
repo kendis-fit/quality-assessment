@@ -1,17 +1,25 @@
 import { Controller, Get, Query, Post, Param, Body } from '@nestjs/common';
 import { ProjectService } from './project.service';
+import { RequirementListView } from './dto/requirement-list-view.dto';
+import { RequirementView } from './dto/requirement-view.dto';
 
 @Controller('sr/project')
 export class ProjectController {
 
-    public constructor(projectService: ProjectService) {}
+    public constructor(private projectService: ProjectService) {}
 
     @Get()
-    public getProjects(@Query("offset")offset: number, @Query("size")size: number) {
+    public async getProjects(@Query("offset")offset: number, @Query("size")size: number): Promise<RequirementListView[]> {
+        
+        const projects = await this.projectService.findAll(offset, size);
+        return projects.map(project => new RequirementListView(project));
     }
 
     @Get(":id")
-    public getProjectById(@Param("id")id: number) {
+    public async getProjectById(@Param("id")id: number): Promise<RequirementView> {
+        
+        const project = await this.projectService.findById(id);
+        return new RequirementView(project);
     }
 
     @Post()

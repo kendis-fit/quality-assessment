@@ -10,5 +10,6 @@ import { JsonModule } from "src/json/json.module";
 	imports: [DatabaseModule, JsonModule],
 	controllers: [RequirementController],
 	providers: [...requirementProviders, RequirementService],
+	exports: [...requirementProviders]
 })
 export class RequirementModule {}

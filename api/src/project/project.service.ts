@@ -24,16 +24,23 @@ export class ProjectService {
         if (size > 100) {
             throw new HttpException("", HttpStatus.BAD_REQUEST);
         }
-        
         return await this.requirements.findAll({
             offset,
             limit: size
         });
     }
 
-    public findById(id: number) {
+    public async findById(id: number): Promise<Requirement> {
+
+        const requirement = await this.requirements.findByPk(id);
+        
+        if (!requirement) {
+            throw new HttpException("", HttpStatus.NOT_FOUND);
+        }
+        return requirement;
     }
 
     public create(project: any) {
+
     }
 }
