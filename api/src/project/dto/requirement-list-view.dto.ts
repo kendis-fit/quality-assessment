@@ -1,16 +1,15 @@
 import { StatusModificate } from "src/requirement/requirement.enum";
 
 export class RequirementListView {
+	public id: number;
 
-    public id: number;
-    
-    public name: string;
+	public name: string;
 
-    public statusModificate: StatusModificate;
+	public statusModificate: StatusModificate;
 
-    public constructor({ id, name, statusModificate }: RequirementListView) {
-        this.id = id;
-        this.name = name;
-        this.statusModificate = statusModificate;
-    }
+	public constructor({ id, name, statusModificate }: RequirementListView) {
+		this.id = id;
+		this.name = name;
+		this.statusModificate = statusModificate;
+	}
 }

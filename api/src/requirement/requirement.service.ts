@@ -14,23 +14,23 @@ import { REQUIREMENT_REPOSITORY } from "./requirement.providers";
 export class RequirementService {
 	public constructor(
 		@Inject(REQUIREMENT_REPOSITORY)
-        private requirements: typeof Requirement,
-        @Inject(SEQUELIZE)
-        private sequelize: Sequelize,
-        @Inject(PROFILE)
-        private profile: IIndex[]
+		private requirements: typeof Requirement,
+		@Inject(SEQUELIZE)
+		private sequelize: Sequelize,
+		@Inject(PROFILE)
+		private profile: IIndex[],
 	) {}
 
 	public async findById(id: number): Promise<Requirement> {
 		const requirement = await this.requirements.findOne({
-            where: {
-                id: id,
-                parentId: {
-                    [Op.ne]: null
-                }
-            },
-            include: [Requirement]
-        });
+			where: {
+				id: id,
+				parentId: {
+					[Op.ne]: null,
+				},
+			},
+			include: [Requirement],
+		});
 		if (!requirement) {
 			throw new HttpException("", HttpStatus.NOT_FOUND);
 		}
@@ -38,127 +38,131 @@ export class RequirementService {
 	}
 
 	public async update(id: number, profile: IIndex[]): Promise<void> {
-        const requirement = await this.findById(id);
-        requirement.profile = profile;
-        requirement.statusModificate = StatusModificate.MODIFICATED;
-        await requirement.save();
-    }
+		const requirement = await this.findById(id);
+		requirement.profile = profile;
+		requirement.statusModificate = StatusModificate.MODIFICATED;
+		await requirement.save();
+	}
 
 	public async create(requirement: CreateRequirement): Promise<Requirement> {
-        
-        const transaction = await this.sequelize.transaction();
-        
-        try
-        {
-            const parentRequirement = await this.findById(requirement.parentId);
+		const transaction = await this.sequelize.transaction();
 
-            let profile: IIndex[] = null;
+		try {
+			const parentRequirement = await this.findById(requirement.parentId);
 
-            if (this.isGroup(parentRequirement)) {
-                profile = [...this.profile];
-                const project = await this.getRoot(parentRequirement);
-                const indexes = project.profile.find(index => index.name === "I8");
-                
-                const lengthCoeff = indexes.coefficients.length;
-                let coeff: any = {};
-                if (lengthCoeff === 0) {
-                    coeff = {
-                        name: "K1",
-                        value: null
-                    }
-                } else {
-                    const lastCoeff = indexes.coefficients[indexes.coefficients.length - 1];
-                    coeff = {
-                        name: `K${Number(lastCoeff.name.replace("K", "")) + 1}`,
-                        value: null
-                    }
-                }
-                indexes.coefficients.push(coeff);
+			let profile: IIndex[] = null;
 
-                await project.save();
-            } else {
-                profile = [...parentRequirement.profile];
-                parentRequirement.profile = null;
-                await parentRequirement.save();
-            }
+			if (this.isGroup(parentRequirement)) {
+				profile = [...this.profile];
+				const project = await this.getRoot(parentRequirement);
+				const indexes = project.profile.find(
+					index => index.name === "I8",
+				);
 
-            const newRequirement = new Requirement({
-                ...requirement,
-                profile
-            });
-            await newRequirement.save();
-            await transaction.commit();
+				const lengthCoeff = indexes.coefficients.length;
+				let coeff: any = {};
+				if (lengthCoeff === 0) {
+					coeff = {
+						name: "K1",
+						value: null,
+					};
+				} else {
+					const lastCoeff =
+						indexes.coefficients[indexes.coefficients.length - 1];
+					coeff = {
+						name: `K${Number(lastCoeff.name.replace("K", "")) + 1}`,
+						value: null,
+					};
+				}
+				indexes.coefficients.push(coeff);
 
-            return newRequirement;
-        }
-        catch
-        {
-            await transaction.rollback();
-            throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+				await project.save();
+			} else {
+				profile = [...parentRequirement.profile];
+				parentRequirement.profile = null;
+				await parentRequirement.save();
+			}
+
+			const newRequirement = new Requirement({
+				...requirement,
+				profile,
+			});
+			await newRequirement.save();
+			await transaction.commit();
+
+			return newRequirement;
+		} catch {
+			await transaction.rollback();
+			throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	public async deleteById(id: number) {
-        const requirement = await this.findById(id);
-        
-        const transaction = await this.sequelize.transaction();
-        try
-        {
-            const rootRequirement = await this.getRoot(requirement);
-            
-            const counter: any = {
-                i: 0
-            };
-            
-            this.removeChildren(requirement, counter);
-        
-            const indexes = rootRequirement.profile;
+		const requirement = await this.findById(id);
 
-            const profile = indexes.find(index => index.name === "I8");
-            profile.coefficients = profile.coefficients.reverse().slice(0, counter.i).reverse();
-            
-            rootRequirement.profile = indexes;
-            await rootRequirement.save();
-            await transaction.commit();
-        }
-        catch
-        {
-            await transaction.rollback();
-            throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+		const transaction = await this.sequelize.transaction();
+		try {
+			const rootRequirement = await this.getRoot(requirement);
+
+			const counter: any = {
+				i: 0,
+			};
+
+			this.removeChildren(requirement, counter);
+
+			const indexes = rootRequirement.profile;
+
+			const profile = indexes.find(index => index.name === "I8");
+			profile.coefficients = profile.coefficients
+				.reverse()
+				.slice(0, counter.i)
+				.reverse();
+
+			rootRequirement.profile = indexes;
+			await rootRequirement.save();
+			await transaction.commit();
+		} catch {
+			await transaction.rollback();
+			throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	public findIndexByRequirement(id: number, indexId: number) {}
 
-    public findDiagramByRequirement(id: number, diagramId: number) {}
+	public findDiagramByRequirement(id: number, diagramId: number) {}
 
-    private async getRoot(requirement: Requirement): Promise<Requirement> {
-        if (requirement.parentId === null) {
-            return requirement;
-        }
-        const parentRequirement = await this.findById(requirement.parentId);
-        return this.getRoot(parentRequirement);
-    }
+	private async getRoot(requirement: Requirement): Promise<Requirement> {
+		if (requirement.parentId === null) {
+			return requirement;
+		}
+		const parentRequirement = await this.findById(requirement.parentId);
+		return this.getRoot(parentRequirement);
+	}
 
-    private async removeChildren(requirement: Requirement, counter: { i: number }) {
-        if (requirement.requirements.length > 0) {
-            for (const req of requirement.requirements) {
-                this.removeChildren(req, counter);
-            }
-        }
+	private async removeChildren(
+		requirement: Requirement,
+		counter: { i: number },
+	) {
+		if (requirement.requirements.length > 0) {
+			for (const req of requirement.requirements) {
+				this.removeChildren(req, counter);
+			}
+		}
 
-        if (requirement.profile === null) {
-            counter.i++;
-        }
+		if (requirement.profile === null) {
+			counter.i++;
+		}
 
-        this.requirements.destroy({
-            where: {
-                id: requirement.id
-            }
-        });
-    }
+		this.requirements.destroy({
+			where: {
+				id: requirement.id,
+			},
+		});
+	}
 
-    private isGroup(requirement: Requirement): boolean {
-        return requirement.requirements.length > 0 && requirement.parentId === null;
-    }
+	private isGroup(requirement: Requirement): boolean {
+		return (
+			requirement.requirements.length > 0 && requirement.parentId === null
+		);
+	}
 }

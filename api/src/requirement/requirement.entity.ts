@@ -27,20 +27,20 @@ export class Requirement extends Model<Requirement> {
 
 	@Column({
 		type: DataType.JSONB,
-		allowNull: true
+		allowNull: true,
 	})
 	public profile: IIndex[];
 
 	@Column({
 		type: DataType.BIGINT,
-		allowNull: true
+		allowNull: true,
 	})
 	@ForeignKey(() => Requirement)
 	public parentId!: number;
 
 	@CreatedAt
 	@Column({
-		type: DataType.DATE
+		type: DataType.DATE,
 	})
 	public createdAt: Date;
 

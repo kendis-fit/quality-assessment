@@ -26,13 +26,20 @@ export class RequirementController {
 	}
 
 	@Put(":id")
-	public updateRequirement(@Param("id") id: number, @Body() profile: any): void {
+	public updateRequirement(
+		@Param("id") id: number,
+		@Body() profile: any,
+	): void {
 		this.requirementService.update(id, profile);
 	}
 
 	@Post()
-	public async createRequirement(@Body() requirement: CreateRequirement): Promise<CreatedRequirement> {
-		const newRequirement = await this.requirementService.create(requirement); 
+	public async createRequirement(
+		@Body() requirement: CreateRequirement,
+	): Promise<CreatedRequirement> {
+		const newRequirement = await this.requirementService.create(
+			requirement,
+		);
 		return new CreatedRequirement(newRequirement);
 	}
 
