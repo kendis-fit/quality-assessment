@@ -11,6 +11,7 @@ import {
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { RequirementProfile } from "./dto/requirement-profile.dto";
 import { RequirementService } from "./requirement.service";
+import { CreatedRequirement } from "./dto/created-requirement.dto";
 
 @Controller("sr/requirements")
 export class RequirementController {
@@ -30,7 +31,10 @@ export class RequirementController {
 	}
 
 	@Post()
-	public createRequirement(@Body() requirement: CreateRequirement) {}
+	public async createRequirement(@Body() requirement: CreateRequirement): Promise<CreatedRequirement> {
+		const newRequirement = await this.requirementService.create(requirement); 
+		return new CreatedRequirement(newRequirement);
+	}
 
 	@Delete(":id")
 	public deleteRequirement(@Param("id") id: number) {
