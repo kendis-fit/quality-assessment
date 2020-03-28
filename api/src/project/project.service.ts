@@ -30,7 +30,13 @@ export class ProjectService {
 	}
 
 	public async findById(id: number): Promise<Requirement> {
-		const requirement = await this.requirements.findByPk(id);
+		const requirement = await this.requirements.findOne({
+            where: {
+                id: id,
+                parentId: null
+            },
+            include: [{ all: true }]
+        });
 
 		if (!requirement) {
 			throw new HttpException("", HttpStatus.NOT_FOUND);

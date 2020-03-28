@@ -8,9 +8,10 @@ import {
 	Delete,
 } from "@nestjs/common";
 
+import IIndex from "./interfaces/index.interface";
+import { RequirementService } from "./requirement.service";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { RequirementProfile } from "./dto/requirement-profile.dto";
-import { RequirementService } from "./requirement.service";
 import { CreatedRequirement } from "./dto/created-requirement.dto";
 
 @Controller("sr/requirements")
@@ -28,7 +29,7 @@ export class RequirementController {
 	@Put(":id")
 	public updateRequirement(
 		@Param("id") id: number,
-		@Body() profile: any,
+		@Body() profile: IIndex[],
 	): void {
 		this.requirementService.update(id, profile);
 	}

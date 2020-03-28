@@ -29,7 +29,7 @@ export class RequirementService {
 					[Op.ne]: null,
 				},
 			},
-			include: [Requirement],
+			include: [{ all: true }],
 		});
 		if (!requirement) {
 			throw new HttpException("", HttpStatus.NOT_FOUND);
