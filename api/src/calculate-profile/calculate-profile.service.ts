@@ -2,6 +2,7 @@ import math from "mathjs";
 import { Injectable } from '@nestjs/common';
 
 import IIndex from 'src/requirement/interfaces/index.interface';
+import IMetric from "src/requirement/interfaces/metric.interface";
 
 @Injectable()
 export class CalculateProfileService {
@@ -18,17 +19,23 @@ export class CalculateProfileService {
             if (coefficient.metric) {
                 let metricValue = coefficient.metric.value;
                 if (metricValue === null) {
-                    const primitive = coefficient.metric.primitive;
-                    if (primitive !== null) {
-                        const variables = primitive.primitives.reduce((obj, item) => Object.assign(obj, { [item.name]: item.value }), {});
-                        metricValue = math.evaluate(primitive.formula, variables);
-                    }
+                    metricValue = this.calculateMetric(coefficient.metric);
                 }
                 result = coefficient.value * metricValue + result;
             } else {
                 result = coefficient.value * this.calculate(coefficient.nameConnect, profile) + result;
             }
         }
+        return result;
+    }
+
+    private calculateMetric(metric: IMetric): number {
+        let result = 0;
+        const primitive = metric.primitive;
+        if (primitive !== null) {
+            const variables = primitive.primitives.reduce((obj, item) => Object.assign(obj, { [item.name]: item.value }), {});
+            result = math.evaluate(primitive.formula, variables);
+        } 
         return result;
     }
 }
