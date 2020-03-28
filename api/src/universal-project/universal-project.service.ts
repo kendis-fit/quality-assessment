@@ -4,9 +4,11 @@ import { Profile } from "src/json/profile.enum";
 import { Project } from "./universal-project.entity";
 import { TYPE_PROFILE } from "src/json/json.providers";
 import { CreateProject } from "./dto/create-project.dto";
+import { DiagramService } from "src/diagram/diagram.service";
 import IIndex from "src/requirement/interfaces/index.interface";
 import { PROJECT_REPOSITORY } from "./universal-project.providers";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
+import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 
 @Injectable()
 export class UniversalProjectService {
@@ -14,6 +16,7 @@ export class UniversalProjectService {
 		@Inject(PROJECT_REPOSITORY) private projects: typeof Project,
 		@Inject(TYPE_PROFILE) private getProfile: (prof: Profile) => IIndex[],
 		private calculateProfileService: CalculateProfileService,
+		private diagramService: DiagramService
 	) {}
 
 	public async findAll(offset: number, size: number): Promise<Project[]> {
@@ -74,5 +77,14 @@ export class UniversalProjectService {
 			project.profile,
 		);
 		return result;
+	}
+
+	public async generateDiagram(
+		id: number,
+		nameIndex: string
+	): Promise<DiagramProfile[]> {
+		const project = await this.findById(id);
+		const diagram = this.diagramService.create(nameIndex, project.profile);
+		return diagram;
 	}
 }

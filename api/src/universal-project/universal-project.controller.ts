@@ -17,6 +17,7 @@ import { ProjectListView } from "./dto/project-list-view.dto";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
 import { ProjectView } from "./dto/project-view.dto";
 import { ResultIndex } from "./dto/result-index.dto";
+import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 
 @ApiTags("universal-projects")
 @Controller("universal-projects")
@@ -80,9 +81,13 @@ export class UniversalProjectController {
 		return resultIndex;
 	}
 
+    @ApiOkResponse({ type: [DiagramProfile] })
 	@Get(":id/diagrams/:nameIndex")
-	public getDiagramByProject(
+	public async getDiagramByProject(
 		@Param("id") id: number,
 		@Param("nameIndex") nameIndex: string,
-	) {}
+	): Promise<DiagramProfile[]> {
+        const diagram = await this.projectService.generateDiagram(id, nameIndex);
+        return diagram;
+    }
 }
