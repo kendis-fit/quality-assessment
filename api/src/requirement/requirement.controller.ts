@@ -7,6 +7,7 @@ import {
 	Body,
 	Delete,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
 import IIndex from "./interfaces/index.interface";
 import { RequirementService } from "./requirement.service";
@@ -14,7 +15,8 @@ import { CreateRequirement } from "./dto/create-requirement.dto";
 import { RequirementProfile } from "./dto/requirement-profile.dto";
 import { CreatedRequirement } from "./dto/created-requirement.dto";
 
-@Controller("sr/requirements")
+@ApiTags("requirements")
+@Controller("requirements")
 export class RequirementController {
 	public constructor(private requirementService: RequirementService) {}
 
