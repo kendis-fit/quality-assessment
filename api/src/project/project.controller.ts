@@ -2,7 +2,7 @@ import { Controller, Get, Query, Post, Param, Body } from "@nestjs/common";
 import { ProjectService } from "./project.service";
 import { RequirementListView } from "./dto/requirement-list-view.dto";
 import { RequirementView } from "./dto/requirement-view.dto";
-import { CreateRequirement } from "src/requirement/dto/create-requirement.dto";
+import { CreateRequirement } from "./dto/create-requirement.dto";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
 
 @Controller("sr/project")
