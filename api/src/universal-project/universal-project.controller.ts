@@ -5,6 +5,8 @@ import { CreateProject } from "./dto/create-project.dto";
 import IIndex from "src/requirement/interfaces/index.interface";
 import { UniversalProjectService } from "./universal-project.service";
 import { ProjectListView } from "./dto/project-list-view.dto";
+import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
+import { ProjectView } from "./dto/project-view.dto";
 
 @ApiTags("universal-projects")
 @Controller("universal-projects")
@@ -18,18 +20,19 @@ export class UniversalProjectController {
         return projects.map(project => new ProjectListView(project));
     }
 
-    @ApiOkResponse()
+    @ApiOkResponse({ type: ProjectView })
     @Get(":id")
-    public async getProjectById(@Param("id")id: number) {
+    public async getProjectById(@Param("id")id: number): Promise<ProjectView> {
         const project = await this.projectService.findById(id);
-        return project;
+        return new ProjectView(project);
     }
 
     @ApiBody({ type: CreateProject })
-    @ApiOkResponse()
+    @ApiOkResponse({ type: CreatedRequirement })
     @Post()
-    public async createProject(@Body()project: CreateProject) {
-        await this.projectService.create(project);
+    public async createProject(@Body()project: CreateProject): Promise<CreatedRequirement> {
+        const newProject = await this.projectService.create(project);
+        return new CreatedRequirement(newProject);
     }
 
     @ApiOkResponse()
