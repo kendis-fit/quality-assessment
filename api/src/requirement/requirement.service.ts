@@ -5,7 +5,6 @@ import { Injectable, Inject, HttpException, HttpStatus } from "@nestjs/common";
 import IIndex from "./interfaces/index.interface";
 import { PROFILE } from "src/json/json.providers";
 import { Requirement } from "./requirement.entity";
-import { StatusModificate } from "./requirement.enum";
 import { SEQUELIZE } from "src/database/database.providers";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { REQUIREMENT_REPOSITORY } from "./requirement.providers";
@@ -40,7 +39,6 @@ export class RequirementService {
 	public async update(id: number, profile: IIndex[]): Promise<void> {
 		const requirement = await this.findById(id);
 		requirement.profile = profile;
-		requirement.statusModificate = StatusModificate.MODIFICATED;
 		await requirement.save();
 	}
 

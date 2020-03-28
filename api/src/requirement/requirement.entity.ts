@@ -7,9 +7,9 @@ import {
 	BelongsTo,
 	ForeignKey,
 	CreatedAt,
+	UpdatedAt,
 } from "sequelize-typescript";
 
-import { StatusModificate } from "./requirement.enum";
 import IIndex from "./interfaces/index.interface";
 
 @Table({ tableName: "requirements" })
@@ -44,17 +44,15 @@ export class Requirement extends Model<Requirement> {
 	})
 	public createdAt: Date;
 
+	@UpdatedAt
+	@Column({
+		type: DataType.DATE
+	})
+	public updatedAt: Date;
+
 	@BelongsTo(() => Requirement)
 	public parent: Requirement;
 
 	@HasMany(() => Requirement)
 	public requirements: Requirement[];
-
-	@Column({
-		type: DataType.ENUM(
-			StatusModificate.NOT_MODIFICATED,
-			StatusModificate.MODIFICATED,
-		),
-	})
-	public statusModificate: StatusModificate;
 }
