@@ -32,8 +32,8 @@ export class UniversalProjectService {
 
 	public async create(project: CreateProject): Promise<Project> {
         const profile = this.getProfile(project.typeProfile);
-        
-        if (profile === []) {
+
+        if (profile.length === 0) {
             throw new HttpException("", HttpStatus.BAD_REQUEST);
         }
 
