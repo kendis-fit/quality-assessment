@@ -17,6 +17,7 @@ export class Requirement extends Model<Requirement> {
 	@Column({
 		type: DataType.BIGINT,
 		primaryKey: true,
+		autoIncrement: true
 	})
 	public id: number;
 
