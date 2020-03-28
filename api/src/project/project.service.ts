@@ -3,10 +3,13 @@ import { Injectable, Inject, HttpException, HttpStatus } from "@nestjs/common";
 
 import { BASE_PROFILE } from "src/json/json.providers";
 import { SEQUELIZE } from "src/database/database.providers";
+import { DiagramService } from "src/diagram/diagram.service";
 import IIndex from "src/requirement/interfaces/index.interface";
 import { Requirement } from "src/requirement/requirement.entity";
-import { REQUIREMENT_REPOSITORY } from "src/requirement/requirement.providers";
 import { CreateRequirement } from "./dto/create-requirement.dto";
+import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
+import { REQUIREMENT_REPOSITORY } from "src/requirement/requirement.providers";
+import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
 
 @Injectable()
 export class ProjectService {
@@ -17,6 +20,8 @@ export class ProjectService {
 		private sequelize: Sequelize,
 		@Inject(BASE_PROFILE)
 		private profile: IIndex[],
+		private calculateProfileService: CalculateProfileService,
+		private diagramService: DiagramService
 	) {}
 
 	public async findAll(offset: number, size: number): Promise<Requirement[]> {
@@ -51,5 +56,26 @@ export class ProjectService {
 		});
 		await newProject.save();
 		return newProject;
+	}
+
+	public async calculateIndexByProject(
+		id: number,
+		nameIndex: string,
+	): Promise<number> {
+		const project = await this.findById(id);
+		const result = this.calculateProfileService.calculate(
+			nameIndex,
+			project.profile,
+		);
+		return result;
+	}
+
+	public async generateDiagram(
+		id: number,
+		nameIndex: string
+	): Promise<DiagramProfile[]> {
+		const project = await this.findById(id);
+		const diagram = this.diagramService.create(nameIndex, project.profile);
+		return diagram;
 	}
 }

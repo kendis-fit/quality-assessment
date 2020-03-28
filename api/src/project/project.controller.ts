@@ -6,6 +6,8 @@ import { RequirementListView } from "./dto/requirement-list-view.dto";
 import { RequirementView } from "./dto/requirement-view.dto";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
+import { ResultIndex } from "src/universal-project/dto/result-index.dto";
+import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 
 @ApiTags("projects")
 @Controller("projects")
@@ -40,15 +42,27 @@ export class ProjectController {
 		return new CreatedRequirement(newProject);
 	}
 
-	@Get(":id/indexes/:indexId")
-	public getIndexByProject(
+	@ApiOkResponse({ type: ResultIndex })
+	@Get(":id/indexes/:nameIndex")
+	public async getIndexByRequirement(
 		@Param("id") id: number,
-		@Param("indexId") indexId: number,
-	) {}
+		@Param("nameIndex") nameIndex: string,
+	): Promise<ResultIndex> {
+		const result = await this.projectService.calculateIndexByProject(
+			id,
+			nameIndex,
+		);
+		const resultIndex = new ResultIndex({ result });
+		return resultIndex;
+	}
 
-	@Get(":id/diagrams/:digramId")
-	public getDiagramByProject(
+    @ApiOkResponse({ type: [DiagramProfile] })
+	@Get(":id/diagrams/:nameIndex")
+	public async getDiagramByRequirement(
 		@Param("id") id: number,
-		@Param("diagramId") diagramId: number,
-	) {}
+		@Param("nameIndex") nameIndex: string,
+	): Promise<DiagramProfile[]> {
+        const diagram = await this.projectService.generateDiagram(id, nameIndex);
+        return diagram;
+    }
 }
