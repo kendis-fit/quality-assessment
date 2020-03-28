@@ -1,19 +1,21 @@
 import { ApiTags, ApiOkResponse, ApiBody } from "@nestjs/swagger";
 import { Controller, Get, Query, Param, Post, Body, Put, Delete } from "@nestjs/common";
-import { UniversalProjectService } from "./universal-project.service";
+
 import { CreateProject } from "./dto/create-project.dto";
 import IIndex from "src/requirement/interfaces/index.interface";
+import { UniversalProjectService } from "./universal-project.service";
+import { ProjectListView } from "./dto/project-list-view.dto";
 
 @ApiTags("universal-projects")
 @Controller("universal-projects")
 export class UniversalProjectController {
     public constructor(private projectService: UniversalProjectService) {}
 
-    @ApiOkResponse()
+    @ApiOkResponse({ type: [ProjectListView] })
     @Get()
-    public async getProjects(@Query("offset")offset: number, @Query("size")size: number) {
+    public async getProjects(@Query("offset")offset: number, @Query("size")size: number): Promise<ProjectListView[]> {
         const projects = await this.projectService.findAll(offset, size);
-        return projects;
+        return projects.map(project => new ProjectListView(project));
     }
 
     @ApiOkResponse()
