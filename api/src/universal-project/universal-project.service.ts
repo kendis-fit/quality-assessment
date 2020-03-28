@@ -44,4 +44,18 @@ export class UniversalProjectService {
 		await newProject.save();
 		return newProject;
 	}
+
+	public async updateById(id: number, profile: IIndex[]) {
+		const project = await this.findById(id);
+		project.profile = profile;
+		await project.save();
+	}
+
+	public async deleteByid(id: number) {
+		await this.projects.destroy({
+			where: {
+				id: id
+			}
+		});
+	}
 }
