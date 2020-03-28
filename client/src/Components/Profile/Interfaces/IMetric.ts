@@ -1,4 +1,4 @@
-import { IPrimitiveMeta } from "./IPrimitiveMeta";
+import IPrimitiveMeta from "./IPrimitiveMeta";
 
 export default interface IMetric {
 	name: string;
