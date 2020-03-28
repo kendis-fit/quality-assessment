@@ -1,6 +1,6 @@
 import IIndex from "src/requirement/interfaces/index.interface";
 
-const baseProfile: IIndex[] = [
+export const baseProfile: IIndex[] = [
 	{
 		name: "I1",
 		nameIndex: "SRPQGI",
@@ -8,10 +8,12 @@ const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
+				nameConnect: "I2",
 				value: null,
 			},
 			{
 				name: "K2",
+				nameConnect: "I8",
 				value: null,
 			},
 		],
@@ -24,22 +26,27 @@ const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
+				nameConnect: "I3",
 				value: null,
 			},
 			{
 				name: "K2",
+				nameConnect: "I4",
 				value: null,
 			},
 			{
 				name: "K3",
+				nameConnect: "I5",
 				value: null,
 			},
 			{
 				name: "K4",
+				nameConnect: "I6",
 				value: null,
 			},
 			{
 				name: "K5",
+				nameConnect: "I7",
 				value: null,
 			},
 		],
@@ -58,20 +65,23 @@ const baseProfile: IIndex[] = [
 					value: null,
 					description:
 						"software requirements profile taxons number\nFormula: SRPTN = SRPTRN / SRPTRQN\nPrimitives: SRPTRN, SRPTRQN",
-					primitives: [
-						{
-							name: "SRPTRN",
-							value: null,
-							description:
-								"software requirements profile taxons real number",
-						},
-						{
-							name: "SRPTRQN",
-							value: null,
-							description:
-								"software requirements profile taxons required number",
-						},
-					],
+					primitive: {
+						formula: "SRPTRN / SRPTRQN",
+						primitives: [
+							{
+								name: "SRPTRN",
+								value: null,
+								description:
+									"software requirements profile taxons real number",
+							},
+							{
+								name: "SRPTRQN",
+								value: null,
+								description:
+									"software requirements profile taxons required number",
+							},
+						],
+					}
 				},
 			},
 			{
@@ -82,21 +92,24 @@ const baseProfile: IIndex[] = [
 					nameMetric: "SRPCFN",
 					value: null,
 					description:
-						"software requirements profile classification features number\nFormula: SRPCFN= SRPCFRN / SRPCFRQN\nPrimitives: SRPCFRN, SRPCFRQN",
-					primitives: [
-						{
-							name: "SRPCFRN",
-							value: null,
-							description:
-								"software requirements profile classification features real number",
-						},
-						{
-							name: "SRPCFRQN",
-							value: null,
-							description:
-								"software requirements profile classification features required number",
-						},
-					],
+						"software requirements profile classification features number\nFormula: SRPCFN = SRPCFRN / SRPCFRQN\nPrimitives: SRPCFRN, SRPCFRQN",
+					primitive: {
+						formula: "SRPCFRN / SRPCFRQN",
+						primitives: [
+							{
+								name: "SRPCFRN",
+								value: null,
+								description:
+									"software requirements profile classification features real number",
+							},
+							{
+								name: "SRPCFRQN",
+								value: null,
+								description:
+									"software requirements profile classification features required number",
+							},
+						],
+					}
 				},
 			},
 		],
@@ -182,20 +195,23 @@ const baseProfile: IIndex[] = [
 					value: null,
 					description:
 						"software requirements profile characteristics quality\nFormula: SRPCQ = SRPPCQ / SRPACQ\nPrimitives: SRPPCQ, SRPACQ",
-					primitives: [
-						{
-							name: "SRPPCQ",
-							value: null,
-							description:
-								"software requirements profile performed characteristics quantity",
-						},
-						{
-							name: "SRPACQ",
-							value: null,
-							description:
-								"software requirements profile all characteristics quantity",
-						},
-					],
+					primitive: {
+						formula: "SRPPCQ / SRPACQ",
+						primitives: [
+							{
+								name: "SRPPCQ",
+								value: null,
+								description:
+									"software requirements profile performed characteristics quantity",
+							},
+							{
+								name: "SRPACQ",
+								value: null,
+								description:
+									"software requirements profile all characteristics quantity",
+							},
+						],
+					}
 				},
 			},
 		],
@@ -258,21 +274,24 @@ const baseProfile: IIndex[] = [
 					nameMetric: "SRPCFCQ",
 					value: null,
 					description:
-						"software requirements profile classification features characteristics quality\nFormula: SRPCFCQ= SRPCFPCQ / SRPCFACQ\nPrimitives: SRPCFPCQ, SRPCFACQ",
-					primitives: [
-						{
-							name: "SRPCFPCQ",
-							value: null,
-							description:
-								"software requirements profile classification features performed characteristics quantity",
-						},
-						{
-							name: "SRPCFACQ",
-							value: null,
-							description:
-								"software requirements profile classification features all characteristics quantity",
-						},
-					],
+						"software requirements profile classification features characteristics quality\nFormula: SRPCFCQ = SRPCFPCQ / SRPCFACQ\nPrimitives: SRPCFPCQ, SRPCFACQ",
+					primitive: {
+						formula: "SRPCFPCQ / SRPCFACQ",
+						primitives: [
+							{
+								name: "SRPCFPCQ",
+								value: null,
+								description:
+									"software requirements profile classification features performed characteristics quantity",
+							},
+							{
+								name: "SRPCFACQ",
+								value: null,
+								description:
+									"software requirements profile classification features all characteristics quantity",
+							},
+						],
+					}
 				},
 			},
 		],
@@ -324,20 +343,23 @@ const baseProfile: IIndex[] = [
 					value: null,
 					description:
 						"software requirements profile attributes quality\nFormula: SRPAQ = SRPPAQ / SRPAAQ\nPrimitives: SRPPAQ, SRPAAQ",
-					primitives: [
-						{
-							name: "SRPPAQ",
-							value: null,
-							description:
-								"software requirements profile performed attributes",
-						},
-						{
-							name: "SRPAAQ",
-							value: null,
-							description:
-								"software requirements profile all attributes quantity",
-						},
-					],
+					primitive: {
+						formula: "SRPPAQ / SRPAAQ",
+						primitives: [
+							{
+								name: "SRPPAQ",
+								value: null,
+								description:
+									"software requirements profile performed attributes",
+							},
+							{
+								name: "SRPAAQ",
+								value: null,
+								description:
+									"software requirements profile all attributes quantity",
+							},
+						],
+					}
 				},
 			},
 		],
@@ -379,20 +401,23 @@ const baseProfile: IIndex[] = [
 					value: null,
 					description:
 						"software requirements profile classification features attributes quality\nFormula: SRPCFAQ = SRPCFPAQ / SRPCFAAQ\nPrimitives: SRPCFPAQ, SRPCFAAQ",
-					primitives: [
-						{
-							name: "SRPCFPAQ",
-							value: null,
-							description:
-								"software requirements profile classification features performed attributes quantity",
-						},
-						{
-							name: "SRPCFAAQ",
-							value: null,
-							description:
-								"software requirements profile classification features all attributes quantity",
-						},
-					],
+					primitive: {
+						formula: "SRPCFPAQ / SRPCFAAQ",
+						primitives: [
+							{
+								name: "SRPCFPAQ",
+								value: null,
+								description:
+									"software requirements profile classification features performed attributes quantity",
+							},
+							{
+								name: "SRPCFAAQ",
+								value: null,
+								description:
+									"software requirements profile classification features all attributes quantity",
+							},
+						],
+					}
 				},
 			},
 		],
@@ -405,5 +430,3 @@ const baseProfile: IIndex[] = [
 		coefficients: [],
 	},
 ];
-
-export default baseProfile;
