@@ -10,11 +10,7 @@ export class RequirementView {
 	@ApiProperty()
 	public requirements: RequirementView[];
 
-	public constructor({
-		id,
-		name,
-		requirements,
-	}: RequirementView) {
+	public constructor({ id, name, requirements }: RequirementView) {
 		this.id = id;
 		this.name = name;
 		this.requirements = requirements;

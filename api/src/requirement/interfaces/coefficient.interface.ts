@@ -8,7 +8,7 @@ export default class ICoefficient {
 
 	@ApiProperty()
 	public nameConnect?: string;
-	
+
 	@ApiProperty()
 	value: number | null;
 

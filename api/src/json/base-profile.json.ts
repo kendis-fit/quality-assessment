@@ -81,7 +81,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile taxons required number",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -109,7 +109,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile classification features required number",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -211,7 +211,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile all characteristics quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -291,7 +291,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile classification features all characteristics quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -359,7 +359,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile all attributes quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -417,7 +417,7 @@ export const baseProfile: IIndex[] = [
 									"software requirements profile classification features all attributes quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],

@@ -7,7 +7,12 @@ import {
 	Body,
 	Delete,
 } from "@nestjs/common";
-import { ApiTags, ApiOkResponse, ApiBody, ApiNotFoundResponse } from "@nestjs/swagger";
+import {
+	ApiTags,
+	ApiOkResponse,
+	ApiBody,
+	ApiNotFoundResponse,
+} from "@nestjs/swagger";
 
 import IIndex from "./interfaces/index.interface";
 import { RequirementService } from "./requirement.service";

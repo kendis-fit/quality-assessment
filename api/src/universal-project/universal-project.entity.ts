@@ -4,7 +4,7 @@ import {
 	DataType,
 	Table,
 	CreatedAt,
-    UpdatedAt,
+	UpdatedAt,
 } from "sequelize-typescript";
 
 import IIndex from "../requirement/interfaces/index.interface";
@@ -32,11 +32,11 @@ export class Project extends Model<Project> {
 	@Column({
 		type: DataType.DATE,
 	})
-    public createdAt: Date;
-    
-    @UpdatedAt
-    @Column({
-        type: DataType.DATE
-    })
-    public updatedAt: Date;
+	public createdAt: Date;
+
+	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
+	public updatedAt: Date;
 }

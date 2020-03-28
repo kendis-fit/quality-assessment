@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-@Controller('universal-projects')
+@Controller("universal-projects")
 export class UniversalProjectController {}

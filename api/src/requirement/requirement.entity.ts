@@ -46,7 +46,7 @@ export class Requirement extends Model<Requirement> {
 
 	@UpdatedAt
 	@Column({
-		type: DataType.DATE
+		type: DataType.DATE,
 	})
 	public updatedAt: Date;
 

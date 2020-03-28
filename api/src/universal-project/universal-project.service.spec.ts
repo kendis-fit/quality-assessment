@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UniversalProjectService } from './universal-project.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { UniversalProjectService } from "./universal-project.service";
 
-describe('UniversalProjectService', () => {
-  let service: UniversalProjectService;
+describe("UniversalProjectService", () => {
+	let service: UniversalProjectService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UniversalProjectService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			providers: [UniversalProjectService],
+		}).compile();
 
-    service = module.get<UniversalProjectService>(UniversalProjectService);
-  });
+		service = module.get<UniversalProjectService>(UniversalProjectService);
+	});
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+	it("should be defined", () => {
+		expect(service).toBeDefined();
+	});
 });

@@ -259,7 +259,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRCC",
 					value: null,
 					description:
-					"software requirements profile software requirement conforming characteristic\nFormula: SRPSRCC  = REQCGSP / GQRE\nPrimitives: REQCGSP, GQRE",
+						"software requirements profile software requirement conforming characteristic\nFormula: SRPSRCC  = REQCGSP / GQRE\nPrimitives: REQCGSP, GQRE",
 					primitive: {
 						formula: "REQCGSP / GQRE",
 						primitives: [
@@ -276,7 +276,7 @@ export const profile: IIndex[] = [
 									"general quantity of requirement elements",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -287,7 +287,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRCQ",
 					value: null,
 					description:
-					"software requirements profile software requirement characteristics quality\nFormula: SRPSRCQ = SRPSRPCQ / SRPSRACQ\nPrimitives: SRPSRPCQ, SRPSRACQ",
+						"software requirements profile software requirement characteristics quality\nFormula: SRPSRCQ = SRPSRPCQ / SRPSRACQ\nPrimitives: SRPSRPCQ, SRPSRACQ",
 					primitive: {
 						formula: "SRPSRPCQ / SRPSRACQ",
 						primitives: [
@@ -304,7 +304,7 @@ export const profile: IIndex[] = [
 									"software requirements profile software requirement all characteristics quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -388,8 +388,8 @@ export const profile: IIndex[] = [
 					name: "M48",
 					nameMetric: "SRPCFSRCQ",
 					value: null,
-					description: 
-					"software requirements profile classification feature software requirement characteristics quality\nFormula: SRPCFSRCQ = SRPCFSRPCQ / SRPCFSRACQ\nPrimitives: SRPCFSRPCQ, SRPCFSRACQ",
+					description:
+						"software requirements profile classification feature software requirement characteristics quality\nFormula: SRPCFSRCQ = SRPCFSRPCQ / SRPCFSRACQ\nPrimitives: SRPCFSRPCQ, SRPCFSRACQ",
 					primitive: {
 						formula: "SRPCFSRPCQ / SRPCFSRACQ",
 						primitives: [
@@ -406,7 +406,7 @@ export const profile: IIndex[] = [
 									"software requirements profile classification feature software requirement all characteristics quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -436,7 +436,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRSPA",
 					value: null,
 					description:
-					"software requirements profile software requirement stakeholder priority attribute\nFormula: SRPSRSPA = RSQ / PSGQ\nPrimitives: RSQ, RSGQ",
+						"software requirements profile software requirement stakeholder priority attribute\nFormula: SRPSRSPA = RSQ / PSGQ\nPrimitives: RSQ, RSGQ",
 					primitive: {
 						formula: "RSQ / PSGQ",
 						primitives: [
@@ -448,10 +448,11 @@ export const profile: IIndex[] = [
 							{
 								name: "PSGQ",
 								value: null,
-								description: "project stakeholder general quantity",
+								description:
+									"project stakeholder general quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -462,7 +463,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRRAA",
 					value: null,
 					description:
-					"software requirements profile software requirement risks assessment attribute\nFormula: SRPSRRAA = RRQ /  RRGQ\nPrimitives: RRQ, RRGQ",
+						"software requirements profile software requirement risks assessment attribute\nFormula: SRPSRRAA = RRQ /  RRGQ\nPrimitives: RRQ, RRGQ",
 					primitive: {
 						formula: "RRQ /  RRGQ",
 						primitives: [
@@ -474,10 +475,11 @@ export const profile: IIndex[] = [
 							{
 								name: "RRGQ",
 								value: null,
-								description: "project stakeholder general quantity",
+								description:
+									"project stakeholder general quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -543,7 +545,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRAQ",
 					value: null,
 					description:
-					"software requirements profile software requirement attributes quality\nFormula: SRPSRAQ = SRPSRPAQ / SRPSRAAQ\nPrimitives: SRPSRPAQ, SRPSRAAQ",
+						"software requirements profile software requirement attributes quality\nFormula: SRPSRAQ = SRPSRPAQ / SRPSRAAQ\nPrimitives: SRPSRPAQ, SRPSRAAQ",
 					primitive: {
 						formula: "SRPSRPAQ / SRPSRAAQ",
 						primitives: [
@@ -560,7 +562,7 @@ export const profile: IIndex[] = [
 									"software requirements profile software requirement all attributes quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -612,7 +614,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRCFAQ",
 					value: null,
 					description:
-					"software requirements profile software requirement classification features attributes quality\nFormula: SRPSRCFAQ = SRPSRCFPAQ / SRPSRCFAAQ\nPrimitives: SRPSRCFPAQ, SRPSRCFAAQ",
+						"software requirements profile software requirement classification features attributes quality\nFormula: SRPSRCFAQ = SRPSRCFPAQ / SRPSRCFAAQ\nPrimitives: SRPSRCFPAQ, SRPSRCFAAQ",
 					primitive: {
 						formula: "SRPSRCFPAQ / SRPSRCFAAQ",
 						primitives: [
@@ -629,7 +631,7 @@ export const profile: IIndex[] = [
 									"software requirements profile software requirement classification features all attributes quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -666,7 +668,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRSSPE",
 					value: null,
 					description:
-					"software requirements profile software requirement syntactical structure permanent elements\nFormula: SRPSRSSPE = RPSSEQ / 2\nPrimitives: RPSSEQ",
+						"software requirements profile software requirement syntactical structure permanent elements\nFormula: SRPSRSSPE = RPSSEQ / 2\nPrimitives: RPSSEQ",
 					primitive: {
 						formula: "RPSSEQ / 2",
 						primitives: [
@@ -677,7 +679,7 @@ export const profile: IIndex[] = [
 									"requirement permanent syntactical structure elements quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -688,7 +690,7 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRSSVE",
 					value: null,
 					description:
-					"software requirements profile software requirement syntactical structure variable elements\nFormula: SRPSRSSVE = 1 / 1 + RVSSEQ\nPrimitives: RVSSEQ",
+						"software requirements profile software requirement syntactical structure variable elements\nFormula: SRPSRSSVE = 1 / 1 + RVSSEQ\nPrimitives: RVSSEQ",
 					primitive: {
 						formula: "1 / 1 + RVSSEQ",
 						primitives: [
@@ -699,7 +701,7 @@ export const profile: IIndex[] = [
 									"requirement variable syntactical structure elements quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -721,7 +723,7 @@ export const profile: IIndex[] = [
 									"requirement all syntactical structure elements quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],
@@ -751,7 +753,7 @@ export const profile: IIndex[] = [
 									"mandatory semantic structures quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -773,7 +775,7 @@ export const profile: IIndex[] = [
 									"mandatory semantic structures quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 			{
@@ -795,7 +797,7 @@ export const profile: IIndex[] = [
 									"undesirable semantic structures quantity",
 							},
 						],
-					}
+					},
 				},
 			},
 		],

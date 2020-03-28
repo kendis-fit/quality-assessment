@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { UniversalProjectService } from './universal-project.service';
-import { UniversalProjectController } from './universal-project.controller';
-import { DatabaseModule } from 'src/database/database.module';
-import { JsonModule } from 'src/json/json.module';
+import { Module } from "@nestjs/common";
+import { UniversalProjectService } from "./universal-project.service";
+import { UniversalProjectController } from "./universal-project.controller";
+import { DatabaseModule } from "src/database/database.module";
+import { JsonModule } from "src/json/json.module";
 
 @Module({
-    imports: [DatabaseModule, JsonModule],
-    controllers: [UniversalProjectController],
-    providers: [UniversalProjectService]
+	imports: [DatabaseModule, JsonModule],
+	controllers: [UniversalProjectController],
+	providers: [UniversalProjectService],
 })
 export class UniversalProjectModule {}

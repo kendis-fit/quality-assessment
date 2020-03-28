@@ -3,9 +3,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import ICoefficient from "./coefficient.interface";
 
 export default class IIndex {
-	@ApiProperty()	
+	@ApiProperty()
 	public name: string;
-	
+
 	@ApiProperty()
 	public nameIndex: string;
 

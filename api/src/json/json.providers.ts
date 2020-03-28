@@ -15,7 +15,7 @@ export const jsonProviders = [
 	},
 	{
 		provide: UX_PROFILE,
-		useValue: uxProfile
+		useValue: uxProfile,
 	},
 	{
 		provide: BASE_PROFILE,
@@ -25,11 +25,15 @@ export const jsonProviders = [
 		provide: TYPE_PROFILE,
 		useValue: (prof: Profile) => {
 			switch (prof) {
-				case PROFILE: return profile; 
-				case UX_PROFILE: return uxProfile;
-				case BASE_PROFILE: return baseProfile;
-				default: return [];
+				case PROFILE:
+					return profile;
+				case UX_PROFILE:
+					return uxProfile;
+				case BASE_PROFILE:
+					return baseProfile;
+				default:
+					return [];
 			}
-		}
-	}
+		},
+	},
 ];
