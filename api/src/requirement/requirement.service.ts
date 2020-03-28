@@ -6,8 +6,11 @@ import IIndex from "./interfaces/index.interface";
 import { PROFILE } from "src/json/json.providers";
 import { Requirement } from "./requirement.entity";
 import { SEQUELIZE } from "src/database/database.providers";
+import { DiagramService } from "src/diagram/diagram.service";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { REQUIREMENT_REPOSITORY } from "./requirement.providers";
+import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
+import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 
 @Injectable()
 export class RequirementService {
@@ -18,6 +21,8 @@ export class RequirementService {
 		private sequelize: Sequelize,
 		@Inject(PROFILE)
 		private profile: IIndex[],
+		private calculateProfileService: CalculateProfileService,
+		private diagramService: DiagramService
 	) {}
 
 	public async findById(id: number): Promise<Requirement> {
@@ -125,9 +130,26 @@ export class RequirementService {
 		}
 	}
 
-	public findIndexByRequirement(id: number, indexId: number) {}
+	public async calculateIndexByProject(
+		id: number,
+		nameIndex: string,
+	): Promise<number> {
+		const project = await this.findById(id);
+		const result = this.calculateProfileService.calculate(
+			nameIndex,
+			project.profile,
+		);
+		return result;
+	}
 
-	public findDiagramByRequirement(id: number, diagramId: number) {}
+	public async generateDiagram(
+		id: number,
+		nameIndex: string
+	): Promise<DiagramProfile[]> {
+		const project = await this.findById(id);
+		const diagram = this.diagramService.create(nameIndex, project.profile);
+		return diagram;
+	}
 
 	private async getRoot(requirement: Requirement): Promise<Requirement> {
 		if (requirement.parentId === null) {
