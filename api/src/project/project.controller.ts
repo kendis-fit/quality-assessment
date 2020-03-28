@@ -1,4 +1,4 @@
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags, ApiOkResponse } from "@nestjs/swagger";
 import { Controller, Get, Query, Post, Param, Body } from "@nestjs/common";
 
 import { ProjectService } from "./project.service";
@@ -12,6 +12,7 @@ import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto"
 export class ProjectController {
 	public constructor(private projectService: ProjectService) {}
 
+	@ApiOkResponse({ type: RequirementListView })
 	@Get()
 	public async getProjects(
 		@Query("offset") offset: number,
@@ -21,6 +22,7 @@ export class ProjectController {
 		return projects.map(project => new RequirementListView(project));
 	}
 
+	@ApiOkResponse({ type: RequirementView })
 	@Get(":id")
 	public async getProjectById(
 		@Param("id") id: number,
@@ -29,6 +31,7 @@ export class ProjectController {
 		return new RequirementView(project);
 	}
 
+	@ApiOkResponse({ type: CreatedRequirement })
 	@Post()
 	public async createProject(
 		@Body() project: CreateRequirement,

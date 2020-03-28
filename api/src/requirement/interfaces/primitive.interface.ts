@@ -1,5 +1,12 @@
-export default interface IPrimitive {
-	name: string;
-	value: number | null;
-	description: string;
+import { ApiProperty } from "@nestjs/swagger";
+
+export default class IPrimitive {
+	@ApiProperty()
+	public name: string;
+
+	@ApiProperty()
+	public value: number | null;
+
+	@ApiProperty()
+	public description: string;
 }

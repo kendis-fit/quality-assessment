@@ -7,7 +7,7 @@ import {
 	Body,
 	Delete,
 } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags, ApiOkResponse, ApiBody, ApiNotFoundResponse } from "@nestjs/swagger";
 
 import IIndex from "./interfaces/index.interface";
 import { RequirementService } from "./requirement.service";
@@ -20,6 +20,8 @@ import { CreatedRequirement } from "./dto/created-requirement.dto";
 export class RequirementController {
 	public constructor(private requirementService: RequirementService) {}
 
+	@ApiNotFoundResponse()
+	@ApiOkResponse({ type: RequirementProfile })
 	@Get(":id")
 	public async getRequirement(
 		@Param("id") id: number,
@@ -28,6 +30,9 @@ export class RequirementController {
 		return new RequirementProfile(requirement);
 	}
 
+	@ApiOkResponse()
+	@ApiNotFoundResponse()
+	@ApiBody({ type: [IIndex] })
 	@Put(":id")
 	public updateRequirement(
 		@Param("id") id: number,
@@ -36,6 +41,7 @@ export class RequirementController {
 		this.requirementService.update(id, profile);
 	}
 
+	@ApiOkResponse({ type: CreatedRequirement })
 	@Post()
 	public async createRequirement(
 		@Body() requirement: CreateRequirement,
@@ -46,6 +52,7 @@ export class RequirementController {
 		return new CreatedRequirement(newRequirement);
 	}
 
+	@ApiOkResponse()
 	@Delete(":id")
 	public deleteRequirement(@Param("id") id: number) {
 		this.requirementService.deleteById(id);

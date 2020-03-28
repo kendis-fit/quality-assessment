@@ -1,11 +1,10 @@
-import { Profile } from "src/json/profile.enum";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateRequirement {
+	@ApiProperty()
 	public name: string;
-	public typeProject: Profile;
 
-	public constructor({ name, typeProject }: CreateRequirement) {
+	public constructor({ name }: CreateRequirement) {
 		this.name = name;
-		this.typeProject = typeProject;
 	}
 }

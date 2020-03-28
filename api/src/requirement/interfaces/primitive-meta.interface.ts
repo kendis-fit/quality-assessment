@@ -1,7 +1,11 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 import IPrimitive from "./primitive.interface";
 
-export interface IPrimitiveMeta
-{
+export class IPrimitiveMeta {
+    @ApiProperty()
     formula: string;
+
+    @ApiProperty({ type: () => [IPrimitive] })
     primitives: IPrimitive[];
 }

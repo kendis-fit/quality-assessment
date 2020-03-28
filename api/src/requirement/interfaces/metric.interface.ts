@@ -1,9 +1,21 @@
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+
 import { IPrimitiveMeta } from "./primitive-meta.interface";
 
-export default interface IMetric {
-	name: string;
-	nameMetric: string;
-	value: number | null;
-	description: string;
-	primitive?: IPrimitiveMeta;
+export default class IMetric {
+	@ApiProperty()
+	public name: string;
+	
+	@ApiProperty()
+	public nameMetric: string;
+
+	@ApiProperty()
+	public value: number | null;
+	
+	@ApiProperty()
+	public description: string;
+
+	@ApiPropertyOptional()
+	@ApiProperty({ type: () => IPrimitiveMeta })
+	public primitive?: IPrimitiveMeta;
 }

@@ -1,8 +1,17 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 import ICoefficient from "./coefficient.interface";
 
-export default interface IIndex {
-	name: string;
-	nameIndex: string;
-	description: string;
-	coefficients: ICoefficient[];
+export default class IIndex {
+	@ApiProperty()	
+	public name: string;
+	
+	@ApiProperty()
+	public nameIndex: string;
+
+	@ApiProperty()
+	public description: string;
+
+	@ApiProperty({ type: () => [ICoefficient] })
+	public coefficients: ICoefficient[];
 }
