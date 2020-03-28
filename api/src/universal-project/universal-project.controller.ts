@@ -35,15 +35,16 @@ export class UniversalProjectController {
         return new CreatedRequirement(newProject);
     }
 
+    @ApiBody({ type: [IIndex] })
     @ApiOkResponse()
     @Put(":id")
-    public async updateProjectById(@Param()id: number, @Body()profile: IIndex[]) {
+    public async updateProjectById(@Param("id")id: number, @Body()profile: IIndex[]) {
         await this.projectService.updateById(id, profile);
     }
 
     @ApiOkResponse()
     @Delete(":id")
-    public async deleteProjectById(@Param()id: number) {
+    public async deleteProjectById(@Param("id")id: number) {
         await this.projectService.deleteByid(id);
     }
 
