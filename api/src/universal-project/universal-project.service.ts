@@ -6,10 +6,12 @@ import { TYPE_PROFILE } from "src/json/json.providers";
 import { CreateProject } from "./dto/create-project.dto";
 import IIndex from "src/requirement/interfaces/index.interface";
 import { PROJECT_REPOSITORY } from "./universal-project.providers";
+import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
 
 @Injectable()
 export class UniversalProjectService {
-    public constructor(@Inject(PROJECT_REPOSITORY)private projects: typeof Project, @Inject(TYPE_PROFILE)private getProfile: (prof: Profile) => IIndex[]) {}
+	public constructor(@Inject(PROJECT_REPOSITORY)private projects: typeof Project, @Inject(TYPE_PROFILE)private getProfile: (prof: Profile) => IIndex[],
+		private calculateProfileService: CalculateProfileService) {}
 
     public async findAll(offset: number, size: number): Promise<Project[]> {
 		if (size > 100) {
@@ -50,12 +52,18 @@ export class UniversalProjectService {
 		project.profile = profile;
 		await project.save();
 	}
-
+	
 	public async deleteByid(id: number) {
 		await this.projects.destroy({
 			where: {
 				id: id
 			}
 		});
+	}
+	
+	public async calculateIndexByProject(id: number, nameIndex: string): Promise<number> {
+		const project = await this.findById(id);
+		const result = this.calculateProfileService.calculate(nameIndex, project.profile);
+		return result;
 	}
 }

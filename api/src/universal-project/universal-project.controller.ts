@@ -7,6 +7,7 @@ import { UniversalProjectService } from "./universal-project.service";
 import { ProjectListView } from "./dto/project-list-view.dto";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
 import { ProjectView } from "./dto/project-view.dto";
+import { ResultIndex } from "./dto/result-index.dto";
 
 @ApiTags("universal-projects")
 @Controller("universal-projects")
@@ -48,16 +49,20 @@ export class UniversalProjectController {
         await this.projectService.deleteByid(id);
     }
 
-
-	@Get(":id/indexes/:indexId")
-	public getIndexByProject(
+    @ApiOkResponse({ type: ResultIndex })
+	@Get(":id/indexes/:nameIndex")
+	public async getIndexByProject(
 		@Param("id") id: number,
-		@Param("indexId") indexId: number,
-	) {}
+		@Param("nameIndex") nameIndex: string,
+	): Promise<ResultIndex> {
+        const result = await this.projectService.calculateIndexByProject(id, nameIndex);
+        const resultIndex = new ResultIndex({ result });
+        return resultIndex;
+    }
 
-	@Get(":id/diagrams/:digramId")
+	@Get(":id/diagrams/:nameIndex")
 	public getDiagramByProject(
 		@Param("id") id: number,
-		@Param("diagramId") diagramId: number,
+		@Param("nameIndex") nameIndex: string,
 	) {}
 }
