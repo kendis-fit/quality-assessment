@@ -14,7 +14,7 @@ export class Project extends Model<Project> {
 	@Column({
 		type: DataType.BIGINT,
 		primaryKey: true,
-		autoIncrement: true
+		autoIncrement: true,
 	})
 	public id: number;
 

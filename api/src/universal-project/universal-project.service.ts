@@ -10,10 +10,13 @@ import { CalculateProfileService } from "src/calculate-profile/calculate-profile
 
 @Injectable()
 export class UniversalProjectService {
-	public constructor(@Inject(PROJECT_REPOSITORY)private projects: typeof Project, @Inject(TYPE_PROFILE)private getProfile: (prof: Profile) => IIndex[],
-		private calculateProfileService: CalculateProfileService) {}
+	public constructor(
+		@Inject(PROJECT_REPOSITORY) private projects: typeof Project,
+		@Inject(TYPE_PROFILE) private getProfile: (prof: Profile) => IIndex[],
+		private calculateProfileService: CalculateProfileService,
+	) {}
 
-    public async findAll(offset: number, size: number): Promise<Project[]> {
+	public async findAll(offset: number, size: number): Promise<Project[]> {
 		if (size > 100) {
 			throw new HttpException("", HttpStatus.BAD_REQUEST);
 		}
@@ -33,13 +36,13 @@ export class UniversalProjectService {
 	}
 
 	public async create(project: CreateProject): Promise<Project> {
-        const profile = this.getProfile(project.typeProfile);
+		const profile = this.getProfile(project.typeProfile);
 
-        if (profile.length === 0) {
-            throw new HttpException("", HttpStatus.BAD_REQUEST);
-        }
+		if (profile.length === 0) {
+			throw new HttpException("", HttpStatus.BAD_REQUEST);
+		}
 
-        const newProject = new Project({
+		const newProject = new Project({
 			...project,
 			profile: [...profile],
 		});
@@ -52,18 +55,24 @@ export class UniversalProjectService {
 		project.profile = profile;
 		await project.save();
 	}
-	
+
 	public async deleteByid(id: number) {
 		await this.projects.destroy({
 			where: {
-				id: id
-			}
+				id: id,
+			},
 		});
 	}
-	
-	public async calculateIndexByProject(id: number, nameIndex: string): Promise<number> {
+
+	public async calculateIndexByProject(
+		id: number,
+		nameIndex: string,
+	): Promise<number> {
 		const project = await this.findById(id);
-		const result = this.calculateProfileService.calculate(nameIndex, project.profile);
+		const result = this.calculateProfileService.calculate(
+			nameIndex,
+			project.profile,
+		);
 		return result;
 	}
 }
