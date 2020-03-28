@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { IConfig } from "./config.interface.js";
-import configDatabase from "../../sequelize/config/config.json";
+import configDatabase from "../../sequelize/config/config";
 
 @Injectable()
 export class ConfigService {
