@@ -3,7 +3,11 @@ import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@material-ui/core";
 
+import IIndex from "./Interfaces/IIndex";
 import IProfile from "./Interfaces/IProfile";
+import useDataApi from "../../Hooks/useDataApi";
+import RequirementAPI from "../../Api/RequirementAPI";
+import UniversalProjectAPI from "../../Api/UniversalProjectAPI";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -25,10 +29,25 @@ const schema = yup.object().shape({
         }))
 }))});
 
+const getApiByType = (typeProfile: string, id: number) => {
+    switch (typeProfile) {
+        case "PROFILE":
+            return () => RequirementAPI.GetProjectById(id);
+        default:
+            return () => UniversalProjectAPI.GetProjectById(id);
+    }
+}
+
 const Profile = (props: IProfile) => {
+
+    const { data, setData, error, loading } = useDataApi<IIndex[]>(getApiByType(props.typeProfile, props.match.params.id));
+
+    if (loading) return <div>Loading...</div>
+    if (error) return <div>An error has occured</div>
+
     return(
         <Formik 
-            initialValues={{ indexes: props.profile }}
+            initialValues={{ indexes: data }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}
@@ -57,7 +76,7 @@ const Profile = (props: IProfile) => {
                                                             <FormLabel>
                                                                 <Typography>{coefficient.metric.name}</Typography>
                                                             </FormLabel>
-                                                            <TextField defaultValue={coefficient.metric.value} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
+                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={coefficient.metric.value} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
                                                         </FormControl>
                                                         {
                                                             coefficient.metric.primitive && <Grid>

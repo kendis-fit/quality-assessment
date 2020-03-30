@@ -1,7 +1,5 @@
-import IIndex from "./IIndex";
-
 export default interface IProfile {
-    profile: IIndex[];
+    typeProfile: "PROFILE" | "UX_PROFILE";
     match: {
         params: {
             id: number
