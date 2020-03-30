@@ -29,7 +29,7 @@ export class UniversalProjectService {
 		});
 	}
 
-	public async findById(id: number): Promise<Project> {
+	public async findById(id: string): Promise<Project> {
 		const project = await this.projects.findByPk(id);
 
 		if (!project) {
@@ -53,22 +53,22 @@ export class UniversalProjectService {
 		return newProject;
 	}
 
-	public async updateById(id: number, profile: IIndex[]) {
+	public async updateById(id: string, profile: IIndex[]) {
 		const project = await this.findById(id);
 		project.profile = profile;
 		await project.save();
 	}
 
-	public async deleteByid(id: number) {
+	public async deleteByid(id: string) {
 		await this.projects.destroy({
 			where: {
 				id: id,
-			},
+			}
 		});
 	}
 
 	public async calculateIndexByProject(
-		id: number,
+		id: string,
 		nameIndex: string,
 	): Promise<number> {
 		const project = await this.findById(id);
@@ -80,7 +80,7 @@ export class UniversalProjectService {
 	}
 
 	public async generateDiagram(
-		id: number,
+		id: string,
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
 		const project = await this.findById(id);

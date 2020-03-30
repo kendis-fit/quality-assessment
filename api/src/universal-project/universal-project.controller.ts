@@ -36,7 +36,7 @@ export class UniversalProjectController {
 
 	@ApiOkResponse({ type: ProjectView })
 	@Get(":id")
-	public async getProjectById(@Param("id") id: number): Promise<ProjectView> {
+	public async getProjectById(@Param("id") id: string): Promise<ProjectView> {
 		const project = await this.projectService.findById(id);
 		return new ProjectView(project);
 	}
@@ -55,7 +55,7 @@ export class UniversalProjectController {
 	@ApiOkResponse()
 	@Put(":id")
 	public async updateProjectById(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Body() profile: IIndex[],
 	) {
 		await this.projectService.updateById(id, profile);
@@ -63,14 +63,14 @@ export class UniversalProjectController {
 
 	@ApiOkResponse()
 	@Delete(":id")
-	public async deleteProjectById(@Param("id") id: number) {
+	public async deleteProjectById(@Param("id") id: string) {
 		await this.projectService.deleteByid(id);
 	}
 
 	@ApiOkResponse({ type: ResultIndex })
 	@Get(":id/indexes/:nameIndex")
 	public async getIndexByProject(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Param("nameIndex") nameIndex: string,
 	): Promise<ResultIndex> {
 		const result = await this.projectService.calculateIndexByProject(
@@ -84,7 +84,7 @@ export class UniversalProjectController {
     @ApiOkResponse({ type: [DiagramProfile] })
 	@Get(":id/diagrams/:nameIndex")
 	public async getDiagramByProject(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Param("nameIndex") nameIndex: string,
 	): Promise<DiagramProfile[]> {
         const diagram = await this.projectService.generateDiagram(id, nameIndex);

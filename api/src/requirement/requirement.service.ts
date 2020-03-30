@@ -25,7 +25,7 @@ export class RequirementService {
 		private diagramService: DiagramService
 	) {}
 
-	public async findById(id: number): Promise<Requirement> {
+	public async findById(id: string): Promise<Requirement> {
 		const requirement = await this.requirements.findOne({
 			where: {
 				id: id,
@@ -41,7 +41,7 @@ export class RequirementService {
 		return requirement;
 	}
 
-	public async update(id: number, profile: IIndex[]): Promise<void> {
+	public async update(id: string, profile: IIndex[]): Promise<void> {
 		const requirement = await this.findById(id);
 		requirement.profile = profile;
 		await requirement.save();
@@ -100,7 +100,7 @@ export class RequirementService {
 		}
 	}
 
-	public async deleteById(id: number) {
+	public async deleteById(id: string) {
 		const requirement = await this.findById(id);
 
 		const transaction = await this.sequelize.transaction();
@@ -131,7 +131,7 @@ export class RequirementService {
 	}
 
 	public async calculateIndexByProject(
-		id: number,
+		id: string,
 		nameIndex: string,
 	): Promise<number> {
 		const project = await this.findById(id);
@@ -143,7 +143,7 @@ export class RequirementService {
 	}
 
 	public async generateDiagram(
-		id: number,
+		id: string,
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
 		const project = await this.findById(id);

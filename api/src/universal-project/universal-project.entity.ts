@@ -12,11 +12,11 @@ import IIndex from "../requirement/interfaces/index.interface";
 @Table({ tableName: "projects" })
 export class Project extends Model<Project> {
 	@Column({
-		type: DataType.BIGINT,
+		type: DataType.UUID,
 		primaryKey: true,
-		autoIncrement: true,
+		defaultValue: DataType.UUIDV4
 	})
-	public id: number;
+	public id: string;
 
 	@Column({
 		type: DataType.STRING,

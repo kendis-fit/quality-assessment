@@ -31,7 +31,7 @@ export class RequirementController {
 	@ApiOkResponse({ type: RequirementProfile })
 	@Get(":id")
 	public async getRequirement(
-		@Param("id") id: number,
+		@Param("id") id: string,
 	): Promise<RequirementProfile> {
 		const requirement = await this.requirementService.findById(id);
 		return new RequirementProfile(requirement);
@@ -42,7 +42,7 @@ export class RequirementController {
 	@ApiBody({ type: [IIndex] })
 	@Put(":id")
 	public updateRequirement(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Body() profile: IIndex[],
 	): void {
 		this.requirementService.update(id, profile);
@@ -61,14 +61,14 @@ export class RequirementController {
 
 	@ApiOkResponse()
 	@Delete(":id")
-	public deleteRequirement(@Param("id") id: number) {
+	public deleteRequirement(@Param("id") id: string) {
 		this.requirementService.deleteById(id);
 	}
 
 	@ApiOkResponse({ type: ResultIndex })
 	@Get(":id/indexes/:nameIndex")
 	public async getIndexByRequirement(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Param("nameIndex") nameIndex: string,
 	): Promise<ResultIndex> {
 		const result = await this.requirementService.calculateIndexByProject(
@@ -82,7 +82,7 @@ export class RequirementController {
     @ApiOkResponse({ type: [DiagramProfile] })
 	@Get(":id/diagrams/:nameIndex")
 	public async getDiagramByRequirement(
-		@Param("id") id: number,
+		@Param("id") id: string,
 		@Param("nameIndex") nameIndex: string,
 	): Promise<DiagramProfile[]> {
         const diagram = await this.requirementService.generateDiagram(id, nameIndex);

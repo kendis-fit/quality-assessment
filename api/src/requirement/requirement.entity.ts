@@ -11,15 +11,16 @@ import {
 } from "sequelize-typescript";
 
 import IIndex from "./interfaces/index.interface";
+import { User } from "src/user/user.entity";
 
 @Table({ tableName: "requirements" })
 export class Requirement extends Model<Requirement> {
 	@Column({
-		type: DataType.BIGINT,
+		type: DataType.UUID,
 		primaryKey: true,
-		autoIncrement: true,
+		defaultValue: DataType.UUIDV4
 	})
-	public id: number;
+	public id: string;
 
 	@Column({
 		type: DataType.STRING,
@@ -37,7 +38,7 @@ export class Requirement extends Model<Requirement> {
 		allowNull: true,
 	})
 	@ForeignKey(() => Requirement)
-	public parentId!: number;
+	public parentId!: string;
 
 	@CreatedAt
 	@Column({
@@ -56,4 +57,10 @@ export class Requirement extends Model<Requirement> {
 
 	@HasMany(() => Requirement)
 	public requirements: Requirement[];
+
+	@ForeignKey(() => User)
+	public userId: number;
+
+	@BelongsTo(() => User)
+	public user: User;
 }
