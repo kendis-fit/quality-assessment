@@ -1,5 +1,6 @@
 import React from "react";
 import * as yup from "yup";
+import math from "mathjs";
 import { Formik, Form } from "formik";
 import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@material-ui/core";
 
@@ -8,6 +9,9 @@ import IProfile from "./Interfaces/IProfile";
 import useDataApi from "../../Hooks/useDataApi";
 import RequirementAPI from "../../Api/RequirementAPI";
 import UniversalProjectAPI from "../../Api/UniversalProjectAPI";
+import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
+import IPrimitive from "./Interfaces/IPrimitive";
+import IMetric from "./Interfaces/IMetric";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -40,7 +44,25 @@ const getApiByType = (typeProfile: string, id: number) => {
 
 const Profile = (props: IProfile) => {
 
-    const { data, setData, error, loading } = useDataApi<IIndex[]>(getApiByType(props.typeProfile, props.match.params.id));
+    const { data, error, loading } = useDataApi<IIndex[]>(getApiByType(props.typeProfile, props.match.params.id));
+
+    const CheckPrimitives = (primivies: IPrimitive[]) => primivies.some(primitive => !primitive.value);
+
+    const CalculateMetric = (primitive: IPrimitiveMeta): number | null => {
+        const somePrimitiveNull = CheckPrimitives(primitive.primitives);
+        if (somePrimitiveNull) {
+            return null;
+        }
+        const variables = primitive.primitives.reduce((obj, item) => Object.assign(obj, { [item.name]: item.value }), {});
+        return math.evaluate(primitive.formula, variables);
+    }
+
+    const GetValueOfMetric = (metric: IMetric): number | null => {
+        if (metric.primitive) {
+            return CalculateMetric(metric.primitive);
+        }
+        return metric.value;
+    }
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>An error has occured</div>
@@ -76,7 +98,7 @@ const Profile = (props: IProfile) => {
                                                             <FormLabel>
                                                                 <Typography>{coefficient.metric.name}</Typography>
                                                             </FormLabel>
-                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={coefficient.metric.value} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
+                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={GetValueOfMetric(coefficient.metric)} value={GetValueOfMetric(coefficient.metric)} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
                                                         </FormControl>
                                                         {
                                                             coefficient.metric.primitive && <Grid>
