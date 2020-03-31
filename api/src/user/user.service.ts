@@ -1,8 +1,13 @@
+import { sign } from 'jsonwebtoken';
+import { genSalt, hash, compare } from 'bcrypt';
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 
 import { User } from './user.entity';
+import { UserLogin } from './dto/user-login.dto';
 import { USER_REPOSITORY } from './user.providers';
 import { ConfigService } from 'src/config/config.service';
+import { UserRegistration } from './dto/user-registration';
+import { UserResponse } from './dto/user-response.dto';
 
 @Injectable()
 export class UserService {
@@ -12,23 +17,34 @@ export class UserService {
         this.jwtSecretKey = configService.JwtSecretKey;
     }
 
-    public login() {
+    public async login(userLogin: UserLogin): Promise<UserResponse> {
+        const email = userLogin.email;
+        const password = userLogin.password;
 
+        const user = await this.getUserByEmail(email);
+        if (!user) {
+            throw new HttpException("", HttpStatus.BAD_REQUEST);
+        }
+
+        const isMatch = await compare(password, user.password);
+        if (!isMatch) {
+            throw new HttpException("", HttpStatus.BAD_REQUEST);
+        }
+
+        const token = sign({ email: user.email }, this.jwtSecretKey);
+        return new UserResponse({ token });
     }
 
-    public registration() {
+    public async registration(user: UserRegistration): Promise<UserResponse> {
 
     }
 
     public async getUserByEmail(email: string): Promise<User> {
-        const user = await this.users.findOne({
+        return await this.users.findOne({
             where: {
-                email: email
-            }
+                email
+            },
+            include: [{ all: true }]
         });
-        if (!user) {
-            throw new HttpException("", HttpStatus.NOT_FOUND);
-        }
-        return user;
     }
 }

@@ -16,13 +16,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     public async validate(payload: IJwtPayload, done: VerifiedCallback): Promise<void> {
-        try
-        {
-            const user = await this.usersService.getUserByEmail(payload.email);
-            return done(null, user, payload.iat);
-        }
-        catch {
+        const user = await this.usersService.getUserByEmail(payload.email);
+        if (!user) {
             return done(new HttpException({}, HttpStatus.UNAUTHORIZED), false);
         }
+        return done(null, user, payload.iat);
     }
 }
