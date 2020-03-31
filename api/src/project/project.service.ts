@@ -24,17 +24,21 @@ export class ProjectService {
 		private diagramService: DiagramService
 	) {}
 
-	public async findAll(offset: number, size: number): Promise<Requirement[]> {
+	public async findAll(userId: string, offset: number, size: number): Promise<Requirement[]> {
 		if (size > 100) {
 			throw new HttpException("", HttpStatus.BAD_REQUEST);
 		}
 		return await this.requirements.findAll({
+			where: {
+				userId,
+				parentId: null
+			},
 			offset,
 			limit: size,
 		});
 	}
 
-	public async findById(id: number): Promise<Requirement> {
+	public async findById(userId: string, id: string): Promise<Requirement> {
 		const requirement = await this.requirements.findOne({
 			where: {
 				id: id,
@@ -44,14 +48,18 @@ export class ProjectService {
 		});
 
 		if (!requirement) {
-			throw new HttpException("", HttpStatus.NOT_FOUND);
+			throw new HttpException({}, HttpStatus.NOT_FOUND);
+		}
+		if (requirement.userId !== userId) {
+			throw new HttpException({}, HttpStatus.FORBIDDEN);
 		}
 		return requirement;
 	}
 
-	public async create(project: CreateRequirement): Promise<Requirement> {
+	public async create(userId: string, project: CreateRequirement): Promise<Requirement> {
 		const newProject = new Requirement({
 			...project,
+			userId,
 			profile: [...this.profile],
 		});
 		await newProject.save();
@@ -59,10 +67,11 @@ export class ProjectService {
 	}
 
 	public async calculateIndexByProject(
-		id: number,
+		userId: string,
+		id: string,
 		nameIndex: string,
 	): Promise<number> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const result = this.calculateProfileService.calculate(
 			nameIndex,
 			project.profile,
@@ -71,10 +80,11 @@ export class ProjectService {
 	}
 
 	public async generateDiagram(
-		id: number,
+		userId: string,
+		id: string,
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const diagram = this.diagramService.create(nameIndex, project.profile);
 		return diagram;
 	}

@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class RequirementView {
 	@ApiProperty()
-	public id: number;
+	public id: string;
 
 	@ApiProperty()
 	public name: string;
