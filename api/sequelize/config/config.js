@@ -4,7 +4,7 @@ module.exports = {
     "host": "localhost",
     "username": "postgres",
     "password": "12345",
-    "database": "SoftwareRequirements",
+    "database": "QualityDB",
     "port": "5432"
   },
   "test": {
