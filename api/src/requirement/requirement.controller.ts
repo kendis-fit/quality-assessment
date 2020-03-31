@@ -14,6 +14,7 @@ import {
 	ApiOkResponse,
 	ApiBody,
 	ApiNotFoundResponse,
+	ApiBearerAuth,
 } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 
@@ -25,6 +26,7 @@ import { CreatedRequirement } from "./dto/created-requirement.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { ResultIndex } from "src/universal-project/dto/result-index.dto";
 
+@ApiBearerAuth()
 @ApiTags("requirements")
 @Controller("requirements")
 export class RequirementController {

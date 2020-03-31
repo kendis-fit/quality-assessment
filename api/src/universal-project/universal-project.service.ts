@@ -32,11 +32,13 @@ export class UniversalProjectService {
 		});
 	}
 
-	public async findById(id: string): Promise<Project> {
+	public async findById(userId: string, id: string): Promise<Project> {
 		const project = await this.projects.findByPk(id);
-
 		if (!project) {
-			throw new HttpException("", HttpStatus.NOT_FOUND);
+			throw new HttpException({}, HttpStatus.NOT_FOUND);
+		}
+		if (project.userId !== userId) {
+			throw new HttpException({}, HttpStatus.FORBIDDEN);
 		}
 		return project;
 	}
@@ -45,7 +47,7 @@ export class UniversalProjectService {
 		const profile = this.getProfile(project.typeProfile);
 
 		if (profile.length === 0) {
-			throw new HttpException("", HttpStatus.BAD_REQUEST);
+			throw new HttpException({}, HttpStatus.BAD_REQUEST);
 		}
 
 		const newProject = new Project({
@@ -57,25 +59,23 @@ export class UniversalProjectService {
 		return newProject;
 	}
 
-	public async updateById(id: string, profile: IIndex[]) {
-		const project = await this.findById(id);
+	public async updateById(userId: string, id: string, profile: IIndex[]) {
+		const project = await this.findById(userId, id);
 		project.profile = profile;
 		await project.save();
 	}
 
-	public async deleteByid(id: string) {
-		await this.projects.destroy({
-			where: {
-				id: id,
-			}
-		});
+	public async deleteByid(userId: string, id: string) {
+		const project = await this.findById(userId, id);
+		await project.destroy();
 	}
 
 	public async calculateIndexByProject(
+		userId: string,
 		id: string,
 		nameIndex: string,
 	): Promise<number> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const result = this.calculateProfileService.calculate(
 			nameIndex,
 			project.profile,
@@ -84,10 +84,11 @@ export class UniversalProjectService {
 	}
 
 	public async generateDiagram(
+		userId: string,
 		id: string,
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const diagram = this.diagramService.create(nameIndex, project.profile);
 		return diagram;
 	}

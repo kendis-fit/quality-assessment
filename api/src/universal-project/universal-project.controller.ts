@@ -1,4 +1,4 @@
-import { ApiTags, ApiOkResponse, ApiBody } from "@nestjs/swagger";
+import { ApiTags, ApiOkResponse, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
 import {
 	Controller,
 	Get,
@@ -10,12 +10,9 @@ import {
 	Delete,
 	Req,
 	UseGuards,
-	HttpException,
-	HttpStatus,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 
-import { User } from "src/user/user.entity";
 import { ResultIndex } from "./dto/result-index.dto";
 import { ProjectView } from "./dto/project-view.dto";
 import { CreateProject } from "./dto/create-project.dto";
@@ -25,6 +22,7 @@ import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { UniversalProjectService } from "./universal-project.service";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
 
+@ApiBearerAuth()
 @ApiTags("universal-projects")
 @Controller("universal-projects")
 export class UniversalProjectController {
@@ -46,11 +44,7 @@ export class UniversalProjectController {
 	@UseGuards(AuthGuard("jwt"))
 	@Get(":id")
 	public async getProjectById(@Param("id") id: string, @Req() request): Promise<ProjectView> {
-		const user: User = request.user;
-		if (!user.projects.find(project => project.id === id)) {
-			throw new HttpException({}, HttpStatus.FORBIDDEN);
-		}
-		const project = await this.projectService.findById(id);
+		const project = await this.projectService.findById(request.user.id, id);
 		return new ProjectView(project);
 	}
 
@@ -75,22 +69,14 @@ export class UniversalProjectController {
 		@Body() profile: IIndex[],
 		@Req() request
 	) {
-		const user: User = request.user;
-		if (!user.projects.find(project => project.id === id)) {
-			throw new HttpException({}, HttpStatus.FORBIDDEN);
-		}
-		await this.projectService.updateById(id, profile);
+		await this.projectService.updateById(request.user.id, id, profile);
 	}
 
 	@ApiOkResponse()
 	@UseGuards(AuthGuard("jwt"))
 	@Delete(":id")
 	public async deleteProjectById(@Param("id") id: string, @Req() request) {
-		const user: User = request.user;
-		if (!user.projects.find(project => project.id === id)) {
-			throw new HttpException({}, HttpStatus.FORBIDDEN);
-		}
-		await this.projectService.deleteByid(id);
+		await this.projectService.deleteByid(request.user.id, id);
 	}
 
 	@ApiOkResponse({ type: ResultIndex })
@@ -101,11 +87,8 @@ export class UniversalProjectController {
 		@Param("nameIndex") nameIndex: string,
 		@Req() request
 	): Promise<ResultIndex> {
-		const user: User = request.user;
-		if (!user.projects.find(project => project.id === id)) {
-			throw new HttpException({}, HttpStatus.FORBIDDEN);
-		}
 		const result = await this.projectService.calculateIndexByProject(
+			request.user.id,
 			id,
 			nameIndex,
 		);
@@ -121,11 +104,7 @@ export class UniversalProjectController {
 		@Param("nameIndex") nameIndex: string,
 		@Req() request
 	): Promise<DiagramProfile[]> {
-		const user: User = request.user;
-		if (!user.projects.find(project => project.id === id)) {
-			throw new HttpException({}, HttpStatus.FORBIDDEN);
-		}
-        const diagram = await this.projectService.generateDiagram(id, nameIndex);
+        const diagram = await this.projectService.generateDiagram(request.user.id, id, nameIndex);
         return diagram;
     }
 }

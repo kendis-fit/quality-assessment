@@ -6,6 +6,7 @@ export const configSwagger = (app: INestApplication) => {
 		.setTitle("Calculating of quality")
 		.setDescription("This API calculates qualities tech. tasks, UI, UX")
 		.setVersion("0.5")
+		.addBearerAuth()
 		.build();
 
 	const document = SwaggerModule.createDocument(app, options);
