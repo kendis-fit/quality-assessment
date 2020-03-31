@@ -23,12 +23,12 @@ export class UserService {
 
         const user = await this.getUserByEmail(email);
         if (!user) {
-            throw new HttpException("", HttpStatus.BAD_REQUEST);
+            throw new HttpException("user is not found", HttpStatus.BAD_REQUEST);
         }
 
         const isMatch = await compare(password, user.password);
         if (!isMatch) {
-            throw new HttpException("", HttpStatus.BAD_REQUEST);
+            throw new HttpException("password is invalid", HttpStatus.BAD_REQUEST);
         }
 
         const token = sign({ email: user.email }, this.jwtSecretKey);
@@ -39,6 +39,7 @@ export class UserService {
         try {
             const newUser = new User(user);
             newUser.password = await hash(user.password, await genSalt(10));
+            await newUser.save();
             const token = sign({ email: newUser.email }, this.jwtSecretKey);
             return new UserResponse({ token });
         } catch(error) {
@@ -53,8 +54,7 @@ export class UserService {
         return await this.users.findOne({
             where: {
                 email
-            },
-            include: [{ all: true }]
+            }
         });
     }
 }
