@@ -1,4 +1,4 @@
-import { Model, Table, Column, DataType, HasMany } from "sequelize-typescript";
+import { Model, Table, Column, DataType, HasMany, Unique, IsEmail } from "sequelize-typescript";
 
 import { Requirement } from "src/requirement/requirement.entity";
 import { Project } from "src/universal-project/universal-project.entity";
@@ -11,6 +11,13 @@ export class User extends Model<User> {
         defaultValue: DataType.UUIDV4
     })
     public id: string;
+
+    @Unique
+    @IsEmail
+    @Column({
+        type: DataType.STRING
+    })
+    public email: string;
 
     @Column({
         type: DataType.STRING
@@ -27,5 +34,4 @@ export class User extends Model<User> {
 
     @HasMany(() => Project)
     public projects: Project;
-
 }
