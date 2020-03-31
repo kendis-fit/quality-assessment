@@ -36,7 +36,17 @@ export class UserService {
     }
 
     public async registration(user: UserRegistration): Promise<UserResponse> {
-
+        try {
+            const newUser = new User(user);
+            newUser.password = await hash(user.password, await genSalt(10));
+            const token = sign({ email: newUser.email }, this.jwtSecretKey);
+            return new UserResponse({ token });
+        } catch(error) {
+            if (error.original.constraint === "user_email_key") {
+                throw new HttpException({ reason: `User with email ${user.email} already exists` }, HttpStatus.CONFLICT);
+            }
+            throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public async getUserByEmail(email: string): Promise<User> {
