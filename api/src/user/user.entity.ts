@@ -33,5 +33,5 @@ export class User extends Model<User> {
     public requirements: Requirement;
 
     @HasMany(() => Project)
-    public projects: Project;
+    public projects: Project[];
 }

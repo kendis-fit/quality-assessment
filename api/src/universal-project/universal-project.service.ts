@@ -19,11 +19,14 @@ export class UniversalProjectService {
 		private diagramService: DiagramService
 	) {}
 
-	public async findAll(offset: number, size: number): Promise<Project[]> {
+	public async findAll(userId: number, offset: number, size: number): Promise<Project[]> {
 		if (size > 100) {
 			throw new HttpException("", HttpStatus.BAD_REQUEST);
 		}
 		return await this.projects.findAll({
+			where: {
+				userId
+			},
 			offset,
 			limit: size,
 		});
@@ -38,7 +41,7 @@ export class UniversalProjectService {
 		return project;
 	}
 
-	public async create(project: CreateProject): Promise<Project> {
+	public async create(userId: string, project: CreateProject): Promise<Project> {
 		const profile = this.getProfile(project.typeProfile);
 
 		if (profile.length === 0) {
@@ -47,6 +50,7 @@ export class UniversalProjectService {
 
 		const newProject = new Project({
 			...project,
+			userId,
 			profile: [...profile],
 		});
 		await newProject.save();

@@ -5,8 +5,11 @@ import {
 	Table,
 	CreatedAt,
 	UpdatedAt,
+	ForeignKey,
+	BelongsTo
 } from "sequelize-typescript";
 
+import { User } from "src/user/user.entity";
 import IIndex from "../requirement/interfaces/index.interface";
 
 @Table({ tableName: "projects" })
@@ -40,4 +43,13 @@ export class Project extends Model<Project> {
 		type: DataType.DATE,
 	})
 	public updatedAt: Date;
+
+	@ForeignKey(() => User)
+	@Column({
+		type: DataType.UUID
+	})
+	public userId: string;
+
+	@BelongsTo(() => User)
+	public user: User;
 }
