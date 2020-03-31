@@ -30,7 +30,7 @@ export class User extends Model<User> {
     public password: string;
 
     @HasMany(() => Requirement)
-    public requirements: Requirement;
+    public requirements: Requirement[];
 
     @HasMany(() => Project)
     public projects: Project[];

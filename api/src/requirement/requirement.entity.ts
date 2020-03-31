@@ -33,11 +33,11 @@ export class Requirement extends Model<Requirement> {
 	})
 	public profile: IIndex[];
 
+	@ForeignKey(() => Requirement)
 	@Column({
-		type: DataType.BIGINT,
+		type: DataType.UUID,
 		allowNull: true,
 	})
-	@ForeignKey(() => Requirement)
 	public parentId!: string;
 
 	@CreatedAt
@@ -59,7 +59,10 @@ export class Requirement extends Model<Requirement> {
 	public requirements: Requirement[];
 
 	@ForeignKey(() => User)
-	public userId: number;
+	@Column({
+		type: DataType.UUID
+	})
+	public userId: string;
 
 	@BelongsTo(() => User)
 	public user: User;

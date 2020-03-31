@@ -25,7 +25,7 @@ export class RequirementService {
 		private diagramService: DiagramService
 	) {}
 
-	public async findById(id: string): Promise<Requirement> {
+	public async findById(userId: string, id: string): Promise<Requirement> {
 		const requirement = await this.requirements.findOne({
 			where: {
 				id: id,
@@ -36,28 +36,31 @@ export class RequirementService {
 			include: [{ all: true }],
 		});
 		if (!requirement) {
-			throw new HttpException("", HttpStatus.NOT_FOUND);
+			throw new HttpException({}, HttpStatus.NOT_FOUND);
+		}
+		if (requirement.userId !== userId) {
+			throw new HttpException({}, HttpStatus.FORBIDDEN);
 		}
 		return requirement;
 	}
 
-	public async update(id: string, profile: IIndex[]): Promise<void> {
-		const requirement = await this.findById(id);
+	public async update(userId: string, id: string, profile: IIndex[]): Promise<void> {
+		const requirement = await this.findById(userId, id);
 		requirement.profile = profile;
 		await requirement.save();
 	}
 
-	public async create(requirement: CreateRequirement): Promise<Requirement> {
+	public async create(userId: string, requirement: CreateRequirement): Promise<Requirement> {
 		const transaction = await this.sequelize.transaction();
 
 		try {
-			const parentRequirement = await this.findById(requirement.parentId);
+			const parentRequirement = await this.findById(userId, requirement.parentId);
 
 			let profile: IIndex[] = null;
 
 			if (this.isGroup(parentRequirement)) {
 				profile = [...this.profile];
-				const project = await this.getRoot(parentRequirement);
+				const project = await this.getRoot(userId, parentRequirement);
 				const indexes = project.profile.find(
 					index => index.name === "I8",
 				);
@@ -88,6 +91,7 @@ export class RequirementService {
 
 			const newRequirement = new Requirement({
 				...requirement,
+				userId,
 				profile,
 			});
 			await newRequirement.save();
@@ -100,12 +104,12 @@ export class RequirementService {
 		}
 	}
 
-	public async deleteById(id: string) {
-		const requirement = await this.findById(id);
+	public async deleteById(userId: string, id: string) {
+		const requirement = await this.findById(userId, id);
 
 		const transaction = await this.sequelize.transaction();
 		try {
-			const rootRequirement = await this.getRoot(requirement);
+			const rootRequirement = await this.getRoot(userId, requirement);
 
 			const counter: any = {
 				i: 0,
@@ -131,10 +135,11 @@ export class RequirementService {
 	}
 
 	public async calculateIndexByProject(
+		userId: string,
 		id: string,
 		nameIndex: string,
 	): Promise<number> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const result = this.calculateProfileService.calculate(
 			nameIndex,
 			project.profile,
@@ -143,20 +148,21 @@ export class RequirementService {
 	}
 
 	public async generateDiagram(
+		userId: string,
 		id: string,
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
-		const project = await this.findById(id);
+		const project = await this.findById(userId, id);
 		const diagram = this.diagramService.create(nameIndex, project.profile);
 		return diagram;
 	}
 
-	private async getRoot(requirement: Requirement): Promise<Requirement> {
+	private async getRoot(userId: string, requirement: Requirement): Promise<Requirement> {
 		if (requirement.parentId === null) {
 			return requirement;
 		}
-		const parentRequirement = await this.findById(requirement.parentId);
-		return this.getRoot(parentRequirement);
+		const parentRequirement = await this.findById(userId, requirement.parentId);
+		return this.getRoot(userId, parentRequirement);
 	}
 
 	private async removeChildren(
