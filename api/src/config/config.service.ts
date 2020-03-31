@@ -12,10 +12,15 @@ export class ConfigService {
 
 		this.config = {
 			database: configDatabase[modeApplication],
+			secretKey: "secretKey"
 		};
 	}
 
 	public get Database() {
 		return this.config.database;
+	}
+
+	public get JwtSecretKey() {
+		return this.config.secretKey;
 	}
 }
