@@ -1,6 +1,11 @@
-import React from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
+
+import background from "../../Images/background-registration.jpg";
 
 const initialValues = {
     name: "",
@@ -25,7 +30,36 @@ const schema = yup.object().shape({
         })
 });
 
+const useStyles = makeStyles({
+    title: {
+        fontSize: "24px",
+        marginTop: "75px",
+        marginBottom: "20px"
+    },
+    form: {
+        background: `url(${background}) no-repeat`,
+        backgroundSize: "cover",
+        width: "100",
+        height: "100vh"
+    },
+    formContent: {
+        background: "rgba(255, 255, 255, 1)",
+        width: "500px",
+        height: "100vh"
+    },
+    textFields: {
+        width: "400px"
+    },
+    link: {
+        marginTop: "20px"
+    }
+});
+
 const Registration = () => {
+    
+    const classes = useStyles(); 
+    const [showPassword, setShowPassword] = useState(false);
+
     return(
         <Formik 
             initialValues={initialValues}
@@ -36,8 +70,74 @@ const Registration = () => {
             >
             {
                 ({ values, handleChange, errors }) => (
-                    <Form>
-
+                    <Form className={classes.form}>
+                        <Grid className={classes.formContent} alignContent="center" container direction="column">
+                            <Typography className={classes.title} align="center">Product Quality Assessment</Typography>
+                            <TextField 
+                                name="name"
+                                label="Name"
+                                value={values.name}
+                                onChange={handleChange}
+                                error={!!errors.name}
+                                helperText={errors.name || " "}
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                className={classes.textFields}
+                                />
+                            <TextField 
+                                name="email"
+                                label="Email"
+                                value={values.email}
+                                onChange={handleChange}
+                                error={!!errors.email}
+                                helperText={errors.email || " "}
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                />
+                            <FormControl error={!!errors.password} variant="outlined" size="small">
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput
+                                    name="password"
+                                    id="password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    color="primary"
+                                    labelWidth={80}
+                                    endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    }
+                                />
+                                <FormHelperText>{errors.password || " "}</FormHelperText>
+                            </FormControl>
+                            <TextField
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type={showPassword ? "text" : "password"}
+                                value={values.confirmPassword}
+                                onChange={handleChange}
+                                error={!!errors.confirmPassword}
+                                helperText={errors.confirmPassword || " "}
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                />
+                            <Button type="submit" variant="contained" color="primary">
+                                <Typography>Sign up</Typography>
+                            </Button>
+                            <LinkComponent className={classes.link} align="center">
+                                <Link to="/login">Login</Link>
+                            </LinkComponent>
+                        </Grid>
                     </Form>
                 )
             }
