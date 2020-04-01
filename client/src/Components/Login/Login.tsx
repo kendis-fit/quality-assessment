@@ -1,13 +1,15 @@
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
+import UserAPI from "../../Api/UserAPI";
+import ILogin from "./Interfaces/ILogin";
 import background from "../../Images/background-registration.jpg";
 
-const initialValues = {
+const initialValues: ILogin = {
     email: "",
     password: ""
 }
@@ -49,6 +51,11 @@ const Login = () => {
     
     const classes = useStyles(); 
     const [showPassword, setShowPassword] = useState(false);
+    const [isRedirect, setIsRedirect] = useState(false);
+
+    if (isRedirect) {
+        return <Redirect to="/projects" />
+    }
 
     return(
         <Formik 
@@ -56,7 +63,11 @@ const Login = () => {
             validationSchema={schema}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={values => console.log(values)}
+            onSubmit={async values => {
+                const userResponse = await new UserAPI().Login(values);
+                sessionStorage["token"] = userResponse.token;
+                setIsRedirect(true);
+            }}
             >
             {
                 ({ values, handleChange, errors }) => (
