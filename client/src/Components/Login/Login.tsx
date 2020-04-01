@@ -8,6 +8,7 @@ import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography,
 import UserAPI from "../../Api/UserAPI";
 import ILogin from "./Interfaces/ILogin";
 import background from "../../Images/background-registration.jpg";
+import ServerError from "../../Api/Interfaces/ServerError";
 
 const initialValues: ILogin = {
     email: "",
@@ -53,7 +54,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
-    if (isRedirect) {
+    if (isRedirect || sessionStorage["token"]) {
         return <Redirect to="/projects" />
     }
 
@@ -64,9 +65,17 @@ const Login = () => {
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={async values => {
-                const userResponse = await new UserAPI().Login(values);
-                sessionStorage["token"] = userResponse.token;
-                setIsRedirect(true);
+                try {
+                    const userResponse = await new UserAPI().login(values);
+                    sessionStorage["token"] = userResponse.token;
+                    setIsRedirect(true);
+                } catch (error) {
+                    if (error instanceof ServerError) {
+
+                    } else {
+                        
+                    }
+                }
             }}
             >
             {
