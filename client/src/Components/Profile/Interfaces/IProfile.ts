@@ -1,5 +1,5 @@
 export default interface IProfile {
-    typeProfile: "PROFILE" | "UX_PROFILE";
+    isRequirement: boolean;
     match: {
         params: {
             id: number

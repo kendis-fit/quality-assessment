@@ -10,7 +10,8 @@ const App = () => {
             <Switch>
                 <Route path="/registration" />
                 <Route path="/login" />
-                <Route path="/profile/:id" component={Profile} />
+                <Route path="/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
+                <Route path="/requirements/:id" render={props => <Profile {...props} isRequirement={false} />} />
             </Switch>
         </BrowserRouter>
     );

@@ -33,18 +33,17 @@ const schema = yup.object().shape({
         }))
 }))});
 
-const getApiByType = (typeProfile: string, id: number) => {
-    switch (typeProfile) {
-        case "PROFILE":
-            return () => RequirementAPI.GetProjectById(id);
-        default:
-            return () => UniversalProjectAPI.GetProjectById(id);
+const getApiByType = (isRequirement: boolean, id: number) => {
+    if (isRequirement) {
+        return () => new RequirementAPI("").GetProjectById(id);
+    } else {
+        return () => new UniversalProjectAPI("").GetProjectById(id);
     }
 }
 
 const Profile = (props: IProfile) => {
 
-    const { data, error, loading } = useDataApi<IIndex[]>(getApiByType(props.typeProfile, props.match.params.id));
+    const { data, error, loading } = useDataApi<IIndex[]>(getApiByType(props.isRequirement, props.match.params.id));
 
     const CheckPrimitives = (primivies: IPrimitive[]) => primivies.some(primitive => !primitive.value);
 
