@@ -5,9 +5,9 @@ import { Link, Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
-import UserAPI from "../../Api/UserAPI";
+import UserAPI from "../../../Api/UserAPI";
 import IRegistration from "./Interfaces/IRegistration";
-import background from "../../Images/background-registration.jpg";
+import background from "../../../Images/background-registration.jpg";
 
 const initialValues: IRegistration = {
     name: "",

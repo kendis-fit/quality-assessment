@@ -1,5 +1,5 @@
 import BaseAPI from "./BaseAPI";
-import IIndex from "../Components/Profile/Interfaces/IIndex";
+import IIndex from "../Components/Pages/Profile/Interfaces/IIndex";
 
 export default class UniversalProjectAPI extends BaseAPI {
     public constructor(token: string) {

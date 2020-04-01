@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "../root.css";
-import Login from "./Login";
-import Profile from "./Profile";
-import Registration from "./Registration";
+import Login from "./Pages/Login";
+import Profile from "./Pages/Profile";
+import Registration from "./Pages/Registration";
 
 const App = () => {
     return(

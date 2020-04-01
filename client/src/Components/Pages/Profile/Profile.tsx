@@ -6,9 +6,9 @@ import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@ma
 
 import IIndex from "./Interfaces/IIndex";
 import IProfile from "./Interfaces/IProfile";
-import useDataApi from "../../Hooks/useDataApi";
-import RequirementAPI from "../../Api/RequirementAPI";
-import UniversalProjectAPI from "../../Api/UniversalProjectAPI";
+import useDataApi from "../../../Hooks/useDataApi";
+import RequirementAPI from "../../../Api/RequirementAPI";
+import UniversalProjectAPI from "../../../Api/UniversalProjectAPI";
 import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import IPrimitive from "./Interfaces/IPrimitive";
 import IMetric from "./Interfaces/IMetric";

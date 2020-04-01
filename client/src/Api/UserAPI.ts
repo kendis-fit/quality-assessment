@@ -1,7 +1,7 @@
 import ServerError from "./Interfaces/ServerError";
 import IUserResponse from "./Interfaces/IUserResponse";
-import ILogin from "../Components/Login/Interfaces/ILogin";
-import IRegistration from "../Components/Registration/Interfaces/IRegistration";
+import ILogin from "../Components/Pages/Login/Interfaces/ILogin";
+import IRegistration from "../Components/Pages/Registration/Interfaces/IRegistration";
 import IServerError from "./Interfaces/IServerError";
 
 export default class UserAPI {

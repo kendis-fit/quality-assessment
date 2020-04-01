@@ -5,10 +5,10 @@ import { Link,Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
-import UserAPI from "../../Api/UserAPI";
+import UserAPI from "../../../Api/UserAPI";
 import ILogin from "./Interfaces/ILogin";
-import background from "../../Images/background-registration.jpg";
-import ServerError from "../../Api/Interfaces/ServerError";
+import background from "../../../Images/background-registration.jpg";
+import ServerError from "../../../Api/Interfaces/ServerError";
 
 const initialValues: ILogin = {
     email: "",
