@@ -23,12 +23,12 @@ export class UserService {
 
         const user = await this.getUserByEmail(email);
         if (!user) {
-            throw new HttpException("user is not found", HttpStatus.BAD_REQUEST);
+            throw new HttpException({ reason: "User is not found" }, HttpStatus.BAD_REQUEST);
         }
 
         const isMatch = await compare(password, user.password);
         if (!isMatch) {
-            throw new HttpException("password is invalid", HttpStatus.BAD_REQUEST);
+            throw new HttpException({ reason: "Password is invalid" }, HttpStatus.BAD_REQUEST);
         }
 
         const token = sign({ email: user.email }, this.jwtSecretKey);
@@ -46,7 +46,7 @@ export class UserService {
             if (error.original.constraint === "user_email_key") {
                 throw new HttpException({ reason: `User with email ${user.email} already exists` }, HttpStatus.CONFLICT);
             }
-            throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException({ reason: "An unkown error has occured. Try to sign up later" }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
