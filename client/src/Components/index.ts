@@ -1,3 +1,3 @@
 import App from "./App";
 
-export default App;process
+export default App;

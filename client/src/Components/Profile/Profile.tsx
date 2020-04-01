@@ -1,6 +1,6 @@
 import React from "react";
 import * as yup from "yup";
-import math from "mathjs";
+import * as math from "mathjs";
 import { Formik, Form } from "formik";
 import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@material-ui/core";
 
@@ -102,14 +102,14 @@ const Profile = (props: IProfile) => {
                                                         {
                                                             coefficient.metric.primitive && <Grid>
                                                                 {
-                                                                    coefficient.metric.primitive.primitives.map((primitive, primitiveId) => {
+                                                                    coefficient.metric.primitive.primitives.map((primitive, primitiveId) =>
                                                                         <FormControl key={primitiveId}>
                                                                             <FormLabel>
                                                                                 <Typography>{primitive.name}</Typography>
                                                                             </FormLabel>
                                                                             <TextField defaultValue={primitive.value} value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={handleChange} />
                                                                         </FormControl>
-                                                                    })
+                                                                    )
                                                                 }
                                                             </Grid>
                                                         }

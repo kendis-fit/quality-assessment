@@ -9,10 +9,10 @@ const App = () => {
     return(
         <BrowserRouter>
             <Switch>
-                <Route path="/registration" component={Registration} />
-                <Route path="/login" />
-                <Route path="/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
-                <Route path="/requirements/:id" render={props => <Profile {...props} isRequirement={true} />} />
+                <Route exact path="/registration" component={Registration} />
+                <Route exact path={["/login", "/"]} />
+                <Route exact path="/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
+                <Route exact path="/requirements/:id" render={props => <Profile {...props} isRequirement={true} />} />
             </Switch>
         </BrowserRouter>
     );
