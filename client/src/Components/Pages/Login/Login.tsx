@@ -9,6 +9,8 @@ import UserAPI from "../../../Api/UserAPI";
 import ILogin from "./Interfaces/ILogin";
 import background from "../../../Images/background-registration.jpg";
 import ServerError from "../../../Api/Interfaces/ServerError";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../../../Reducers/Alert/AlertActions";
 
 const initialValues: ILogin = {
     email: "",
@@ -51,6 +53,7 @@ const useStyles = makeStyles({
 const Login = () => {
     
     const classes = useStyles(); 
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
@@ -71,9 +74,17 @@ const Login = () => {
                     setIsRedirect(true);
                 } catch (error) {
                     if (error instanceof ServerError) {
-
+                        dispatch(showAlert({
+                            open: true,
+                            color: "error",
+                            message: error.reason
+                        }));
                     } else {
-                        
+                        dispatch(showAlert({
+                            open: true,
+                            color: "error",
+                            message: "Service doesn't work. Try to repeate later"
+                        }));
                     }
                 }
             }}

@@ -1,12 +1,15 @@
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
 import UserAPI from "../../../Api/UserAPI";
 import IRegistration from "./Interfaces/IRegistration";
+import ServerError from "../../../Api/Interfaces/ServerError";
+import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import background from "../../../Images/background-registration.jpg";
 
 const initialValues: IRegistration = {
@@ -59,7 +62,8 @@ const useStyles = makeStyles({
 
 const Registration = () => {
     
-    const classes = useStyles(); 
+    const classes = useStyles();
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
@@ -74,9 +78,25 @@ const Registration = () => {
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={async values => {
-                const userResponse = await new UserAPI().registration(values);
-                sessionStorage["token"] = userResponse.token;
-                setIsRedirect(true);
+                try {
+                    const userResponse = await new UserAPI().registration(values);
+                    sessionStorage["token"] = userResponse.token;
+                    setIsRedirect(true);
+                } catch(error) {
+                    if (error instanceof ServerError) {
+                        dispatch(showAlert({
+                            open: true,
+                            color: "error",
+                            message: error.reason
+                        }));
+                    } else {
+                        dispatch(showAlert({
+                            open: true,
+                            color: "error",
+                            message: "Service doesn't work. Try to repeate later"
+                        }));
+                    }
+                }
             }}
             >
             {
