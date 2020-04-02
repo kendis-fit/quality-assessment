@@ -18,10 +18,12 @@ const App = () => {
                 <Route exact path={["/login", "/"]} component={Login} />
                 <Route path="/user" component={Navbar} />
             </Switch>
-            <Route exact path="/user/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
-            <Route exact path="/user/requirements/:id" />
-            <Route path="/user/projects" component={Projects} />
-            <Route exact path="/user/profile" />
+            <Switch>
+                <Route exact path="/user/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
+                <Route exact path="/user/requirements/:id" />
+                <Route exact path="/user/projects" component={Projects} />
+                <Route exact path="/user/profile" />
+            </Switch>
         </BrowserRouter>
     );
 }
