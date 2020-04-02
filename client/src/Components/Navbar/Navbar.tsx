@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { showAlert } from '../../Reducers/Alert/AlertActions';
 
@@ -19,8 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+      flexGrow: 1
     },
+    link: {
+        color: "white"
+    }
   }),
 );
 
@@ -47,10 +50,14 @@ const Navbar = () => {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>Projects</Typography>
-                    <IconButton color="inherit">
-                        <AccountCircle />
-                    </IconButton>
+                    <Link to="/projects" className={`${classes.title} ${classes.link}`}>
+                        <Typography variant="h6">Projects</Typography>
+                    </Link>
+                    <Link to="/profile" className={classes.link}>
+                        <IconButton color="inherit">
+                            <AccountCircle />
+                        </IconButton>
+                    </Link>
                     <Button variant="outlined" color="inherit" onClick={() => logOut()}>Log out</Button>
                 </Toolbar>
             </AppBar>
