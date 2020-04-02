@@ -4,5 +4,4 @@ export default interface IAlert {
     color?: Color;
     message: string;
     open: boolean;
-    closeAlert: () => void;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "../root.css";
+import AlertContainer from "./Alert/AlertContainer";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Registration from "./Pages/Registration";
@@ -9,6 +10,7 @@ import Registration from "./Pages/Registration";
 const App = () => {
     return(
         <BrowserRouter>
+            <AlertContainer />
             <Switch>
                 <Route exact path="/registration" component={Registration} />
                 <Route exact path={["/login", "/"]} component={Login} />
