@@ -58,7 +58,7 @@ const Login = () => {
     const [isRedirect, setIsRedirect] = useState(false);
 
     if (isRedirect || sessionStorage["token"]) {
-        return <Redirect to="/projects" />
+        return <Redirect to="/user/projects" />
     }
 
     return(

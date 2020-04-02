@@ -50,10 +50,10 @@ const Navbar = () => {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Link to="/projects" className={`${classes.title} ${classes.link}`}>
+                    <Link to="/user/projects" className={`${classes.title} ${classes.link}`}>
                         <Typography variant="h6">Projects</Typography>
                     </Link>
-                    <Link to="/profile" className={classes.link}>
+                    <Link to="/user/profile" className={classes.link}>
                         <IconButton color="inherit">
                             <AccountCircle />
                         </IconButton>
