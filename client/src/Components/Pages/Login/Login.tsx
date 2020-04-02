@@ -72,6 +72,11 @@ const Login = () => {
                     const userResponse = await new UserAPI().login(values);
                     sessionStorage["token"] = userResponse.token;
                     setIsRedirect(true);
+                    dispatch(showAlert({
+                        open: true,
+                        color: "success",
+                        message: "You have succefully logged in"
+                    }));
                 } catch (error) {
                     if (error instanceof ServerError) {
                         dispatch(showAlert({

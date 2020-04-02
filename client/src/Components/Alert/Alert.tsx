@@ -10,7 +10,7 @@ const Alert = ({ color, message, open, closeAlert }: IAlert) => {
         <Snackbar
             open={open}
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={2500}
+            autoHideDuration={4000}
             onClose={closeAlert}
             >
             <AlertComponent severity={color}>{message}</AlertComponent>

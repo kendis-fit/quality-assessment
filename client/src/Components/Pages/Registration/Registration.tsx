@@ -82,6 +82,11 @@ const Registration = () => {
                     const userResponse = await new UserAPI().registration(values);
                     sessionStorage["token"] = userResponse.token;
                     setIsRedirect(true);
+                    dispatch(showAlert({
+                        open: true,
+                        color: "success",
+                        message: "You have succefully signed up and logged in"
+                    }));
                 } catch(error) {
                     if (error instanceof ServerError) {
                         dispatch(showAlert({
