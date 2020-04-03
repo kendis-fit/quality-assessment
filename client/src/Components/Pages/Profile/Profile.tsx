@@ -4,11 +4,11 @@ import * as math from "mathjs";
 import { Formik, Form } from "formik";
 import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@material-ui/core";
 
-import IIndex from "./Interfaces/IIndex";
+import { IIndex } from "./Interfaces/IIndex";
 import IProfile from "./Interfaces/IProfile";
 import useDataApi from "../../../Hooks/useDataApi";
 import RequirementAPI from "../../../Api/RequirementAPI";
-import UniversalProjectAPI from "../../../Api/UniversalProjectAPI";
+import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI/UniversalProjectAPI";
 import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import IPrimitive from "./Interfaces/IPrimitive";
 import IMetric from "./Interfaces/IMetric";
@@ -37,7 +37,7 @@ const getApiByType = (isRequirement: boolean, id: number) => {
     if (isRequirement) {
         return () => new RequirementAPI("").GetProjectById(id);
     } else {
-        return () => new UniversalProjectAPI("").GetProjectById(id);
+        return () => new UniversalProjectAPI("").findById(id);
     }
 }
 

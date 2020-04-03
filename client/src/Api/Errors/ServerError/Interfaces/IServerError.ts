@@ -1,4 +1,4 @@
-export default interface IServerError {
+export interface IServerError {
     reason: string;
     redirectToLogin?: boolean;
 }

@@ -1,10 +1,10 @@
-import ServerError from "../Errors/ServerError";
-import IUserResponse from "./Interfaces/IUserResponse";
-import ILogin from "../../Components/Pages/Login/Interfaces/ILogin";
-import IRegistration from "../../Components/Pages/Registration/Interfaces/IRegistration";
-import IServerError from "../Interfaces/IServerError";
+import { IUserResponse } from "./Interfaces/IUserResponse";
+import { ServerError } from "../Errors/ServerError/ServerError";
+import { ILogin } from "../../Components/Pages/Login/Interfaces/ILogin";
+import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
+import { IRegistration } from "../../Components/Pages/Registration/Interfaces/IRegistration";
 
-export default class UserAPI {
+export class UserAPI {
     public login(user: ILogin): Promise<IUserResponse> {
         return new Promise<IUserResponse>(async (resolve, reject) => {
             try {

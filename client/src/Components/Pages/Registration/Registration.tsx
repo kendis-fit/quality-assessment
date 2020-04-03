@@ -6,11 +6,11 @@ import { Link, Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
-import UserAPI from "../../../Api/UserAPI/UserAPI";
-import IRegistration from "./Interfaces/IRegistration";
-import ServerError from "../../../Api/Errors/ServerError";
+import { UserAPI } from "../../../Api/UserAPI/UserAPI";
+import { IRegistration } from "./Interfaces/IRegistration";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import background from "../../../Images/background-registration.jpg";
+import { ServerError } from "../../../Api/Errors/ServerError/ServerError";
 
 const initialValues: IRegistration = {
     name: "",

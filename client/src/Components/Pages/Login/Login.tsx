@@ -1,16 +1,16 @@
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link,Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
 
-import UserAPI from "../../../Api/UserAPI/UserAPI";
-import ILogin from "./Interfaces/ILogin";
-import background from "../../../Images/background-registration.jpg";
-import ServerError from "../../../Api/Errors/ServerError";
-import { useDispatch } from "react-redux";
+import { ILogin } from "./Interfaces/ILogin";
+import { UserAPI } from "../../../Api/UserAPI/UserAPI";
+import { ServerError } from "../../../Api/Errors/ServerError/ServerError";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
+import background from "../../../Images/background-registration.jpg";
 
 const initialValues: ILogin = {
     email: "",

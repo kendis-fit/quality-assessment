@@ -1,6 +1,6 @@
 import ICoefficient from "./ICoefficient";
 
-export default interface IIndex {
+export interface IIndex {
 	name: string;
 	nameIndex: string;
 	description: string;

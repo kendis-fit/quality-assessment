@@ -1,4 +1,4 @@
-export default abstract class BaseAPI {
+export abstract class BaseAPI {
     private token: string;
     
     public constructor(token: string) {

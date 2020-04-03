@@ -1,3 +1,3 @@
-export default interface IUserResponse {
+export interface IUserResponse {
     token: string;
 }
