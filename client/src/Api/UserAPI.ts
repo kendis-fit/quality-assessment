@@ -20,12 +20,11 @@ export default class UserAPI {
                     resolve(result);
                 } else {
                     const result: IServerError = await response.json();
-                    const error: ServerError = new ServerError("Server error", result);
+                    const error: ServerError = new ServerError("", result);
                     reject(error);
                 }
             } catch {
-                const error: ServerError = new ServerError("Server error", { reason: "Service doesn't work. Try to repeate later" });
-                reject(error);
+                reject(ServerError.createInternalError());
             }
         });
     }
@@ -45,12 +44,11 @@ export default class UserAPI {
                     resolve(result);
                 } else {
                     const result: IServerError = await response.json();
-                    const error: ServerError = new ServerError("Server error", result);
+                    const error: ServerError = new ServerError("", result);
                     reject(error);
                 }
             } catch {
-                const error: ServerError = new ServerError("Server error", { reason: "Service doesn't work. Try to repeate later" });
-                reject(error);
+                reject(ServerError.createInternalError());
             }
         });
     }
