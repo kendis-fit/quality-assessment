@@ -1,4 +1,4 @@
-import IServerError from "./IServerError";
+import IServerError from "../Interfaces/IServerError";
 
 export default class ServerError extends Error {
     constructor(message: string, private error: IServerError) {

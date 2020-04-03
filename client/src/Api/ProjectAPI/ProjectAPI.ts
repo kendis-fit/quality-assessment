@@ -1,6 +1,6 @@
-import BaseAPI from "./BaseAPI";
-import ServerError from "./Interfaces/ServerError";
-import IServerError from "./Interfaces/IServerError";
+import BaseAPI from "../BaseAPI";
+import ServerError from "../Errors/ServerError";
+import IServerError from "../Interfaces/IServerError";
 import { IProjectResponse } from "./Interfaces/IProjectResponse";
 import { IDiagramResponse } from "./Interfaces/IDiagramResponse";
 import { IProjectListResponse } from "./Interfaces/IProjectListResponse";

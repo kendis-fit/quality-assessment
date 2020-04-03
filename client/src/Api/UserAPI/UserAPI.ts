@@ -1,8 +1,8 @@
-import ServerError from "./Interfaces/ServerError";
+import ServerError from "../Errors/ServerError";
 import IUserResponse from "./Interfaces/IUserResponse";
-import ILogin from "../Components/Pages/Login/Interfaces/ILogin";
-import IRegistration from "../Components/Pages/Registration/Interfaces/IRegistration";
-import IServerError from "./Interfaces/IServerError";
+import ILogin from "../../Components/Pages/Login/Interfaces/ILogin";
+import IRegistration from "../../Components/Pages/Registration/Interfaces/IRegistration";
+import IServerError from "../Interfaces/IServerError";
 
 export default class UserAPI {
     public login(user: ILogin): Promise<IUserResponse> {
