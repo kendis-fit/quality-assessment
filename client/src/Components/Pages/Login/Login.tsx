@@ -84,12 +84,6 @@ const Login = () => {
                             color: "error",
                             message: error.reason
                         }));
-                    } else {
-                        dispatch(showAlert({
-                            open: true,
-                            color: "error",
-                            message: "Service doesn't work. Try to repeate later"
-                        }));
                     }
                 }
             }}
