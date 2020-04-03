@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 
 import IData from "./Interfaces/IData";
+import { ServerError } from "../Api/Errors/ServerError/ServerError";
 
 function useDataApi<T>(fetchMethod: () => Promise<T>): IData<T> {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<T | any>();
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError] = useState<ServerError | undefined>();
 
     useEffect(() => {
 
@@ -17,9 +18,9 @@ function useDataApi<T>(fetchMethod: () => Promise<T>): IData<T> {
                 setData(await fetchMethod());
                 setLoading(false);
             }
-            catch
+            catch (error)
             {
-                setError(true);
+                setError(error);
             }
         }
 

@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import * as math from "mathjs";
 import { Formik, Form } from "formik";
-import { Grid, FormControl, Button, TextField, FormLabel, Typography } from "@material-ui/core";
+import { Grid, FormControl, TextField, FormLabel, Typography } from "@material-ui/core";
 
-import { IIndex } from "./Interfaces/IIndex";
+import IMetric from "./Interfaces/IMetric";
 import IProfile from "./Interfaces/IProfile";
 import useDataApi from "../../../Hooks/useDataApi";
-import RequirementAPI from "../../../Api/RequirementAPI";
-import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI/UniversalProjectAPI";
-import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import IPrimitive from "./Interfaces/IPrimitive";
-import IMetric from "./Interfaces/IMetric";
+import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
+import { RequirementAPI } from "../../../Api/RequirementAPI";
+import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI/UniversalProjectAPI";
+import { IUniversalProjectResponse } from "../../../Api/UniversalProjectAPI/Interfaces/IUniversalProjectResponse";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../../../Reducers/Alert/AlertActions";
+import { Redirect } from "react-router-dom";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -34,16 +37,19 @@ const schema = yup.object().shape({
 }))});
 
 const getApiByType = (isRequirement: boolean, id: number) => {
+    const token = sessionStorage["token"];
+
     if (isRequirement) {
-        return () => new RequirementAPI("").GetProjectById(id);
+        return () => new RequirementAPI(token).findById(id);
     } else {
-        return () => new UniversalProjectAPI("").findById(id);
+        return () => new UniversalProjectAPI(token).findById(id);
     }
 }
 
 const Profile = (props: IProfile) => {
-
-    const { data, error, loading } = useDataApi<IIndex[]>(getApiByType(props.isRequirement, props.match.params.id));
+    const dispatch = useDispatch();
+    const { data, error, loading } = useDataApi<IUniversalProjectResponse>(getApiByType(props.isRequirement, props.match.params.id));
+    const [isRedirect, setIsRedirect] = useState(false);
 
     const CheckPrimitives = (primivies: IPrimitive[]) => primivies.some(primitive => !primitive.value);
 
@@ -63,12 +69,25 @@ const Profile = (props: IProfile) => {
         return metric.value;
     }
 
+    if (isRedirect) {
+        return <Redirect to="/login" />
+    }
     if (loading) return <div>Loading...</div>
-    if (error) return <div>An error has occured</div>
+    if (error) {
+        if (error.redirectToLogin) {
+            setIsRedirect(true);
+        }
+        dispatch(showAlert({
+            open: true,
+            message: error.reason
+        }))
+    }
+
+    const { profile } = data;
 
     return(
         <Formik 
-            initialValues={{ indexes: data }}
+            initialValues={{ indexes: profile }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}

@@ -11,13 +11,14 @@ import { ICreatedProjectResponse } from "../ProjectAPI/Interfaces/ICreatedProjec
 
 export class UniversalProjectAPI extends BaseAPI {
     public constructor(token: string) {
-        super(token);
+        const url = `${process.env.REACT_APP_API}/universal-projects`;
+        super(token, url);
     }
 
     public create(project: ICreateProject): Promise<ICreatedProjectResponse> {
         return new Promise<ICreatedProjectResponse>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects`, {
+                const response = await this.fetch(this.url, {
                     method: "POST",
                     body: JSON.stringify(project),
                     headers: {
@@ -43,7 +44,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public findAll(offset: number = 0, size: number = 100): Promise<IProjectListResponse[]> {
         return new Promise<IProjectListResponse[]>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects?offset=${offset}&size=${size}`, {
+                const response = await this.fetch(`${this.url}?offset=${offset}&size=${size}`, {
                     method: "GET"
                 });
                 if (response.ok) {
@@ -65,7 +66,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public findById(id: number): Promise<IUniversalProjectResponse> {    
         return new Promise<IUniversalProjectResponse>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects/${id}`, {
+                const response = await this.fetch(`${this.url}/${id}`, {
                     method: "GET"
                 });
                 if (response.ok) {
@@ -87,7 +88,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public getResultIndex(id: string, nameIndex: string): Promise<IResultIndexResponse> {
         return new Promise<IResultIndexResponse>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects/${id}/indexes/${nameIndex}`, {
+                const response = await this.fetch(`${this.url}/${id}/indexes/${nameIndex}`, {
                     method: "GET"
                 });
                 if (response.ok) {
@@ -109,7 +110,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public getDiagram(id: string, nameIndex: string): Promise<IDiagramResponse> {
         return new Promise<IDiagramResponse>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects/${id}/diagrams/${nameIndex}`, {
+                const response = await this.fetch(`${this.url}/${id}/diagrams/${nameIndex}`, {
                     method: "GET"
                 });
                 if (response.ok) {
@@ -131,7 +132,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public update(id: number, profile: IIndex[]): Promise<boolean> {
         return new Promise<boolean>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects/${id}`, {
+                const response = await this.fetch(`${this.url}/${id}`, {
                     method: "PUT",
                     body: JSON.stringify(profile),
                     headers: {
@@ -156,7 +157,7 @@ export class UniversalProjectAPI extends BaseAPI {
     public delete(id: number): Promise<boolean> {
         return new Promise<boolean>(async (resolve, reject) => {
             try {
-                const response = await this.fetch(`${process.env.REACT_APP_API}/universal-projects/${id}`, {
+                const response = await this.fetch(`${this.url}/${id}`, {
                     method: "DELETE"
                 });
                 if (response.ok) {

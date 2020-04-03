@@ -1,15 +1,16 @@
 import { BaseAPI } from "../BaseAPI";
-import { ServerError } from "../Errors/ServerError";
-import { IProjectResponse } from "./Interfaces/IProjectResponse";
-import { IDiagramResponse } from "./Interfaces/IDiagramResponse";
-import { IProjectListResponse } from "./Interfaces/IProjectListResponse";
-import { IResultIndexResponse } from "./Interfaces/IResultIndexResponse";
-import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
-import { ICreatedProjectResponse } from "./Interfaces/ICreatedProjectResponse";
+import { IIndex } from "../../Components/Pages/Profile/Interfaces/IIndex";
 
-export class ProjectAPI extends BaseAPI {
+import { ServerError } from "../Errors/ServerError/ServerError";
+import { IDiagramResponse } from "../ProjectAPI/Interfaces/IDiagramResponse";
+import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
+import { IResultIndexResponse } from "../ProjectAPI/Interfaces/IResultIndexResponse";
+import { ICreatedProjectResponse } from "../ProjectAPI/Interfaces/ICreatedProjectResponse";
+import { IUniversalProjectResponse } from "../UniversalProjectAPI/Interfaces/IUniversalProjectResponse";
+
+export class RequirementAPI extends BaseAPI {
     public constructor(token: string) {
-        const url = `${process.env.REACT_APP_API}/projects`;
+        const url = `${process.env.REACT_APP_API}/requirements`;
         super(token, url);
     }
 
@@ -39,36 +40,14 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public findAll(offset: number = 0, size: number = 100): Promise<IProjectListResponse[]> {
-        return new Promise<IProjectListResponse[]>(async (resolve, reject) => {
-            try {
-                const response = await this.fetch(`${this.url}?offset=${offset}&size=${size}`, {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const result: IProjectListResponse[] = await response.json();
-                    resolve(result);
-                } else if (response.status === 403 || response.status === 500) {
-                    reject(ServerError.createError(response.status));
-                } else {
-                    const result: IServerError = await response.json();
-                    const error: ServerError = new ServerError("", result);
-                    reject(error);
-                }
-            } catch {
-                reject(ServerError.createInternalError());
-            }
-        });
-    }
-
-    public findById(id: number): Promise<IProjectResponse> {    
-        return new Promise<IProjectResponse>(async (resolve, reject) => {
+    public findById(id: number): Promise<IUniversalProjectResponse> {    
+        return new Promise<IUniversalProjectResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
                     method: "GET"
                 });
                 if (response.ok) {
-                    const result: IProjectResponse = await response.json();
+                    const result: IUniversalProjectResponse = await response.json();
                     resolve(result);
                 } else if (response.status === 403 || response.status === 500) {
                     reject(ServerError.createError(response.status));
@@ -102,7 +81,7 @@ export class ProjectAPI extends BaseAPI {
             } catch {
                 reject(ServerError.createInternalError());
             }
-        }); 
+        });
     }
 
     public getDiagram(id: string, nameIndex: string): Promise<IDiagramResponse> {
@@ -125,5 +104,51 @@ export class ProjectAPI extends BaseAPI {
                 reject(ServerError.createInternalError());
             }
         }); 
+    }
+
+    public update(id: number, profile: IIndex[]): Promise<boolean> {
+        return new Promise<boolean>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}`, {
+                    method: "PUT",
+                    body: JSON.stringify(profile),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                if (response.ok) {
+                    resolve(true);
+                } else if (response.status === 403 || response.status === 500) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                } 
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public delete(id: number): Promise<boolean> {
+        return new Promise<boolean>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}`, {
+                    method: "DELETE"
+                });
+                if (response.ok) {
+                    resolve(true);
+                } else if (response.status === 403 || response.status === 500) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                } 
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
     }
 }
