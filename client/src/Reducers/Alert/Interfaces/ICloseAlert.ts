@@ -1,3 +1,5 @@
+import { CLOSE_ALERT } from "../../../Constants/actions";
+
 export default interface ICloseAlert {
-    type: string;
+    type: typeof CLOSE_ALERT;
 }

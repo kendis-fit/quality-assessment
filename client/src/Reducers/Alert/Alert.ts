@@ -1,5 +1,4 @@
 import IAlert from "./Interfaces/IAlert";
-import IShowAlert from "./Interfaces/IShowAlert";
 import { AlertActions } from "../../Constants/types";
 import { SHOW_ALERT, CLOSE_ALERT } from "../../Constants/actions";
 
@@ -11,7 +10,7 @@ const initialState: IAlert = {
 export const Alert = (state = initialState, action: AlertActions) => {
     switch(action.type) {
         case SHOW_ALERT:
-            return (action as IShowAlert).value;
+            return action.value;
         case CLOSE_ALERT:
             return { ...alert, message: "", open: false };
         default:
