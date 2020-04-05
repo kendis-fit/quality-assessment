@@ -1,6 +1,10 @@
 import React from "react";
 
-const Projects = () => {
+import { IProjects } from "./Interfaces/IProjects";
+
+const Projects = (props: IProjects) => {
+
+    console.log(props);
 
     return(
         <div>Test</div>
