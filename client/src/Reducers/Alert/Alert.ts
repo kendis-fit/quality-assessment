@@ -8,7 +8,7 @@ const initialState: IAlert = {
     message: ""
 }
 
-const Alert = (state = initialState, action: AlertActions) => {
+export const Alert = (state = initialState, action: AlertActions) => {
     switch(action.type) {
         case SHOW_ALERT:
             return (action as IShowAlert).value;
@@ -18,5 +18,3 @@ const Alert = (state = initialState, action: AlertActions) => {
             return state;
     }
 }
-
-export default Alert;

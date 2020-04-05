@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 
-import Alert from "./Alert";
+import { Alert } from "./Alert";
+import IRootState from "./Interfaces/IRootState";
+import { UniversalProjects } from "./UniversalProjects";
 
-export default combineReducers({
-    Alert
+export const reducer = combineReducers<IRootState>({
+    Alert,
+    UniversalProjects
 });
