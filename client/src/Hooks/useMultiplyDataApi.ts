@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import IData from "./Interfaces/IData";
 import { ServerError } from "../Api/Errors/ServerError/ServerError";
 
-export function useDataApi<T>(fetchMethod: () => Promise<T>): IData<T> {
+export function useMultiplyDataApi<T>(fetchMethods: Promise<T>[]): IData<T[]> {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<T | any>();
@@ -15,8 +15,10 @@ export function useDataApi<T>(fetchMethod: () => Promise<T>): IData<T> {
 
             try
             {
-                setData(await fetchMethod());
+                console.log(loading);
+                setData(await Promise.all(fetchMethods));
                 setLoading(false);
+                console.log("test");
             }
             catch (error)
             {

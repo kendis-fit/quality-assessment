@@ -3,9 +3,8 @@ import ISelectable from "./ISelectable";
 
 export default interface IDefaultTable
 {
-    Data: any[];
-    IsPagination: boolean;
-    ColumTitles?: IRequestHeader[];
-    PropsTable?: any;
-    Selectable?: ISelectable;
+    data: any[];
+    isPagination: boolean;
+    columnTitles: IRequestHeader[];
+    selectable?: ISelectable;
 } 

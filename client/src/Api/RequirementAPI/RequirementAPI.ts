@@ -27,7 +27,7 @@ export class RequirementAPI extends BaseAPI {
                 if (response.ok) {
                     const result: ICreatedProjectResponse = await response.json();
                     resolve(result);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();
@@ -49,7 +49,7 @@ export class RequirementAPI extends BaseAPI {
                 if (response.ok) {
                     const result: IUniversalProjectResponse = await response.json();
                     resolve(result);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();
@@ -71,7 +71,7 @@ export class RequirementAPI extends BaseAPI {
                 if (response.ok) {
                     const result: IResultIndexResponse = await response.json();
                     resolve(result);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();
@@ -93,7 +93,7 @@ export class RequirementAPI extends BaseAPI {
                 if (response.ok) {
                     const result: IDiagramResponse = await response.json();
                     resolve(result);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();
@@ -118,7 +118,7 @@ export class RequirementAPI extends BaseAPI {
                 });
                 if (response.ok) {
                     resolve(true);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();
@@ -139,7 +139,7 @@ export class RequirementAPI extends BaseAPI {
                 });
                 if (response.ok) {
                     resolve(true);
-                } else if (response.status === 403 || response.status === 500) {
+                } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {
                     const result: IServerError = await response.json();

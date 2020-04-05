@@ -49,14 +49,14 @@ function stableSort(array: any, comparator: any) {
 
 const DefaultTable = (props: IDefaultTable) => {
     const classes = useStyles();
-    const { ColumTitles, Data, IsPagination } = props;
+    const { columnTitles, data, isPagination } = props;
 
-    const [indexSelected, setIndexSelected] = useState(props.Selectable?.DefaultId);
+    const [indexSelected, setIndexSelected] = useState(props.selectable?.DefaultId);
     const [order, setOrder] = useState<"asc" | "desc">("asc");
     const [orderBy, setOrderBy] = useState("");
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(
-        IsPagination ? 50 : Data.length
+        isPagination ? 50 : data.length
     );
     //   const [dense, setDense] = React.useState(false);
     const dense = false;
@@ -79,18 +79,18 @@ const DefaultTable = (props: IDefaultTable) => {
     const SelectItem = (row: any, index: any) => {
         setIndexSelected(index);
         let object: any = {};
-        props.Selectable?.Fields?.forEach(field => object[field] = row[field]);
-        props.Selectable?.OnSelect(object);
+        props.selectable?.Fields?.forEach(field => object[field] = row[field]);
+        props.selectable?.OnSelect(object);
     }
 
     const PaginationRender = () => {
-        if (IsPagination) {
+        if (isPagination) {
             return (
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 50, 100]}
                     // labelRowsPerPage="Заяв за сторінку"
                     component="div"
-                    count={Data.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
@@ -101,42 +101,42 @@ const DefaultTable = (props: IDefaultTable) => {
         return null;
     };
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, Data.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
         <div className={classes.root}>
-            <TableContainer {...props.PropsTable}>
+            <TableContainer>
                 <Table
                     aria-labelledby="tableTitle"
                     size={dense ? "small" : "medium"}
                     aria-label="enhanced table"
                     stickyHeader
                 >
-                    {ColumTitles &&
+                    {columnTitles &&
                         <SortHeaders
-                            HeadCells={ColumTitles}
+                            HeadCells={columnTitles}
                             Order={order}
                             OrderBy={orderBy}
                             OnRequestSort={handleRequestSort}
                         />}
-                    <TableBody className={props.Selectable ? classes.selectedItem : ""}>
-                        {stableSort(Data, getComparator(order, orderBy))
+                    <TableBody className={props.selectable ? classes.selectedItem : ""}>
+                        {stableSort(data, getComparator(order, orderBy))
                             .slice(
                                 page * rowsPerPage,
                                 page * rowsPerPage + rowsPerPage
                             )
                             .map((row: any, index: any) => (
                                 <TableRow
-                                    onClick={() => props.Selectable && SelectItem(row, row.id)}
-                                    key={index} hover={props.Selectable !== undefined}
+                                    onClick={() => props.selectable && SelectItem(row, row.id)}
+                                    key={index} hover={props.selectable !== undefined}
                                     tabIndex={-1}
-                                    selected={props.Selectable !== undefined && (row.id === indexSelected)}>
-                                    {ColumTitles && ColumTitles.map((header, index) => {
-                                        if (header.Hide) {
+                                    selected={props.selectable !== undefined && (row.id === indexSelected)}>
+                                    {columnTitles && columnTitles.map((header, index) => {
+                                        if (header.hide) {
                                             return <Fragment key={index}></Fragment>
                                         }
                                         return <TableCell key={index}>
-                                            {row[header.Id]}
+                                            {row[header.id]}
                                         </TableCell>
                                     })}
                                 </TableRow>

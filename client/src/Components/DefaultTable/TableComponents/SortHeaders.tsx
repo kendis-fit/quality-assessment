@@ -13,20 +13,20 @@ const SortHeaders = (props: ISortHeader) => {
       <TableHead>
         <TableRow>
           {HeadCells.map(headCell => {
-			if (headCell.Hide)
+			if (headCell.hide)
 			{
-				return <Fragment key={headCell.Id}></Fragment>
+				return <Fragment key={headCell.id}></Fragment>
 			}
             return <TableCell
-              key={headCell.Id}
-              sortDirection={OrderBy === headCell.Id ? Order : false}
+              key={headCell.id}
+              sortDirection={OrderBy === headCell.id ? Order : false}
             >
               <TableSortLabel
-                active={OrderBy === headCell.Id}
-                direction={OrderBy === headCell.Id ? Order : 'asc'}
-                onClick={() => createSortHandler(headCell.Id)}
+                active={OrderBy === headCell.id}
+                direction={OrderBy === headCell.id ? Order : 'asc'}
+                onClick={() => createSortHandler(headCell.id)}
               >
-                {headCell.Label}
+                {headCell.label}
               </TableSortLabel>
             </TableCell>
           })}

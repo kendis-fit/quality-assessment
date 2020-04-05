@@ -1,13 +1,3 @@
 // Alert
 export const SHOW_ALERT = "SHOW_ALERT";
 export const CLOSE_ALERT = "CLOSE_ALERT";
-
-// UniversalProjects
-export const INIT_UNIVERSAL_PROJECTS = "INIT_UNIVERSAL_PROJECTS";
-export const ADD_UNIVERSAL_PROJECT = "ADD_UNIVERSAL_PROJECT";
-export const REMOVE_UNIVERSAL_PROJECT = "REMOVE_UNIVERSAL_PROJECT";
-
-// Projects
-export const INIT_PROJECTS = "INIT_PROJECTS";
-export const ADD_PROJECT = "ADD_PROJECT";
-export const REMOVE_PROJECT = "REMOVE_PROJECT";

@@ -1,6 +1,6 @@
 export default interface IRequestColumn
 {
-    Id: string;
-    Label: string;
-    Hide?: boolean;
+    id: string;
+    label: string;
+    hide?: boolean;
 }

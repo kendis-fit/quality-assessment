@@ -25,8 +25,18 @@ export class ServerError extends Error {
         return error;
     }
 
+    public static createUnauthorizedError(): ServerError {
+        const error: ServerError = new ServerError("", {
+            redirectToLogin: true,
+            reason: "User is unauthorized. Please, sign up to the system"
+        });
+        return error;
+    }
+
     public static createError(status: number): ServerError | null {
         switch (status) {
+            case 401:
+                return this.createUnauthorizedError();
             case 403:
                 return this.createForbiddenError();
             case 500:

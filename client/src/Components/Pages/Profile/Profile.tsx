@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import * as math from "mathjs";
 import { Formik, Form } from "formik";
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { Grid, FormControl, TextField, FormLabel, Typography } from "@material-ui/core";
 
 import IMetric from "./Interfaces/IMetric";
 import IProfile from "./Interfaces/IProfile";
-import useDataApi from "../../../Hooks/useDataApi";
 import IPrimitive from "./Interfaces/IPrimitive";
+import { useDataApi } from "../../../Hooks/useDataApi";
 import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import { RequirementAPI } from "../../../Api/RequirementAPI";
+import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI/UniversalProjectAPI";
 import { IUniversalProjectResponse } from "../../../Api/UniversalProjectAPI/Interfaces/IUniversalProjectResponse";
-import { useDispatch } from "react-redux";
-import { showAlert } from "../../../Reducers/Alert/AlertActions";
-import { Redirect } from "react-router-dom";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
