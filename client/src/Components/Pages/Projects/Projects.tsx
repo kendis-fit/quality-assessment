@@ -1,14 +1,44 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Grid, styled, Typography, IconButton } from "@material-ui/core";
 
+import DefaultTable from "../../DefaultTable";
 import { useMultiplyDataApi } from "../../../Hooks/useMultiplyDataApi";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI";
 import { IProjectListResponse } from "../../../Api/ProjectAPI/Interfaces/IProjectListResponse";
-import { Redirect } from "react-router-dom";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
-import { Grid } from "@material-ui/core";
-import DefaultTable from "../../DefaultTable";
+import { PostAdd } from "@material-ui/icons";
+import { useDataApi } from "../../../Hooks/useDataApi";
+import ISelectable from "../../DefaultTable/Interfaces/ISelectable";
+import { IProject } from "./Interfaces/IProject";
+
+const ProjectsBlock = styled(Grid)({
+    padding: "20px",
+});
+
+const ProjectBlock = styled(Grid)({
+    border: "3px solid #3f51b5",
+    width: "100%",
+    height: "800px"
+});
+
+const ProjectTitleBlock = styled(Grid)({
+    width: "100%",
+    height: "50px",
+    background: "#3f51b5",
+    color: "white"
+});
+
+const ProjectTitle = styled(Grid)({
+    padding: "10px"
+});
+
+const AddProject = styled(IconButton)({
+    marginLeft: "25px",
+    color: "white"
+});
 
 const rowHeaders = [
     {
@@ -26,13 +56,16 @@ const rowHeaders = [
     }
 ]
 
-const Projects = () => {
+const Projects = (props: IProject) => {
     const dispatch = useDispatch();
-    const token = localStorage["token"];
-    const projectApi = new ProjectAPI(token);
-    const universalProjectAPI = new UniversalProjectAPI(token);
-    const fetchMethods = [projectApi.findAll(), universalProjectAPI.findAll()];
-    const { data, setData, loading, error } = useMultiplyDataApi<IProjectListResponse[]>(fetchMethods);
+    const { data, setData, loading, error } = useDataApi(props.fetchMethod);
+
+    const selectable: ISelectable = {
+        Fields: ["id"],
+        OnSelect: (data: any) => {
+            alert(data.id);
+        }
+    }
 
     if (error) {
         dispatch(showAlert({
@@ -48,23 +81,26 @@ const Projects = () => {
         return <div>Loading...</div>
     }
 
-    console.log(data);
-
-    const [projects, universalProjects] = data;
 
     return(
-        <Grid>
-            <DefaultTable 
-                data={projects}
-                isPagination={false}
-                columnTitles={rowHeaders}
-            />
-            <DefaultTable 
-                data={universalProjects}
-                isPagination={false}
-                columnTitles={rowHeaders}
-            />
-        </Grid>
+        <ProjectsBlock container direction="row" justify="center">
+            <ProjectBlock>
+                <ProjectTitleBlock container direction="row" alignContent="center" justify="space-between">
+                    <ProjectTitle>
+                        <Typography>Projects</Typography>
+                    </ProjectTitle>
+                    <AddProject>
+                        <PostAdd />
+                    </AddProject>
+                </ProjectTitleBlock>
+                <DefaultTable 
+                    data={data}
+                    isPagination={false}
+                    columnTitles={rowHeaders}
+                    selectable={selectable}
+                    />
+            </ProjectBlock>
+        </ProjectsBlock>
     );
 }
 

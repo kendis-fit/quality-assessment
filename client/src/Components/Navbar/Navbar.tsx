@@ -4,31 +4,25 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, styled, Grid } from '@material-ui/core';
 import { Redirect, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import { showAlert } from '../../Reducers/Alert/AlertActions';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1
-    },
-    link: {
-        color: "white"
-    }
-  }),
-);
+const LinkBlock = styled(Link)({
+    paddingRight: "20px"
+});
+
+const LinkText = styled(Typography)({
+    color: "white"
+});
+
+const ProfileButton = styled(IconButton)({
+    color: "white"
+});
 
 const Navbar = () => {
-    const classes = useStyles();
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
 
@@ -47,18 +41,27 @@ const Navbar = () => {
     }
 
     return (
-        <div className={classes.root}>
+        <div>
             <AppBar position="static">
                 <Toolbar>
-                    <Link to="/user/projects" className={`${classes.title} ${classes.link}`}>
-                        <Typography variant="h6">Projects</Typography>
-                    </Link>
-                    <Link to="/user/profile" className={classes.link}>
-                        <IconButton color="inherit">
-                            <AccountCircle />
-                        </IconButton>
-                    </Link>
-                    <Button variant="outlined" color="inherit" onClick={() => logOut()}>Log out</Button>
+                    <Grid container direction="row">
+                        <Grid container direction="row" alignContent="center" item xs={11}>
+                            <LinkBlock to="/user/requirements">
+                                <LinkText variant="h6">Requirement Projects</LinkText>
+                            </LinkBlock>
+                            <LinkBlock to="/user/universal-projects">
+                                <LinkText variant="h6">Universal Projects</LinkText>
+                            </LinkBlock>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Link to="/user/profile">
+                                <ProfileButton color="inherit">
+                                    <AccountCircle />
+                                </ProfileButton>
+                            </Link>
+                            <Button variant="outlined" color="inherit" onClick={() => logOut()}>Log out</Button>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
         </div>
