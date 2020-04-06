@@ -67,7 +67,7 @@ const Registration = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
-    if (isRedirect || sessionStorage["token"]) {
+    if (isRedirect || localStorage["token"]) {
         return <Redirect to="/user/projects" />
     }
 
@@ -80,7 +80,7 @@ const Registration = () => {
             onSubmit={async values => {
                 try {
                     const userResponse = await new UserAPI().registration(values);
-                    sessionStorage["token"] = userResponse.token;
+                    localStorage["token"] = userResponse.token;
                     setIsRedirect(true);
                     dispatch(showAlert({
                         open: true,

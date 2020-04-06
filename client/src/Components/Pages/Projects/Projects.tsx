@@ -28,7 +28,7 @@ const rowHeaders = [
 
 const Projects = () => {
     const dispatch = useDispatch();
-    const token = sessionStorage["token"];
+    const token = localStorage["token"];
     const projectApi = new ProjectAPI(token);
     const universalProjectAPI = new UniversalProjectAPI(token);
     const fetchMethods = [projectApi.findAll(), universalProjectAPI.findAll()];
@@ -40,7 +40,9 @@ const Projects = () => {
             color: "error",
             message: error.reason
         }));
-        return <Redirect to="/login" />
+        if (error.redirectToLogin) {
+            return <Redirect to="/login" />
+        }
     }
     if (loading) {
         return <div>Loading...</div>
@@ -49,10 +51,14 @@ const Projects = () => {
     console.log(data);
 
     const [projects, universalProjects] = data;
-    console.log(universalProjects);
 
     return(
         <Grid>
+            <DefaultTable 
+                data={projects}
+                isPagination={false}
+                columnTitles={rowHeaders}
+            />
             <DefaultTable 
                 data={universalProjects}
                 isPagination={false}

@@ -55,6 +55,6 @@ export class ServerError extends Error {
     }
 
     private static destroyToken() {
-        delete sessionStorage["token"];
+        delete localStorage["token"];
     }
 }

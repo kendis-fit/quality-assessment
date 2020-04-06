@@ -33,7 +33,7 @@ const Navbar = () => {
     const [isRedirect, setIsRedirect] = useState(false);
 
     const logOut = () => {
-        delete sessionStorage["token"];
+        delete localStorage["token"];
         setIsRedirect(true);
         dispatch(showAlert({
             open: true,

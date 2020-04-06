@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 }))});
 
 const getApiByType = (isRequirement: boolean, id: number) => {
-    const token = sessionStorage["token"];
+    const token = localStorage["token"];
 
     if (isRequirement) {
         return () => new RequirementAPI(token).findById(id);
