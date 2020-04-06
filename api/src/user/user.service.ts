@@ -31,7 +31,7 @@ export class UserService {
             throw new HttpException({ reason: "Password is invalid" }, HttpStatus.BAD_REQUEST);
         }
 
-        const token = sign({ email: user.email }, this.jwtSecretKey);
+        const token = sign({ email: user.email, id: user.id }, this.jwtSecretKey);
         return new UserResponse({ token });
     }
 
@@ -40,7 +40,7 @@ export class UserService {
             const newUser = new User(user);
             newUser.password = await hash(user.password, await genSalt(10));
             await newUser.save();
-            const token = sign({ email: newUser.email }, this.jwtSecretKey);
+            const token = sign({ email: newUser.email, id: newUser.id }, this.jwtSecretKey);
             return new UserResponse({ token });
         } catch(error) {
             if (error.original.constraint === "user_email_key") {

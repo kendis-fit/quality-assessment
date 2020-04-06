@@ -3,12 +3,11 @@ import { Strategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 
 import { IJwtPayload } from "./jwt.interface";
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UserService } from '../user.service';
 import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly usersService: UserService, private readonly configService: ConfigService) {
+    constructor(private readonly configService: ConfigService) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: configService.JwtSecretKey,
@@ -16,10 +15,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     public async validate(payload: IJwtPayload, done: VerifiedCallback): Promise<void> {
-        const user = await this.usersService.getUserByEmail(payload.email);
-        if (!user) {
+        if (!payload) {
             return done(new HttpException({}, HttpStatus.UNAUTHORIZED), false);
         }
-        return done(null, user, payload.iat);
+        return done(null, { id: payload.id, email: payload.email }, payload.iat);
     }
 }
