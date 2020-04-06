@@ -26,6 +26,7 @@ export class ServerError extends Error {
     }
 
     public static createUnauthorizedError(): ServerError {
+        this.destroyToken();
         const error: ServerError = new ServerError("", {
             redirectToLogin: true,
             reason: "User is unauthorized. Please, sign up to the system"

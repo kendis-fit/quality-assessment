@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Grid, styled, Typography, IconButton } from "@material-ui/core";
+import { Grid, styled, Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from "@material-ui/core";
 
 import DefaultTable from "../../DefaultTable";
-import { useMultiplyDataApi } from "../../../Hooks/useMultiplyDataApi";
-import { ProjectAPI } from "../../../Api/ProjectAPI";
-import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI";
-import { IProjectListResponse } from "../../../Api/ProjectAPI/Interfaces/IProjectListResponse";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { PostAdd } from "@material-ui/icons";
 import { useDataApi } from "../../../Hooks/useDataApi";
@@ -58,6 +54,7 @@ const rowHeaders = [
 
 const Projects = (props: IProject) => {
     const dispatch = useDispatch();
+    const [openModal, setOpenModal] = useState(false);
     const { data, setData, loading, error } = useDataApi(props.fetchMethod);
 
     const selectable: ISelectable = {
@@ -67,12 +64,21 @@ const Projects = (props: IProject) => {
         }
     }
 
+    const handleOpen = () => {
+        setOpenModal(true);
+    }
+
+    const handleClose = () => {
+        setOpenModal(false);
+    }
+
     if (error) {
         dispatch(showAlert({
             open: true,
             color: "error",
             message: error.reason
         }));
+        console.log(error.redirectToLogin);
         if (error.redirectToLogin) {
             return <Redirect to="/login" />
         }
@@ -81,15 +87,15 @@ const Projects = (props: IProject) => {
         return <div>Loading...</div>
     }
 
-
     return(
+        <>
         <ProjectsBlock container direction="row" justify="center">
             <ProjectBlock>
                 <ProjectTitleBlock container direction="row" alignContent="center" justify="space-between">
                     <ProjectTitle>
                         <Typography>Projects</Typography>
                     </ProjectTitle>
-                    <AddProject>
+                    <AddProject onClick={handleOpen}>
                         <PostAdd />
                     </AddProject>
                 </ProjectTitleBlock>
@@ -101,6 +107,25 @@ const Projects = (props: IProject) => {
                     />
             </ProjectBlock>
         </ProjectsBlock>
+        <div>
+            <Dialog open={openModal} onClose={handleClose}>
+                <DialogTitle>Create project</DialogTitle>
+                <DialogContent>
+                <TextField
+                    autoFocus
+                    label="Name"
+                    margin="dense"
+                    type="email"
+                    fullWidth
+                />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">Cancel</Button>
+                    <Button onClick={handleClose} color="primary">Create</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+        </>
     );
 }
 

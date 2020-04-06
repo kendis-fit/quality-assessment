@@ -42,7 +42,7 @@ const getApiByType = (isRequirement: boolean, id: number) => {
     if (isRequirement) {
         return () => new RequirementAPI(token).findById(id);
     } else {
-        return () => new UniversalProjectAPI(token).findById(id);
+        return () => new UniversalProjectAPI().findById(id);
     }
 }
 

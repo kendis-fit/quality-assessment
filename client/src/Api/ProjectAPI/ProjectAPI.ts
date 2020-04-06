@@ -8,7 +8,8 @@ import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
 import { ICreatedProjectResponse } from "./Interfaces/ICreatedProjectResponse";
 
 export class ProjectAPI extends BaseAPI {
-    public constructor(token: string) {
+    public constructor() {
+        const token = localStorage["token"];
         const url = `${process.env.REACT_APP_API}/projects`;
         super(token, url);
     }

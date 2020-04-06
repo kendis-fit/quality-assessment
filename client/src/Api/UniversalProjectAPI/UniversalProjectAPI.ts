@@ -10,7 +10,8 @@ import { IResultIndexResponse } from "../ProjectAPI/Interfaces/IResultIndexRespo
 import { ICreatedProjectResponse } from "../ProjectAPI/Interfaces/ICreatedProjectResponse";
 
 export class UniversalProjectAPI extends BaseAPI {
-    public constructor(token: string) {
+    public constructor() {
+        const token = localStorage["token"];
         const url = `${process.env.REACT_APP_API}/universal-projects`;
         super(token, url);
     }
