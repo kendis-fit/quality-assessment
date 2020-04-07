@@ -8,8 +8,6 @@ import Profile from "./Pages/Profile";
 import Projects from "./Pages/Projects";
 import Registration from "./Pages/Registration";
 import AlertContainer from "./Alert/AlertContainer";
-import { ProjectAPI } from "../Api/ProjectAPI";
-import { UniversalProjectAPI } from "../Api/UniversalProjectAPI";
 
 const App = () => {
     return(
@@ -22,9 +20,8 @@ const App = () => {
             </Switch>
             <Switch>
                 <Route exact path="/user/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
-                <Route exact path="/user/universal-projects" component={() => <Projects fetchMethod={() => new UniversalProjectAPI().findAll()} />} />
+                <Route exact path="/user/projects" component={Projects} />
                 <Route exact path="/user/requirements/:id" />
-                <Route exact path="/user/requirements" component={() => <Projects fetchMethod={() => new ProjectAPI().findAll()}  />}/>
                 <Route exact path="/user/profile" />
             </Switch>
         </BrowserRouter>

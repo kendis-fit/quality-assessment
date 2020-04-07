@@ -46,11 +46,8 @@ const Navbar = () => {
                 <Toolbar>
                     <Grid container direction="row">
                         <Grid container direction="row" alignContent="center" item xs={11}>
-                            <LinkBlock to="/user/requirements">
-                                <LinkText variant="h6">Requirement Projects</LinkText>
-                            </LinkBlock>
-                            <LinkBlock to="/user/universal-projects">
-                                <LinkText variant="h6">Universal Projects</LinkText>
+                            <LinkBlock to="/user/projects">
+                                <LinkText variant="h6">Projects</LinkText>
                             </LinkBlock>
                         </Grid>
                         <Grid item xs={1}>

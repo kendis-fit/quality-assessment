@@ -7,8 +7,12 @@ export class RequirementListView {
 	@ApiProperty()
 	public name: string;
 
-	public constructor({ id, name }: RequirementListView) {
+	@ApiProperty()
+	public createdAt: string;
+
+	public constructor(id: string, name: string, createdAt: Date) {
 		this.id = id;
 		this.name = name;
+		this.createdAt = createdAt.toISOString();
 	}
 }

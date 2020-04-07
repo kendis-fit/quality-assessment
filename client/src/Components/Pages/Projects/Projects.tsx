@@ -8,7 +8,7 @@ import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { PostAdd } from "@material-ui/icons";
 import { useDataApi } from "../../../Hooks/useDataApi";
 import ISelectable from "../../DefaultTable/Interfaces/ISelectable";
-import { IProject } from "./Interfaces/IProject";
+import { ProjectAPI } from "../../../Api/ProjectAPI";
 
 const ProjectsBlock = styled(Grid)({
     padding: "20px",
@@ -52,10 +52,11 @@ const rowHeaders = [
     }
 ]
 
-const Projects = (props: IProject) => {
+const Projects = () => {
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
-    const { data, setData, loading, error } = useDataApi(props.fetchMethod);
+    const api = new ProjectAPI();
+    const { data, setData, loading, error } = useDataApi(() => api.findAll());
 
     const selectable: ISelectable = {
         Fields: ["id"],
@@ -70,6 +71,11 @@ const Projects = (props: IProject) => {
 
     const handleClose = () => {
         setOpenModal(false);
+    }
+
+    const createProject = async () => {
+        const response = await api.create("test", "PROFILE");
+        setData([...data, response]);
     }
 
     if (error) {

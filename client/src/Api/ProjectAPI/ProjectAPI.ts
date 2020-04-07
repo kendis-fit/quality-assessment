@@ -14,18 +14,18 @@ export class ProjectAPI extends BaseAPI {
         super(token, url);
     }
 
-    public create(name: string): Promise<ICreatedProjectResponse> {
-        return new Promise<ICreatedProjectResponse>(async (resolve, reject) => {
+    public create(name: string, typeProfile: string): Promise<IProjectListResponse> {
+        return new Promise<IProjectListResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(this.url, {
                     method: "POST",
-                    body: JSON.stringify({ name }),
+                    body: JSON.stringify({ name, typeProfile }),
                     headers: {
                         "Content-Type": "application/json"
                     }
                 });
                 if (response.ok) {
-                    const result: ICreatedProjectResponse = await response.json();
+                    const result: IProjectListResponse = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));

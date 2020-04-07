@@ -1,7 +1,6 @@
 import { Model, Table, Column, DataType, HasMany, Unique, IsEmail } from "sequelize-typescript";
 
 import { Requirement } from "src/requirement/requirement.entity";
-import { Project } from "src/universal-project/universal-project.entity";
 
 @Table({ tableName: "users" })
 export class User extends Model<User> {
@@ -31,7 +30,4 @@ export class User extends Model<User> {
 
     @HasMany(() => Requirement)
     public requirements: Requirement[];
-
-    @HasMany(() => Project)
-    public projects: Project[];
 }

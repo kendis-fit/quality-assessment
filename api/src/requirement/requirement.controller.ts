@@ -24,7 +24,7 @@ import { CreateRequirement } from "./dto/create-requirement.dto";
 import { RequirementProfile } from "./dto/requirement-profile.dto";
 import { CreatedRequirement } from "./dto/created-requirement.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
-import { ResultIndex } from "src/universal-project/dto/result-index.dto";
+import { ResultIndex } from "src/project/dto/result-index.dto";
 
 @ApiBearerAuth()
 @ApiTags("requirements")

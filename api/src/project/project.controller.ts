@@ -1,14 +1,16 @@
-import { ApiTags, ApiOkResponse, ApiBearerAuth } from "@nestjs/swagger";
-import { Controller, Get, Query, Post, Param, Body, UseGuards, Req } from "@nestjs/common";
+import { ApiTags, ApiOkResponse, ApiBearerAuth, ApiBody } from "@nestjs/swagger";
+import { Controller, Get, Query, Post, Param, Body, UseGuards, Req, Put, Delete } from "@nestjs/common";
 
 import { ProjectService } from "./project.service";
 import { RequirementListView } from "./dto/requirement-list-view.dto";
 import { RequirementView } from "./dto/requirement-view.dto";
-import { CreateRequirement } from "./dto/create-requirement.dto";
+import { CreateProject } from "./dto/create-project.dto";
 import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
-import { ResultIndex } from "src/universal-project/dto/result-index.dto";
+import { RequirementProfile } from "src/requirement/dto/requirement-profile.dto";
+import { ResultIndex } from "src/project/dto/result-index.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { AuthGuard } from "@nestjs/passport";
+import IIndex from "src/requirement/interfaces/index.interface";
 
 @ApiBearerAuth()
 @ApiTags("projects")
@@ -25,13 +27,13 @@ export class ProjectController {
 		@Req() request
 	): Promise<RequirementListView[]> {
 		const projects = await this.projectService.findAll(request.user.id, offset, size);
-		return projects.map(project => new RequirementListView(project));
+		return projects.map(project => new RequirementListView(project.id, project.name, project.createdAt));
 	}
 
 	@ApiOkResponse({ type: RequirementView })
 	@UseGuards(AuthGuard("jwt"))
-	@Get(":id")
-	public async getProjectById(
+	@Get(":id/requirements")
+	public async getProjectByIdWithRequirements(
 		@Param("id") id: string,
 		@Req() request
 	): Promise<RequirementView> {
@@ -39,11 +41,22 @@ export class ProjectController {
 		return new RequirementView(project);
 	}
 
+	@ApiOkResponse({ type: RequirementProfile })
+	@UseGuards(AuthGuard("jwt"))
+	@Get(":id")
+	public async getProjectById(
+		@Param("id") id: string,
+		@Req() request
+	): Promise<RequirementProfile> {
+		const project = await this.projectService.findById(request.user.id, id);
+		return new RequirementProfile(project);
+	}
+
 	@ApiOkResponse({ type: CreatedRequirement })
 	@UseGuards(AuthGuard("jwt"))
 	@Post()
 	public async createProject(
-		@Body() project: CreateRequirement,
+		@Body() project: CreateProject,
 		@Req() request
 	): Promise<CreatedRequirement> {
 		const newProject = await this.projectService.create(request.user.id, project);
@@ -77,5 +90,24 @@ export class ProjectController {
 	): Promise<DiagramProfile[]> {
         const diagram = await this.projectService.generateDiagram(request.user.id, id, nameIndex);
         return diagram;
-    }
+	}
+	
+	@ApiBody({ type: [IIndex] })
+	@ApiOkResponse()
+	@UseGuards(AuthGuard("jwt"))
+	@Put(":id")
+	public async updateProjectById(
+		@Param("id") id: string,
+		@Body() profile: IIndex[],
+		@Req() request
+	) {
+		await this.projectService.updateById(request.user.id, id, profile);
+	}
+
+	@ApiOkResponse()
+	@UseGuards(AuthGuard("jwt"))
+	@Delete(":id")
+	public async deleteProjectById(@Param("id") id: string, @Req() request) {
+		await this.projectService.deleteByid(request.user.id, id);
+	}
 }

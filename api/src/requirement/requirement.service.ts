@@ -93,6 +93,7 @@ export class RequirementService {
 				...requirement,
 				userId,
 				profile,
+				typeProfile: "PROFILE"
 			});
 			await newRequirement.save();
 			await transaction.commit();

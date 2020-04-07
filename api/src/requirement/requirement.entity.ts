@@ -66,4 +66,9 @@ export class Requirement extends Model<Requirement> {
 
 	@BelongsTo(() => User)
 	public user: User;
+
+	@Column({
+		type: DataType.STRING
+	})
+	public typeProfile: string;
 }

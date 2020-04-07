@@ -1,15 +1,16 @@
 import { Sequelize } from "sequelize-typescript";
 import { Injectable, Inject, HttpException, HttpStatus } from "@nestjs/common";
 
-import { BASE_PROFILE } from "src/json/json.providers";
+import { TYPE_PROFILE } from "src/json/json.providers";
 import { SEQUELIZE } from "src/database/database.providers";
 import { DiagramService } from "src/diagram/diagram.service";
 import IIndex from "src/requirement/interfaces/index.interface";
 import { Requirement } from "src/requirement/requirement.entity";
-import { CreateRequirement } from "./dto/create-requirement.dto";
+import { CreateProject } from "./dto/create-project.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { REQUIREMENT_REPOSITORY } from "src/requirement/requirement.providers";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
+import { Profile } from "src/json/profile.enum";
 
 @Injectable()
 export class ProjectService {
@@ -18,8 +19,7 @@ export class ProjectService {
 		private requirements: typeof Requirement,
 		@Inject(SEQUELIZE)
 		private sequelize: Sequelize,
-		@Inject(BASE_PROFILE)
-		private profile: IIndex[],
+		@Inject(TYPE_PROFILE) private getProfile: (prof: Profile) => IIndex[],
 		private calculateProfileService: CalculateProfileService,
 		private diagramService: DiagramService
 	) {}
@@ -56,11 +56,28 @@ export class ProjectService {
 		return requirement;
 	}
 
-	public async create(userId: string, project: CreateRequirement): Promise<Requirement> {
+	public async updateById(userId: string, id: string, profile: IIndex[]) {
+		const project = await this.findById(userId, id);
+		project.profile = profile;
+		await project.save();
+	}
+
+	public async deleteByid(userId: string, id: string) {
+		const project = await this.findById(userId, id);
+		await project.destroy();
+	}
+
+	public async create(userId: string, project: CreateProject): Promise<Requirement> {
+		const profile = this.getProfile(project.typeProfile);
+
+		if (profile.length === 0) {
+			throw new HttpException({}, HttpStatus.BAD_REQUEST);
+		}
+
 		const newProject = new Requirement({
 			...project,
 			userId,
-			profile: [...this.profile],
+			profile: [...profile]
 		});
 		await newProject.save();
 		return newProject;
