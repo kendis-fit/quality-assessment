@@ -4,16 +4,19 @@ import * as math from "mathjs";
 import { Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Grid, FormControl, TextField, FormLabel, Typography } from "@material-ui/core";
+import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled } from "@material-ui/core";
 
 import IMetric from "./Interfaces/IMetric";
 import IProfile from "./Interfaces/IProfile";
+import sizes from "../../../Constants/sizes";
 import IPrimitive from "./Interfaces/IPrimitive";
+import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { useDataApi } from "../../../Hooks/useDataApi";
 import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import { RequirementAPI } from "../../../Api/RequirementAPI";
-import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
+import { IIndex } from "./Interfaces/IIndex";
+import { ServerError } from "../../../Api/Errors/ServerError";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -33,43 +36,61 @@ const schema = yup.object().shape({
             })
             .notRequired()
         }))
+        .test("coefficient test", "Error", (value) => {
+            return true;
+        })
 }))});
 
-const getApiByType = (isRequirement: boolean, id: number) => {
+const ProfileBlock = styled(Grid)({
+    height: `calc(100vh - ${sizes.headerHeight} - 65px)`,
+    marginBottom: "10px",
+    overflow: "auto"
+});
+
+const getApiByType = (isRequirement: boolean) => {
     if (isRequirement) {
-        return () => new RequirementAPI().findById(id);
+        return new RequirementAPI();
     } else {
-        return () => new ProjectAPI().findById(id);
+        return new ProjectAPI();
     }
 }
 
 const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
-    const { data, error, loading } = useDataApi(getApiByType(props.isRequirement, props.match.params.id));
+    const api = getApiByType(props.isRequirement);
+    const { data, error, loading } = useDataApi(() => api.findById(props.match.params.id));
 
-    const CheckPrimitives = (primivies: IPrimitive[]) => primivies.some(primitive => !primitive.value);
+    const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
 
-    const CalculateMetric = (primitive: IPrimitiveMeta): number | null => {
-        const somePrimitiveNull = CheckPrimitives(primitive.primitives);
-        if (somePrimitiveNull) {
+    const calculateMetric = (primitive: IPrimitiveMeta): number | null => {
+        if (checkPrimitives(primitive.primitives)) {
             return null;
         }
-        const variables = primitive.primitives.reduce((obj, item) => Object.assign(obj, { [item.name]: item.value }), {});
+        const variables = primitive.primitives.reduce((obj, item) => Object.assign(obj, { [item.name]: Number.parseFloat(item.value as any) }), {});
         return math.evaluate(primitive.formula, variables);
     }
 
-    const GetValueOfMetric = (metric: IMetric): number | null => {
+    const getValueOfMetric = (metric: IMetric): number | null => {
         if (metric.primitive) {
-            return CalculateMetric(metric.primitive);
+            return calculateMetric(metric.primitive);
         }
         return metric.value;
     }
 
-    if (isRedirect) {
-        return <Redirect to="/login" />
+    const updateProfile = async (values: IIndex[]) => {
+        try {
+            await api.update(props.match.params.id, values);
+        } catch (error) {
+            if (error instanceof ServerError) {
+                dispatch(showAlert({
+                    open: true,
+                    message: error.reason
+                }));
+            }
+        }
     }
-    if (loading) return <div>Loading...</div>
+
     if (error) {
         if (error.redirectToLogin) {
             setIsRedirect(true);
@@ -79,20 +100,25 @@ const Profile = (props: IProfile) => {
             message: error.reason
         }))
     }
-
-    const { profile } = data;
+    
+    if (loading) return <div>Loading...</div>
+    
+    if (isRedirect) {
+        return <Redirect to="/login" />
+    }
 
     return(
         <Formik 
-            initialValues={{ indexes: profile }}
+            initialValues={{ indexes: data.profile }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => updateProfile(values.indexes)}
             >
             {
                 ({ values, handleChange, errors }) => (
                     <Form>
+                        <ProfileBlock>
                         {
                            values.indexes.map((item, indexId) => 
                             <Grid key={indexId}>
@@ -100,6 +126,7 @@ const Profile = (props: IProfile) => {
                                     <FormLabel title={item.nameIndex}>
                                         <Typography>{item.name}</Typography>
                                     </FormLabel>
+                                    <Grid container direction="row">
                                     {
                                         item.coefficients.map((coefficient, coeffId) => 
                                             <FormControl key={coeffId}>
@@ -113,7 +140,7 @@ const Profile = (props: IProfile) => {
                                                             <FormLabel>
                                                                 <Typography>{coefficient.metric.name}</Typography>
                                                             </FormLabel>
-                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={GetValueOfMetric(coefficient.metric)} value={GetValueOfMetric(coefficient.metric)} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
+                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={getValueOfMetric(coefficient.metric)} value={getValueOfMetric(coefficient.metric)} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
                                                         </FormControl>
                                                         {
                                                             coefficient.metric.primitive && <Grid>
@@ -133,10 +160,15 @@ const Profile = (props: IProfile) => {
                                                 }
                                             </FormControl>)
                                     }
+                                    </Grid>
                                 </FormControl>
                             </Grid>
                            ) 
                         }
+                        </ProfileBlock>
+                        <Grid container justify="flex-end">
+                            <Button variant="contained" size="large" color="primary">Save</Button>
+                        </Grid>
                     </Form>
                 )
             }

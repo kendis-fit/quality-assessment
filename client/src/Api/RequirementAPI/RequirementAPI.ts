@@ -107,8 +107,8 @@ export class RequirementAPI extends BaseAPI {
         }); 
     }
 
-    public update(id: number, profile: IIndex[]): Promise<boolean> {
-        return new Promise<boolean>(async (resolve, reject) => {
+    public update(id: number, profile: IIndex[]): Promise<void> {
+        return new Promise<void>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
                     method: "PUT",
@@ -118,7 +118,7 @@ export class RequirementAPI extends BaseAPI {
                     }
                 });
                 if (response.ok) {
-                    resolve(true);
+                    resolve();
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {

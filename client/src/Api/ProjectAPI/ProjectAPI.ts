@@ -6,6 +6,7 @@ import { IProjectListResponse } from "./Interfaces/IProjectListResponse";
 import { IResultIndexResponse } from "./Interfaces/IResultIndexResponse";
 import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
 import { IProfileResponse } from "./Interfaces/IProfileResponse";
+import { IIndex } from "../../Components/Pages/Profile/Interfaces/IIndex";
 
 export class ProjectAPI extends BaseAPI {
     public constructor() {
@@ -78,6 +79,31 @@ export class ProjectAPI extends BaseAPI {
                     const error: ServerError = new ServerError("", result);
                     reject(error);
                 }
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public update(id: number, profile: IIndex[]): Promise<boolean> {
+        return new Promise<boolean>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}`, {
+                    method: "PUT",
+                    body: JSON.stringify(profile),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                if (response.ok) {
+                    resolve(true);
+                } else if (this.isUsualError(response.status)) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                } 
             } catch {
                 reject(ServerError.createInternalError());
             }

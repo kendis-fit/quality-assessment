@@ -58,12 +58,11 @@ const DefaultTable = (props: IDefaultTable) => {
     const [rowsPerPage, setRowsPerPage] = useState(
         isPagination ? 50 : props.data.length
     );
-    //   const [dense, setDense] = React.useState(false);
     const dense = false;
 
     useEffect(() => {
         setRowsPerPage(isPagination ? 50 : props.data.length);
-    });
+    }, [isPagination, props]);
 
     const handleRequestSort = (property: string) => {
         const isAsc = orderBy === property && order === "asc";

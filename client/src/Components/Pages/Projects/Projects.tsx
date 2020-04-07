@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { PostAdd } from "@material-ui/icons";
-import { Grid, styled, Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
+import { Grid, styled, Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
 
 import DefaultTable from "../../DefaultTable";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
@@ -63,13 +63,14 @@ const Projects = () => {
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
+    const [selectedProfile, setSelectedProfile] = useState("");
     const api = new ProjectAPI();
     const { data, setData, loading, error } = useDataApi(() => api.findAll());
 
     const selectable: ISelectable = {
         Fields: ["id"],
         OnSelect: (data: any) => {
-            alert(data.id);
+            setSelectedProfile(data.id);
         }
     }
 
@@ -109,6 +110,10 @@ const Projects = () => {
     
     if (isRedirect) {
         return <Redirect to="/login" />
+    }
+
+    if (selectedProfile) {
+        return <Redirect to={`/user/projects/${selectedProfile}`} />
     }
     
     if (loading) {

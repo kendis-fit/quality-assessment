@@ -19,7 +19,7 @@ const App = () => {
                 <Route path="/user" component={Navbar} />
             </Switch>
             <Switch>
-                <Route exact path="/user/universal-projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
+                <Route exact path="/user/projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
                 <Route exact path="/user/projects" component={Projects} />
                 <Route exact path="/user/requirements/:id" />
                 <Route exact path="/user/profile" />
