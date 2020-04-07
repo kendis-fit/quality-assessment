@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import {
     TableRow,
     TablePagination,
@@ -49,17 +49,21 @@ function stableSort(array: any, comparator: any) {
 
 const DefaultTable = (props: IDefaultTable) => {
     const classes = useStyles();
-    const { columnTitles, data, isPagination } = props;
+    const { columnTitles, isPagination } = props;
 
     const [indexSelected, setIndexSelected] = useState(props.selectable?.DefaultId);
     const [order, setOrder] = useState<"asc" | "desc">("asc");
     const [orderBy, setOrderBy] = useState("");
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(
-        isPagination ? 50 : data.length
+        isPagination ? 50 : props.data.length
     );
     //   const [dense, setDense] = React.useState(false);
     const dense = false;
+
+    useEffect(() => {
+        setRowsPerPage(isPagination ? 50 : props.data.length);
+    });
 
     const handleRequestSort = (property: string) => {
         const isAsc = orderBy === property && order === "asc";
@@ -88,9 +92,8 @@ const DefaultTable = (props: IDefaultTable) => {
             return (
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 50, 100]}
-                    // labelRowsPerPage="Заяв за сторінку"
                     component="div"
-                    count={data.length}
+                    count={props.data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
@@ -101,15 +104,13 @@ const DefaultTable = (props: IDefaultTable) => {
         return null;
     };
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
 
     return (
         <div className={classes.root}>
-            <TableContainer>
+            <TableContainer style={{ height: "740px", overflowY: "auto" }}>
                 <Table
-                    aria-labelledby="tableTitle"
                     size={dense ? "small" : "medium"}
-                    aria-label="enhanced table"
                     stickyHeader
                 >
                     {columnTitles &&
@@ -120,7 +121,7 @@ const DefaultTable = (props: IDefaultTable) => {
                             OnRequestSort={handleRequestSort}
                         />}
                     <TableBody className={props.selectable ? classes.selectedItem : ""}>
-                        {stableSort(data, getComparator(order, orderBy))
+                        {stableSort(props.data, getComparator(order, orderBy))
                             .slice(
                                 page * rowsPerPage,
                                 page * rowsPerPage + rowsPerPage

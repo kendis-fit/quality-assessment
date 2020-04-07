@@ -10,9 +10,13 @@ export class RequirementListView {
 	@ApiProperty()
 	public createdAt: string;
 
-	public constructor(id: string, name: string, createdAt: Date) {
+	@ApiProperty()
+	public typeProfile: string;
+
+	public constructor(id: string, name: string, createdAt: Date, typeProfile: string) {
 		this.id = id;
 		this.name = name;
-		this.createdAt = createdAt.toISOString();
+		this.createdAt = createdAt.toDateString();
+		this.typeProfile = typeProfile;
 	}
 }

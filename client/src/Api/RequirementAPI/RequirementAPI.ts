@@ -4,18 +4,19 @@ import { IIndex } from "../../Components/Pages/Profile/Interfaces/IIndex";
 import { ServerError } from "../Errors/ServerError/ServerError";
 import { IDiagramResponse } from "../ProjectAPI/Interfaces/IDiagramResponse";
 import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
+import { IProfileResponse } from "../ProjectAPI/Interfaces/IProfileResponse";
 import { IResultIndexResponse } from "../ProjectAPI/Interfaces/IResultIndexResponse";
-import { ICreatedProjectResponse } from "../ProjectAPI/Interfaces/ICreatedProjectResponse";
-import { IUniversalProjectResponse } from "../UniversalProjectAPI/Interfaces/IUniversalProjectResponse";
+import { ICreatedRequirementResponse } from "./Interfaces/ICreatedRequirementResponse";
 
 export class RequirementAPI extends BaseAPI {
-    public constructor(token: string) {
+    public constructor() {
+        const token = localStorage["token"];
         const url = `${process.env.REACT_APP_API}/requirements`;
         super(token, url);
     }
 
-    public create(name: string): Promise<ICreatedProjectResponse> {
-        return new Promise<ICreatedProjectResponse>(async (resolve, reject) => {
+    public create(name: string): Promise<ICreatedRequirementResponse> {
+        return new Promise<ICreatedRequirementResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(this.url, {
                     method: "POST",
@@ -25,7 +26,7 @@ export class RequirementAPI extends BaseAPI {
                     }
                 });
                 if (response.ok) {
-                    const result: ICreatedProjectResponse = await response.json();
+                    const result: ICreatedRequirementResponse = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
@@ -40,14 +41,14 @@ export class RequirementAPI extends BaseAPI {
         });
     }
 
-    public findById(id: number): Promise<IUniversalProjectResponse> {    
-        return new Promise<IUniversalProjectResponse>(async (resolve, reject) => {
+    public findById(id: number): Promise<IProfileResponse> {    
+        return new Promise<IProfileResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
                     method: "GET"
                 });
                 if (response.ok) {
-                    const result: IUniversalProjectResponse = await response.json();
+                    const result: IProfileResponse = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));

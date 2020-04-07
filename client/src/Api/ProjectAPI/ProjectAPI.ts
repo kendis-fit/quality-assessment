@@ -5,7 +5,7 @@ import { IDiagramResponse } from "./Interfaces/IDiagramResponse";
 import { IProjectListResponse } from "./Interfaces/IProjectListResponse";
 import { IResultIndexResponse } from "./Interfaces/IResultIndexResponse";
 import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
-import { ICreatedProjectResponse } from "./Interfaces/ICreatedProjectResponse";
+import { IProfileResponse } from "./Interfaces/IProfileResponse";
 
 export class ProjectAPI extends BaseAPI {
     public constructor() {
@@ -62,14 +62,36 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public findById(id: number): Promise<IProjectResponse> {    
+    public findRequirementsById(id: number): Promise<IProjectResponse> {    
         return new Promise<IProjectResponse>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}/requirements`, {
+                    method: "GET"
+                });
+                if (response.ok) {
+                    const result: IProjectResponse = await response.json();
+                    resolve(result);
+                } else if (this.isUsualError(response.status)) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                }
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public findById(id: number): Promise<IProfileResponse> {    
+        return new Promise<IProfileResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
                     method: "GET"
                 });
                 if (response.ok) {
-                    const result: IProjectResponse = await response.json();
+                    const result: IProfileResponse = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));

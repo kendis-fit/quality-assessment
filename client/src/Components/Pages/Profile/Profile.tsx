@@ -12,9 +12,8 @@ import IPrimitive from "./Interfaces/IPrimitive";
 import { useDataApi } from "../../../Hooks/useDataApi";
 import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
 import { RequirementAPI } from "../../../Api/RequirementAPI";
+import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
-import { UniversalProjectAPI } from "../../../Api/UniversalProjectAPI/UniversalProjectAPI";
-import { IUniversalProjectResponse } from "../../../Api/UniversalProjectAPI/Interfaces/IUniversalProjectResponse";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -37,19 +36,17 @@ const schema = yup.object().shape({
 }))});
 
 const getApiByType = (isRequirement: boolean, id: number) => {
-    const token = localStorage["token"];
-
     if (isRequirement) {
-        return () => new RequirementAPI(token).findById(id);
+        return () => new RequirementAPI().findById(id);
     } else {
-        return () => new UniversalProjectAPI().findById(id);
+        return () => new ProjectAPI().findById(id);
     }
 }
 
 const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
-    const { data, error, loading } = useDataApi<IUniversalProjectResponse>(getApiByType(props.isRequirement, props.match.params.id));
     const [isRedirect, setIsRedirect] = useState(false);
+    const { data, error, loading } = useDataApi(getApiByType(props.isRequirement, props.match.params.id));
 
     const CheckPrimitives = (primivies: IPrimitive[]) => primivies.some(primitive => !primitive.value);
 

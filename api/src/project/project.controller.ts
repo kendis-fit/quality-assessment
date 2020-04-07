@@ -27,7 +27,7 @@ export class ProjectController {
 		@Req() request
 	): Promise<RequirementListView[]> {
 		const projects = await this.projectService.findAll(request.user.id, offset, size);
-		return projects.map(project => new RequirementListView(project.id, project.name, project.createdAt));
+		return projects.map(project => new RequirementListView(project.id, project.name, project.createdAt, project.typeProfile));
 	}
 
 	@ApiOkResponse({ type: RequirementView })
@@ -58,9 +58,9 @@ export class ProjectController {
 	public async createProject(
 		@Body() project: CreateProject,
 		@Req() request
-	): Promise<CreatedRequirement> {
+	): Promise<RequirementListView> {
 		const newProject = await this.projectService.create(request.user.id, project);
-		return new CreatedRequirement(newProject);
+		return new RequirementListView(newProject.id, newProject.name, newProject.createdAt, newProject.typeProfile);
 	}
 
 	@ApiOkResponse({ type: ResultIndex })
