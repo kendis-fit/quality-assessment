@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import * as math from "mathjs";
-import { Formik, Form } from "formik";
+import { Formik, Form, getIn } from "formik";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled } from "@material-ui/core";
+import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled, FormHelperText } from "@material-ui/core";
 
 import IMetric from "./Interfaces/IMetric";
 import IProfile from "./Interfaces/IProfile";
@@ -17,6 +17,7 @@ import { RequirementAPI } from "../../../Api/RequirementAPI";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { IIndex } from "./Interfaces/IIndex";
 import { ServerError } from "../../../Api/Errors/ServerError";
+import ICoefficient from "./Interfaces/ICoefficient";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -24,8 +25,7 @@ const schema = yup.object().shape({
             value: yup.number()
                 .required(),
             metric: yup.object({
-                value: yup.number()
-                    .required(),
+                value: yup.number(),
                 primitive: yup.object({
                     primitives: yup.array(yup.object({
                         value: yup.number()
@@ -36,10 +36,11 @@ const schema = yup.object().shape({
             })
             .notRequired()
         }))
-        .test("coefficient test", "Error", (value) => {
-            return true;
+        .test("", "coefficients aren't equal 1", (values: ICoefficient[]) => {
+            return values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) === 1;
         })
-}))});
+    })
+)});
 
 const ProfileBlock = styled(Grid)({
     height: `calc(100vh - ${sizes.headerHeight} - 65px)`,
@@ -116,41 +117,44 @@ const Profile = (props: IProfile) => {
             onSubmit={values => updateProfile(values.indexes)}
             >
             {
-                ({ values, handleChange, errors }) => (
+                ({ values, handleChange, errors, setFieldValue }) => (
                     <Form>
                         <ProfileBlock>
                         {
-                           values.indexes.map((item, indexId) => 
-                            <Grid key={indexId}>
-                                <FormControl>
+                           values.indexes.map((item, indexId) => { 
+                               console.log(getIn(errors, `indexes[${indexId}].coefficients`));
+                                const error = getIn(errors, `indexes[${indexId}].coefficients`);
+                                return <Grid key={indexId}>
+                                <FormControl error={!!error}>
                                     <FormLabel title={item.nameIndex}>
                                         <Typography>{item.name}</Typography>
                                     </FormLabel>
                                     <Grid container direction="row">
                                     {
                                         item.coefficients.map((coefficient, coeffId) => 
-                                            <FormControl key={coeffId}>
+                                            <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].value`)} key={coeffId}>
                                                 <FormLabel>
                                                     <Typography>{coefficient.name}</Typography>
                                                 </FormLabel>
-                                                <TextField defaultValue={coefficient.value} value={coefficient.value} name={`indexes[${indexId}].coefficients[${coeffId}].value`} onChange={handleChange} />
+                                                <TextField value={coefficient.value} name={`indexes[${indexId}].coefficients[${coeffId}].value`} onChange={handleChange} />
                                                 {
                                                     coefficient.metric && <Grid>
-                                                        <FormControl>
+                                                        <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].metric.value`)}>
                                                             <FormLabel>
                                                                 <Typography>{coefficient.metric.name}</Typography>
                                                             </FormLabel>
-                                                            <TextField disabled={!!coefficient.metric.primitive} defaultValue={getValueOfMetric(coefficient.metric)} value={getValueOfMetric(coefficient.metric)} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
+                                                            <TextField disabled={!!coefficient.metric.primitive} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onInput={handleChange} />
+                                                            {/* {setFieldValue(`indexes[${indexId}].coefficients[${coeffId}].metric.value`, coefficient.metric.primitive ? coefficient.metric.value : getValueOfMetric(coefficient.metric))} */}
                                                         </FormControl>
                                                         {
                                                             coefficient.metric.primitive && <Grid>
                                                                 {
                                                                     coefficient.metric.primitive.primitives.map((primitive, primitiveId) =>
-                                                                        <FormControl key={primitiveId}>
+                                                                        <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`)} key={primitiveId}>
                                                                             <FormLabel>
                                                                                 <Typography>{primitive.name}</Typography>
                                                                             </FormLabel>
-                                                                            <TextField defaultValue={primitive.value} value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={handleChange} />
+                                                                            <TextField value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={handleChange} />
                                                                         </FormControl>
                                                                     )
                                                                 }
@@ -161,13 +165,14 @@ const Profile = (props: IProfile) => {
                                             </FormControl>)
                                     }
                                     </Grid>
+                                    <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
-                            </Grid>
+                            </Grid>}
                            ) 
                         }
                         </ProfileBlock>
                         <Grid container justify="flex-end">
-                            <Button variant="contained" size="large" color="primary">Save</Button>
+                            <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
                         </Grid>
                     </Form>
                 )
