@@ -37,7 +37,7 @@ const schema = yup.object().shape({
             .notRequired()
         }))
         .test("", "coefficients aren't equal 1", (values: ICoefficient[]) => {
-            return values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) === 1;
+            return Number.parseInt(values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) as any) === 1;
         })
     })
 )});
@@ -122,7 +122,6 @@ const Profile = (props: IProfile) => {
                         <ProfileBlock>
                         {
                            values.indexes.map((item, indexId) => { 
-                               console.log(getIn(errors, `indexes[${indexId}].coefficients`));
                                 const error = getIn(errors, `indexes[${indexId}].coefficients`);
                                 return <Grid key={indexId}>
                                 <FormControl error={!!error}>
@@ -143,8 +142,7 @@ const Profile = (props: IProfile) => {
                                                             <FormLabel>
                                                                 <Typography>{coefficient.metric.name}</Typography>
                                                             </FormLabel>
-                                                            <TextField disabled={!!coefficient.metric.primitive} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onInput={handleChange} />
-                                                            {/* {setFieldValue(`indexes[${indexId}].coefficients[${coeffId}].metric.value`, coefficient.metric.primitive ? coefficient.metric.value : getValueOfMetric(coefficient.metric))} */}
+                                                            <TextField disabled={!!coefficient.metric.primitive} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
                                                         </FormControl>
                                                         {
                                                             coefficient.metric.primitive && <Grid>
@@ -154,7 +152,17 @@ const Profile = (props: IProfile) => {
                                                                             <FormLabel>
                                                                                 <Typography>{primitive.name}</Typography>
                                                                             </FormLabel>
-                                                                            <TextField value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={handleChange} />
+                                                                            <TextField value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={(e) => {
+                                                                                handleChange(e);
+                                                                                if (coefficient.metric) {
+                                                                                    coefficient.metric.primitive?.primitives.forEach(p => {
+                                                                                        if (p.name === primitive.name) {
+                                                                                            p.value = Number.parseFloat(e.target.value);
+                                                                                        }
+                                                                                    });
+                                                                                    setFieldValue(`indexes[${indexId}].coefficients[${coeffId}].metric.value`, getValueOfMetric(coefficient.metric));
+                                                                                }
+                                                                            }} />
                                                                         </FormControl>
                                                                     )
                                                                 }
