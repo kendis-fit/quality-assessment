@@ -1,9 +1,8 @@
-import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { PostAdd } from "@material-ui/icons";
-import { Grid, styled, Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
+import { Grid, styled, Typography, IconButton } from "@material-ui/core";
 
 import DefaultTable from "../../DefaultTable";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
@@ -12,6 +11,7 @@ import ISelectable from "../../DefaultTable/Interfaces/ISelectable";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { ICreateProject } from "./Interfaces/ICreateProject";
 import { ServerError } from "../../../Api/Errors/ServerError";
+import { CreateProject } from "./CreateProject";
 
 const ProjectsBlock = styled(Grid)({
     padding: "20px",
@@ -122,70 +122,25 @@ const Projects = () => {
 
     return(
         <>
-        <ProjectsBlock container direction="row" justify="center">
-            <ProjectBlock>
-                <ProjectTitleBlock container direction="row" alignContent="center" justify="space-between">
-                    <ProjectTitle>
-                        <Typography>Projects</Typography>
-                    </ProjectTitle>
-                    <AddProject onClick={handleOpen}>
-                        <PostAdd />
-                    </AddProject>
-                </ProjectTitleBlock>
-                <DefaultTable 
-                    data={data}
-                    isPagination={false}
-                    columnTitles={rowHeaders}
-                    selectable={selectable}
-                    />
-            </ProjectBlock>
-        </ProjectsBlock>
-        <div>
-            <Dialog open={openModal} onClose={handleClose}>
-                <DialogTitle>Create project</DialogTitle>
-                <Formik
-                    initialValues={{
-                        name: "",
-                        typeProfile: "BASE_PROFILE"
-                    }}
-                    onSubmit={createProject}
-                    >
-                    {
-                        ({ values, handleChange }) => (
-                            <Form>
-                                <DialogContent>
-                                    <TextField
-                                        autoFocus
-                                        value={values.name}
-                                        onChange={handleChange}
-                                        name="name"
-                                        label="Name"
-                                        margin="dense"
-                                        fullWidth
-                                        />
-                                    <FormControl fullWidth>
-                                        <InputLabel>Type profile</InputLabel>
-                                        <Select
-                                            name="typeProfile"
-                                            value={values.typeProfile}
-                                            onChange={handleChange}
-                                            fullWidth
-                                            >
-                                            <MenuItem value="BASE_PROFILE">Software quality</MenuItem>
-                                            <MenuItem value="UX_PROFILE">UX quality</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={handleClose} color="primary">Cancel</Button>
-                                    <Button type="submit" color="primary">Create</Button>
-                                </DialogActions>
-                            </Form>
-                            )
-                        }
-                </Formik>
-            </Dialog>
-        </div>
+            <ProjectsBlock container direction="row" justify="center">
+                <ProjectBlock>
+                    <ProjectTitleBlock container direction="row" alignContent="center" justify="space-between">
+                        <ProjectTitle>
+                            <Typography>Projects</Typography>
+                        </ProjectTitle>
+                        <AddProject onClick={handleOpen}>
+                            <PostAdd />
+                        </AddProject>
+                    </ProjectTitleBlock>
+                    <DefaultTable 
+                        data={data}
+                        isPagination={false}
+                        columnTitles={rowHeaders}
+                        selectable={selectable}
+                        />
+                </ProjectBlock>
+            </ProjectsBlock>
+            <CreateProject open={openModal} createProject={createProject} handleClose={handleClose} />
         </>
     );
 }

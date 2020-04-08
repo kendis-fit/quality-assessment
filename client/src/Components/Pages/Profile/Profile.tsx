@@ -82,11 +82,17 @@ const Profile = (props: IProfile) => {
     const updateProfile = async (values: IIndex[]) => {
         try {
             await api.update(props.match.params.id, values);
+            dispatch(showAlert({
+                open: true,
+                message: "Project was succefully updated",
+                color: "success"
+            }));
         } catch (error) {
             if (error instanceof ServerError) {
                 dispatch(showAlert({
                     open: true,
-                    message: error.reason
+                    message: error.reason,
+                    color: "error"
                 }));
             }
         }
@@ -172,6 +178,11 @@ const Profile = (props: IProfile) => {
                                                 }
                                             </FormControl>)
                                     }
+                                    </Grid>
+                                    <Grid>
+                                        <Button color="primary">Calculate</Button>
+                                        <Button color="primary">Show chart</Button>
+                                        <Button color="primary">Information</Button>
                                     </Grid>
                                     <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
