@@ -18,7 +18,7 @@ import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { IIndex } from "./Interfaces/IIndex";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import ICoefficient from "./Interfaces/ICoefficient";
-import { DialogResultIndex, DialogInformationIndex } from "./Dialogues";
+import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -61,6 +61,7 @@ const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
     const [nameIndex, setNameIndex] = useState("");
+    const [nameIndexDiagram, setNameIndexDiagram] = useState("");
     const [informationIndex, setInformationIndex] = useState<IIndex>();
     const api = new ProjectAPI();
     const { data, error, loading } = useDataApi(() => api.findById(props.match.params.id));
@@ -97,6 +98,10 @@ const Profile = (props: IProfile) => {
 
     const closeResultModal = () => {
         setNameIndex("");
+    }
+
+    const closeDiagramModal = () => {
+        setNameIndexDiagram("");
     }
 
     const closeInformationModal = () => {
@@ -191,8 +196,8 @@ const Profile = (props: IProfile) => {
                                     </Grid>
                                     <Grid>
                                         <Button color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
-                                        <Button color="primary">Show chart</Button>
-                                        <Button color="primary" onClick={() => setInformationIndex({...item})}>Information</Button>
+                                        <Button color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
+                                        <Button color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
                                     </Grid>
                                     <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
@@ -209,6 +214,9 @@ const Profile = (props: IProfile) => {
         </Formik>
         {
             nameIndex && <DialogResultIndex id={props.match.params.id} nameIndex={nameIndex} handleClose={closeResultModal} />
+        }
+        {
+            nameIndexDiagram && <DialogDiagramIndex id={props.match.params.id} nameIndex={nameIndexDiagram} handleClose={closeDiagramModal} />
         }
         {
             informationIndex && <DialogInformationIndex index={informationIndex} handleClose={closeInformationModal} />

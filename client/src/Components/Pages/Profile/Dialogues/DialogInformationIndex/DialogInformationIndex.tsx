@@ -27,7 +27,7 @@ export const DialogInformationIndex = (props: IDialogInformationIndex) => (
             </Grid>
         </DialogContentText>
         <DialogActions>
-            <Button onClick={props.handleClose} color="primary">Close</Button>
+            <Button onClick={props.handleClose} color="secondary">Close</Button>
         </DialogActions>
     </Dialog>
 );

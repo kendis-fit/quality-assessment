@@ -3,10 +3,10 @@ import { Alert } from "@material-ui/lab";
 import { CircularProgress, DialogTitle, DialogContent, Dialog, DialogActions, TextField, Button } from "@material-ui/core";
 
 import { ProjectAPI } from '../../../../../Api/ProjectAPI';
+import { IDialog } from "../Interfaces/IDialog";
 import { useDataApi } from '../../../../../Hooks/useDataApi';
-import { IDialogResultIndex } from "./Interfaces/IDialogResultIndex";
 
-export const DialogResultIndex = (props: IDialogResultIndex) => {
+export const DialogResultIndex = (props: IDialog) => {
 	const api = new ProjectAPI();
 	const { data, loading, error } = useDataApi(() => api.getResultIndex(props.id, props.nameIndex));
 	
@@ -32,7 +32,7 @@ export const DialogResultIndex = (props: IDialogResultIndex) => {
 				}
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={props.handleClose} color="primary">Close</Button>
+				<Button onClick={props.handleClose} color="secondary">Close</Button>
 			</DialogActions>
 		</Dialog>
 	);

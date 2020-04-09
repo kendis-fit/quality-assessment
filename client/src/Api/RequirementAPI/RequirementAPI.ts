@@ -85,14 +85,14 @@ export class RequirementAPI extends BaseAPI {
         });
     }
 
-    public getDiagram(id: string, nameIndex: string): Promise<IDiagramResponse> {
-        return new Promise<IDiagramResponse>(async (resolve, reject) => {
+    public getDiagram(id: string, nameIndex: string): Promise<IDiagramResponse[]> {
+        return new Promise<IDiagramResponse[]>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}/diagrams/${nameIndex}`, {
                     method: "GET"
                 });
                 if (response.ok) {
-                    const result: IDiagramResponse = await response.json();
+                    const result: IDiagramResponse[] = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
