@@ -1,3 +1,4 @@
 import { DialogResultIndex } from "./DialogResultIndex";
+import { DialogInformationIndex } from "./DialogInformationIndex";
 
-export { DialogResultIndex };
+export { DialogResultIndex, DialogInformationIndex };

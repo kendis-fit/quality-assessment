@@ -18,7 +18,7 @@ import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { IIndex } from "./Interfaces/IIndex";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import ICoefficient from "./Interfaces/ICoefficient";
-import { DialogResultIndex } from "./Dialogues/DialogResultIndex/DialogResultIndex";
+import { DialogResultIndex, DialogInformationIndex } from "./Dialogues";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -61,6 +61,7 @@ const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
     const [nameIndex, setNameIndex] = useState("");
+    const [informationIndex, setInformationIndex] = useState<IIndex>();
     const api = new ProjectAPI();
     const { data, error, loading } = useDataApi(() => api.findById(props.match.params.id));
 
@@ -96,6 +97,10 @@ const Profile = (props: IProfile) => {
 
     const closeResultModal = () => {
         setNameIndex("");
+    }
+
+    const closeInformationModal = () => {
+        setInformationIndex(undefined);
     }
 
     const showError = (error: ServerError) => {
@@ -136,7 +141,7 @@ const Profile = (props: IProfile) => {
                                 const error = getIn(errors, `indexes[${indexId}].coefficients`);
                                 return <Grid key={indexId}>
                                 <FormControl error={!!error}>
-                                    <FormLabel title={item.nameIndex}>
+                                    <FormLabel>
                                         <Typography>{item.name}</Typography>
                                     </FormLabel>
                                     <Grid container direction="row">
@@ -185,9 +190,9 @@ const Profile = (props: IProfile) => {
                                     }
                                     </Grid>
                                     <Grid>
-                                        <Button color="primary" onClick={() => setNameIndex(item.name)} >Calculate</Button>
+                                        <Button color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
                                         <Button color="primary">Show chart</Button>
-                                        <Button color="primary">Information</Button>
+                                        <Button color="primary" onClick={() => setInformationIndex({...item})}>Information</Button>
                                     </Grid>
                                     <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
@@ -204,6 +209,9 @@ const Profile = (props: IProfile) => {
         </Formik>
         {
             nameIndex && <DialogResultIndex id={props.match.params.id} nameIndex={nameIndex} handleClose={closeResultModal} />
+        }
+        {
+            informationIndex && <DialogInformationIndex index={informationIndex} handleClose={closeInformationModal} />
         }
         </>
     );
