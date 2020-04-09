@@ -8,7 +8,7 @@ import IMetric from "src/requirement/interfaces/metric.interface";
 export class CalculateProfileService {
 	public calculate(nameIndex: string, profile: IIndex[]): number {
 		const index = profile.find(index => index.name === nameIndex);
-		if (index === null) {
+		if (!index) {
 			throw RangeError("index is not found");
 		}
 
@@ -17,7 +17,7 @@ export class CalculateProfileService {
 		for (const coefficient of index.coefficients) {
 			if (coefficient.metric) {
 				let metricValue = coefficient.metric.value;
-				if (metricValue === null) {
+				if (!metricValue) {
 					metricValue = this.calculateMetric(coefficient.metric);
 				}
 				result = coefficient.value * metricValue + result;
@@ -34,7 +34,7 @@ export class CalculateProfileService {
 	private calculateMetric(metric: IMetric): number {
 		let result = 0;
 		const primitive = metric.primitive;
-		if (primitive !== null) {
+		if (!primitive) {
 			const variables = primitive.primitives.reduce(
 				(obj, item) => Object.assign(obj, { [item.name]: item.value }),
 				{},

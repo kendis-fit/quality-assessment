@@ -2,7 +2,7 @@ export default interface IProfile {
     isRequirement: boolean;
     match: {
         params: {
-            id: number
+            id: string
         }
     }
 }

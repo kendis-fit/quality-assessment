@@ -41,7 +41,7 @@ export class RequirementAPI extends BaseAPI {
         });
     }
 
-    public findById(id: number): Promise<IProfileResponse> {    
+    public findById(id: string): Promise<IProfileResponse> {    
         return new Promise<IProfileResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
@@ -107,7 +107,7 @@ export class RequirementAPI extends BaseAPI {
         }); 
     }
 
-    public update(id: number, profile: IIndex[]): Promise<void> {
+    public update(id: string, profile: IIndex[]): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {

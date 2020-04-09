@@ -10,7 +10,7 @@ const initialValues: ICreateProject = {
     typeProfile: "BASE_PROFILE"
 }
 
-export const CreateProject = (props: IDialogCreateProject) => (
+export const DialogCreateProject = (props: IDialogCreateProject) => (
     <Dialog open={props.open} onClose={props.handleClose}>
         <DialogTitle>Create project</DialogTitle>
         <Formik

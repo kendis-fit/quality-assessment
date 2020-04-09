@@ -85,7 +85,7 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public update(id: number, profile: IIndex[]): Promise<boolean> {
+    public update(id: string, profile: IIndex[]): Promise<boolean> {
         return new Promise<boolean>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
@@ -110,7 +110,7 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public findById(id: number): Promise<IProfileResponse> {    
+    public findById(id: string): Promise<IProfileResponse> {    
         return new Promise<IProfileResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {

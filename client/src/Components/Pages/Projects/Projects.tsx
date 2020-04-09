@@ -11,7 +11,7 @@ import ISelectable from "../../DefaultTable/Interfaces/ISelectable";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { ICreateProject } from "./Interfaces/ICreateProject";
 import { ServerError } from "../../../Api/Errors/ServerError";
-import { CreateProject } from "./CreateProject";
+import { DialogCreateProject } from "./DialogCreateProject";
 
 const ProjectsBlock = styled(Grid)({
     padding: "20px",
@@ -140,7 +140,7 @@ const Projects = () => {
                         />
                 </ProjectBlock>
             </ProjectsBlock>
-            <CreateProject open={openModal} createProject={createProject} handleClose={handleClose} />
+            <DialogCreateProject open={openModal} createProject={createProject} handleClose={handleClose} />
         </>
     );
 }

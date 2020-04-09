@@ -18,6 +18,7 @@ import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { IIndex } from "./Interfaces/IIndex";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import ICoefficient from "./Interfaces/ICoefficient";
+import { DialogResultIndex } from "./Dialogues/DialogResultIndex/DialogResultIndex";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -59,7 +60,8 @@ const getApiByType = (isRequirement: boolean) => {
 const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
-    const api = getApiByType(props.isRequirement);
+    const [nameIndex, setNameIndex] = useState("");
+    const api = new ProjectAPI();
     const { data, error, loading } = useDataApi(() => api.findById(props.match.params.id));
 
     const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
@@ -88,24 +90,26 @@ const Profile = (props: IProfile) => {
                 color: "success"
             }));
         } catch (error) {
-            if (error instanceof ServerError) {
-                dispatch(showAlert({
-                    open: true,
-                    message: error.reason,
-                    color: "error"
-                }));
-            }
+            showError(error);
         }
     }
 
-    if (error) {
+    const closeResultModal = () => {
+        setNameIndex("");
+    }
+
+    const showError = (error: ServerError) => {
         if (error.redirectToLogin) {
             setIsRedirect(true);
         }
         dispatch(showAlert({
             open: true,
             message: error.reason
-        }))
+        }));
+    }
+
+    if (error) {
+        showError(error);
     }
     
     if (loading) return <div>Loading...</div>
@@ -115,6 +119,7 @@ const Profile = (props: IProfile) => {
     }
 
     return(
+        <>
         <Formik 
             initialValues={{ indexes: data.profile }}
             validateOnChange={false}
@@ -180,7 +185,7 @@ const Profile = (props: IProfile) => {
                                     }
                                     </Grid>
                                     <Grid>
-                                        <Button color="primary">Calculate</Button>
+                                        <Button color="primary" onClick={() => setNameIndex(item.name)} >Calculate</Button>
                                         <Button color="primary">Show chart</Button>
                                         <Button color="primary">Information</Button>
                                     </Grid>
@@ -197,6 +202,10 @@ const Profile = (props: IProfile) => {
                 )
             }
         </Formik>
+        {
+            nameIndex && <DialogResultIndex id={props.match.params.id} nameIndex={nameIndex} handleClose={closeResultModal} />
+        }
+        </>
     );
 }
 

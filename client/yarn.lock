@@ -1435,6 +1435,16 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/chartjs@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/chartjs/-/chartjs-0.0.31.tgz#b16a687eaad3ea3e5cd3e961aee5a28e47b57949"
+  integrity sha512-eF1AgrIO0qP9KJYwM2dTKL2pczTjiLa0hfmZdQfKiqFq5WIvFTKPn1gkgADitF5sT4byEyq4EFdMVvuPIk6zeQ==
+
+"@types/clipboard@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/clipboard/-/clipboard-2.0.1.tgz#75a74086c293d75b12bc93ff13bc7797fef05a40"
+  integrity sha512-gJJX9Jjdt3bIAePQRRjYWG20dIhAgEqonguyHxXuqALxsoDsDLimihqrSg8fXgVTJ4KZCzkfglKtwsh/8dLfbA==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -2804,6 +2814,11 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+chartjs@^0.3.24:
+  version "0.3.24"
+  resolved "https://registry.yarnpkg.com/chartjs/-/chartjs-0.3.24.tgz#3addeb5ae3606b3e89e346c27d52ca158416e93d"
+  integrity sha1-Ot3rWuNgaz6J40bCfVLKFYQW6T0=
 
 chokidar@^2.0.2, chokidar@^2.1.8:
   version "2.1.8"
