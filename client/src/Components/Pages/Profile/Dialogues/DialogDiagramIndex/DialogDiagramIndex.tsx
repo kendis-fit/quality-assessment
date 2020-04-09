@@ -15,28 +15,26 @@ export const DialogDiagramIndex = (props: IDialog) => {
     useEffect(() => {
         if (data && chartRef && chartRef.current) {
             const ctx = chartRef.current.getContext("2d");
-            
             if (ctx) {
-
                 new Chart(ctx, {
                     type: 'radar',
                     data: {
                       labels: data.map(index => index.nameIndex),
                       datasets: [
                         {
-                          label: "1950",
+                          label: `Diagram ${props.nameIndex}`,
                           fill: true,
                           backgroundColor: "rgba(179,181,198,0.2)",
-                          borderColor: "rgba(179,181,198,1)",
+                          borderColor: "#3f51b5",
                           pointBorderColor: "#fff",
-                          pointBackgroundColor: "rgba(179,181,198,1)",
+                          pointBackgroundColor: "#3f51b5",
                           data: data.map(index => index.value)
                         }
                       ]
                     },
                     options: {
                       title: {
-                        display: true,
+                        display: false,
                         text: 'Distribution in % of world population'
                       }
                     }
@@ -44,7 +42,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
             }
         }
 
-    }, [data]);
+    }, [data, chartRef, props]);
 
 	return (
 		<Dialog open={true} onClose={props.handleClose}>
@@ -56,9 +54,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
 				{
 					loading && <CircularProgress size={200} />
 				}
-                {
-                    !loading && !error && data && <canvas width="800" height="600" ref={chartRef}></canvas>
-                }
+                <canvas width="800" height="600" ref={chartRef}></canvas>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color="secondary">Close</Button>

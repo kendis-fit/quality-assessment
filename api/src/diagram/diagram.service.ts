@@ -12,7 +12,7 @@ export class DiagramService {
 
 	public create(nameIndex: string, profile: IIndex[]): DiagramProfile[] {
 		const index = profile.find(index => index.name === nameIndex);
-		if (index === null) {
+		if (!index) {
 			throw RangeError("index is not found");
 		}
 
@@ -20,7 +20,7 @@ export class DiagramService {
 		for (const coefficient of index.coefficients) {
 			let result: DiagramProfile | null = null;
 
-			if (coefficient.metric !== null) {
+			if (coefficient.metric) {
 				result = {
 					nameIndex: `${coefficient.name} (${coefficient.value})`,
 					value: coefficient.value * coefficient.metric.value,
