@@ -11,6 +11,7 @@ import { IRegistration } from "./Interfaces/IRegistration";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import background from "../../../Images/background-registration.jpg";
 import { ServerError } from "../../../Api/Errors/ServerError/ServerError";
+import { Loading } from "../Login/Login";
 
 const initialValues: IRegistration = {
     name: "",
@@ -64,6 +65,7 @@ const Registration = () => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
@@ -79,6 +81,7 @@ const Registration = () => {
             validateOnChange={false}
             onSubmit={async values => {
                 try {
+                    setLoading(true);
                     const userResponse = await new UserAPI().registration(values);
                     localStorage["token"] = userResponse.token;
                     setIsRedirect(true);
@@ -95,6 +98,8 @@ const Registration = () => {
                             message: error.reason
                         }));
                     }
+                } finally {
+                    setLoading(false);
                 }
             }}
             >
@@ -103,6 +108,7 @@ const Registration = () => {
                     <Form className={classes.form}>
                         <Grid className={classes.formContent} alignContent="center" container direction="column">
                             <Typography className={classes.title} align="center">Product Quality Assessment</Typography>
+                            <Loading loading={loading} variant="query" />
                             <TextField 
                                 name="name"
                                 label="Name"

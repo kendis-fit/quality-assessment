@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link,Redirect } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { Grid, Link as LinkComponent, makeStyles, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput } from "@material-ui/core";
+import { Grid, Link as LinkComponent, makeStyles, styled, TextField, Button, Typography, FormControl, InputLabel, InputAdornment, IconButton, FormHelperText, OutlinedInput, LinearProgress } from "@material-ui/core";
 
 import { ILogin } from "./Interfaces/ILogin";
 import { UserAPI } from "../../../Api/UserAPI/UserAPI";
@@ -50,10 +50,15 @@ const useStyles = makeStyles({
     }
 });
 
+export const Loading = styled(LinearProgress)((props: any) => ({
+    marginBottom: "10px",
+    display: props.loading ? "" : "none"
+}));
+
 const Login = () => {
-    
     const classes = useStyles(); 
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
 
@@ -69,6 +74,7 @@ const Login = () => {
             validateOnChange={false}
             onSubmit={async values => {
                 try {
+                    setLoading(true);
                     const userResponse = await new UserAPI().login(values);
                     localStorage["token"] = userResponse.token;
                     setIsRedirect(true);
@@ -85,6 +91,8 @@ const Login = () => {
                             message: error.reason
                         }));
                     }
+                } finally {
+                    setLoading(false);
                 }
             }}
             >
@@ -93,6 +101,7 @@ const Login = () => {
                     <Form className={classes.form}>
                         <Grid className={classes.formContent} alignContent="center" container direction="column">
                             <Typography className={classes.title} align="center">Product Quality Assessment</Typography>
+                            <Loading loading={loading} variant="query" />
                             <TextField 
                                 name="email"
                                 label="Email"

@@ -1,7 +1,7 @@
 import { Chart } from "chart.js";
 import { Alert } from "@material-ui/lab";
 import React, { useRef, useEffect, useState } from "react";
-import { DialogTitle, DialogContent, Dialog, DialogActions, Button, CircularProgress, TextField, Grid, styled } from "@material-ui/core";
+import { DialogTitle, DialogContent, Dialog, DialogActions, Button, CircularProgress, TextField, Grid, styled, Box } from "@material-ui/core";
 
 import { IDialog } from "../Interfaces/IDialog";
 import { ProjectAPI } from '../../../../../Api/ProjectAPI';
@@ -11,6 +11,10 @@ const TextCorrespond = styled(TextField)({
 	margin: "10px",
 	width: "250px"
 });
+
+const ChartBlock = styled(Box)((props: any) => ({
+	display: props.visible ? "" : "none"
+}));
 
 export const DialogDiagramIndex = (props: IDialog) => {
 	const api = new ProjectAPI();
@@ -97,7 +101,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
 				{
 					loading && <CircularProgress size={200} />
 				}
-				<div style={{ display: error ? "none" : "" }}>
+				<ChartBlock visible={!error}>
 					<Grid container direction="row" justify="space-around">
 						<TextCorrespond
 							value={maxCorrespondsRange}
@@ -116,7 +120,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
 							/>
 					</Grid>
                 	<canvas ref={chartRef}></canvas>
-				</div>
+				</ChartBlock>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color="secondary">Close</Button>
