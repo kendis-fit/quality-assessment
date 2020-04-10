@@ -13,16 +13,14 @@ const App = () => {
     return(
         <BrowserRouter>
             <AlertContainer />
-            <Switch>
-                <Route exact path="/registration" component={Registration} />
-                <Route path={["/login", "/"]} component={Login} />
-            </Switch>
             <Route path="/user" component={Navbar} />
             <Switch>
+                <Route exact path="/registration" component={Registration} />
                 <Route exact path="/user/projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
                 <Route exact path="/user/projects" component={Projects} />
                 <Route exact path="/user/requirements/:id" />
                 <Route exact path="/user/profile" />
+                <Route path={["/login", "/"]} component={Login} />
             </Switch>
         </BrowserRouter>
     );

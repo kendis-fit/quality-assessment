@@ -132,7 +132,9 @@ const Login = () => {
                                 <Typography>Sign in</Typography>
                             </Button>
                             <LinkComponent className={classes.link} align="center">
-                                <Link to="/registration">Create an account</Link>
+                                <Link to="/registration">
+                                    <Typography>Create an account</Typography>
+                                </Link>
                             </LinkComponent>
                         </Grid>
                     </Form>

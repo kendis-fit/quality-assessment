@@ -165,7 +165,9 @@ const Registration = () => {
                                 <Typography>Sign up</Typography>
                             </Button>
                             <LinkComponent className={classes.link} align="center">
-                                <Link to="/login">Login</Link>
+                                <Link to="/login">
+                                    <Typography>Login</Typography>
+                                </Link>
                             </LinkComponent>
                         </Grid>
                     </Form>
