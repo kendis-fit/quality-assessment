@@ -6,18 +6,18 @@ import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled, FormHelperText } from "@material-ui/core";
 
-import IMetric from "./Interfaces/IMetric";
 import IProfile from "./Interfaces/IProfile";
 import sizes from "../../../Constants/sizes";
-import IPrimitive from "./Interfaces/IPrimitive";
+import { IIndex } from "./Interfaces/IIndex";
+import { IMetric } from "./Interfaces/IMetric";
+import { IPrimitive } from "./Interfaces/IPrimitive";
+import { ICoefficient } from "./Interfaces/ICoefficient";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { useDataApi } from "../../../Hooks/useDataApi";
-import IPrimitiveMeta from "./Interfaces/IPrimitiveMeta";
+import { IPrimitiveMeta } from "./Interfaces/IPrimitiveMeta";
 import { RequirementAPI } from "../../../Api/RequirementAPI";
-import { showAlert } from "../../../Reducers/Alert/AlertActions";
-import { IIndex } from "./Interfaces/IIndex";
 import { ServerError } from "../../../Api/Errors/ServerError";
-import ICoefficient from "./Interfaces/ICoefficient";
+import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
 
 const schema = yup.object().shape({
@@ -38,7 +38,11 @@ const schema = yup.object().shape({
             .notRequired()
         }))
         .test("", "coefficients aren't equal 1", (values: ICoefficient[]) => {
-            return Number.parseInt(values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) as any) === 1;
+            try {
+                return Number.parseInt(values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) as any) === 1;
+            } catch {
+                return false;
+            }
         })
     })
 )});
@@ -57,7 +61,7 @@ const getApiByType = (isRequirement: boolean) => {
     }
 }
 
-const Profile = (props: IProfile) => {
+export const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
     const [nameIndex, setNameIndex] = useState("");
@@ -114,8 +118,13 @@ const Profile = (props: IProfile) => {
         }
         dispatch(showAlert({
             open: true,
-            message: error.reason
+            message: error.reason,
+            color: "error"
         }));
+    }
+
+    if (isRedirect) {
+        return <Redirect to="/login" />
     }
 
     if (error) {
@@ -124,10 +133,6 @@ const Profile = (props: IProfile) => {
     
     if (loading) return <div>Loading...</div>
     
-    if (isRedirect) {
-        return <Redirect to="/login" />
-    }
-
     return(
         <>
         <Formik 
@@ -224,5 +229,3 @@ const Profile = (props: IProfile) => {
         </>
     );
 }
-
-export default Profile;

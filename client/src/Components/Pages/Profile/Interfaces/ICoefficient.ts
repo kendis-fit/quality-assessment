@@ -1,6 +1,6 @@
-import IMetric from "./IMetric";
+import { IMetric } from "./IMetric";
 
-export default interface ICoefficient {
+export interface ICoefficient {
 	name: string;	
 	nameConnect?: string;
 	value: number | null;

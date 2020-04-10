@@ -3,8 +3,8 @@ import { Alert } from "@material-ui/lab";
 import React, { useRef, useEffect } from "react";
 import { DialogTitle, DialogContent, Dialog, DialogActions, Button, CircularProgress } from "@material-ui/core";
 
-import { ProjectAPI } from '../../../../../Api/ProjectAPI';
 import { IDialog } from "../Interfaces/IDialog";
+import { ProjectAPI } from '../../../../../Api/ProjectAPI';
 import { useDataApi } from '../../../../../Hooks/useDataApi';
 
 export const DialogDiagramIndex = (props: IDialog) => {
@@ -33,7 +33,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
                       ]
                     },
                     options: {
-                      title: {
+                      title: {  
                         display: false,
                         text: 'Distribution in % of world population'
                       }
@@ -54,7 +54,7 @@ export const DialogDiagramIndex = (props: IDialog) => {
 				{
 					loading && <CircularProgress size={200} />
 				}
-                <canvas width="800" height="600" ref={chartRef}></canvas>
+                <canvas style={{ display: error ? "hide" : "" }} width="800" height="600" ref={chartRef}></canvas>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color="secondary">Close</Button>

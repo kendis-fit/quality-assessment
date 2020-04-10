@@ -1,4 +1,4 @@
-import ICoefficient from "./ICoefficient";
+import { ICoefficient } from "./ICoefficient";
 
 export interface IIndex {
 	name: string;

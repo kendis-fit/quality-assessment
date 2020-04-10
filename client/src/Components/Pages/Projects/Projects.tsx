@@ -104,10 +104,6 @@ const Projects = () => {
         }
     }
     
-    if (error) {
-        showError(error);
-    }
-    
     if (isRedirect) {
         return <Redirect to="/login" />
     }
@@ -115,6 +111,11 @@ const Projects = () => {
     if (selectedProfile) {
         return <Redirect to={`/user/projects/${selectedProfile}`} />
     }
+    
+    if (error) {
+        showError(error);
+    }
+    
     
     if (loading) {
         return <div>Loading...</div>

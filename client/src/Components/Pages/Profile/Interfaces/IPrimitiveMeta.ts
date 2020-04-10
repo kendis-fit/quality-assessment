@@ -1,6 +1,6 @@
-import IPrimitive from "./IPrimitive";
+import { IPrimitive } from "./IPrimitive";
 
-export default interface IPrimitiveMeta {
+export interface IPrimitiveMeta {
 	formula: string;
 	primitives: IPrimitive[];
 }
