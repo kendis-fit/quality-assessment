@@ -11,7 +11,8 @@ import { useDispatch } from 'react-redux';
 import { showAlert } from '../../Reducers/Alert/AlertActions';
 
 const LinkBlock = styled(Link)({
-    paddingRight: "20px"
+    paddingRight: "20px",
+    flexGrow: 1
 });
 
 const LinkText = styled(Typography)({
@@ -44,21 +45,15 @@ const Navbar = () => {
         <div>
             <AppBar position="static">
                 <Toolbar>
-                    <Grid container direction="row">
-                        <Grid container direction="row" alignContent="center" item xs={11}>
-                            <LinkBlock to="/user/projects">
-                                <LinkText variant="h6">Projects</LinkText>
-                            </LinkBlock>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Link to="/user/profile">
-                                <ProfileButton color="inherit">
-                                    <AccountCircle />
-                                </ProfileButton>
-                            </Link>
-                            <Button variant="outlined" color="inherit" onClick={() => logOut()}>Log out</Button>
-                        </Grid>
-                    </Grid>
+                    <LinkBlock to="/user/projects">
+                        <LinkText variant="h6">Projects</LinkText>
+                    </LinkBlock>
+                    <Link to="/user/profile">
+                        <ProfileButton color="inherit">
+                            <AccountCircle />
+                        </ProfileButton>
+                    </Link>
+                    <Button variant="outlined" color="inherit" onClick={() => logOut()}>Log out</Button>
                 </Toolbar>
             </AppBar>
         </div>

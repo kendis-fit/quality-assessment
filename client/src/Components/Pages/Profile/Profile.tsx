@@ -47,10 +47,14 @@ const schema = yup.object().shape({
     })
 )});
 
+const ProfileForm = styled(Form)({
+    margin: "10px 10px 0 10px"
+});
+
 const ProfileBlock = styled(Grid)({
     height: `calc(100vh - ${sizes.headerHeight} - 65px)`,
     marginBottom: "10px",
-    overflow: "auto"
+    overflow: "auto",
 });
 
 const getApiByType = (isRequirement: boolean) => {
@@ -144,7 +148,7 @@ export const Profile = (props: IProfile) => {
             >
             {
                 ({ values, handleChange, errors, setFieldValue }) => (
-                    <Form>
+                    <ProfileForm>
                         <ProfileBlock>
                         {
                            values.indexes.map((item, indexId) => { 
@@ -213,7 +217,7 @@ export const Profile = (props: IProfile) => {
                         <Grid container justify="flex-end">
                             <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
                         </Grid>
-                    </Form>
+                    </ProfileForm>
                 )
             }
         </Formik>
