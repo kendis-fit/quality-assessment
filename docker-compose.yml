@@ -6,7 +6,7 @@ services:
             context: client
             dockerfile: Dockerfile.develop
             args: 
-                - REACT_API_APP=http://localhost:5000
+                - REACT_APP_API=http://localhost:5000
         ports:
             - 3000:80
     api:
