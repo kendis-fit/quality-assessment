@@ -12,6 +12,8 @@ import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { AuthGuard } from "@nestjs/passport";
 import IIndex from "src/project/interfaces/index.interface";
 import { CreateRequirement } from "./dto/create-requirement.dto";
+import { CheckProject } from "./dto/check-project.dto";
+import { Profile } from "src/json/profile.enum";
 
 @ApiBearerAuth()
 @ApiTags("projects")
@@ -51,6 +53,14 @@ export class ProjectController {
 	): Promise<RequirementProfile> {
 		const project = await this.projectService.findById(request.user.id, id);
 		return new RequirementProfile(project);
+	}
+
+	@ApiOkResponse({ type: CheckProject })
+	@UseGuards(AuthGuard("jwt"))
+	@Get(":id/is-multiple")
+	public async isProjectMultiple(@Param("id")id: string, @Req() request): Promise<CheckProject> {
+		const project = await this.projectService.findById(request.user.id, id);
+		return new CheckProject({ isMultiple: project.typeProfile === Profile.BASE_PROFILE });
 	}
 
 	@ApiOkResponse({ type: RequirementListView })

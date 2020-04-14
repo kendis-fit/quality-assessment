@@ -5,6 +5,6 @@ import { IProjectResponse } from "../../../../Api/ProjectAPI/Interfaces/IProject
 
 export const Requirement = (nodes: IProjectResponse) => (
     <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
-        {Array.isArray(nodes.children) ? nodes.children.map((node) => Requirement(node)) : null}
+        {Array.isArray(nodes.requirements) ? nodes.requirements.map((node) => Requirement(node)) : null}
     </TreeItem>
 );

@@ -1,5 +1,6 @@
 import { BaseAPI } from "../BaseAPI";
 import { ServerError } from "../Errors/ServerError";
+import { ICheckProject } from "./Interfaces/ICheckProject";
 import { IProjectResponse } from "./Interfaces/IProjectResponse";
 import { IDiagramResponse } from "./Interfaces/IDiagramResponse";
 import { IProfileResponse } from "./Interfaces/IProfileResponse";
@@ -76,6 +77,28 @@ export class ProjectAPI extends BaseAPI {
                 });
                 if (response.ok) {
                     const result: IProjectListResponse[] = await response.json();
+                    resolve(result);
+                } else if (this.isUsualError(response.status)) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                }
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public checkProject(id: string): Promise<ICheckProject> {    
+        return new Promise<ICheckProject>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}/is-multiple`, {
+                    method: "GET"
+                });
+                if (response.ok) {
+                    const result: ICheckProject = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));

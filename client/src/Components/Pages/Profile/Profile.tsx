@@ -47,7 +47,7 @@ const schema = yup.object().shape({
 )});
 
 const ProfileForm = styled(Form)({
-    margin: "10px 10px 0 10px"
+    margin: "10px 10px 0 10px",
 });
 
 const ProfileBlock = styled(Grid)({

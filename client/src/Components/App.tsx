@@ -5,7 +5,7 @@ import "../root.css";
 import Login from "./Pages/Login";
 import Navbar from "./Navbar/Navbar";
 import Projects from "./Pages/Projects";
-import { Profile } from "./Pages/Profile";
+import { PreProfile } from "./Pages/Profile";
 import Registration from "./Pages/Registration";
 import AlertContainer from "./Alert/AlertContainer";
 
@@ -16,7 +16,7 @@ export const App = () => {
             <Route path="/user" component={Navbar} />
             <Switch>
                 <Route exact path="/registration" component={Registration} />
-                <Route exact path="/user/projects/:id" render={props => <Profile id={props.match.params.id} />} />
+                <Route exact path="/user/projects/:id" render={props => <PreProfile id={props.match.params.id} />} />
                 <Route exact path="/user/projects" component={Projects} />
                 <Route exact path="/user/requirements/:id" />
                 <Route exact path="/user/profile" />
