@@ -1,4 +1,4 @@
-import IIndex from "../requirement/interfaces/index.interface";
+import IIndex from "../project/interfaces/index.interface";
 
 export const profile: IIndex[] = [
 	{

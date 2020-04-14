@@ -6,7 +6,7 @@ import { TYPE_PROFILE, PROFILE } from "src/json/json.providers";
 import { CreateProject } from "./dto/create-project.dto";
 import { SEQUELIZE } from "src/database/database.providers";
 import { DiagramService } from "src/diagram/diagram.service";
-import IIndex from "src/requirement/interfaces/index.interface";
+import IIndex from "src/project/interfaces/index.interface";
 import { Requirement } from "src/requirement/requirement.entity";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";

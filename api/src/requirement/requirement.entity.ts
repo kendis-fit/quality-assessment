@@ -10,7 +10,7 @@ import {
 	UpdatedAt,
 } from "sequelize-typescript";
 
-import IIndex from "./interfaces/index.interface";
+import IIndex from "../project/interfaces/index.interface";
 import { User } from "src/user/user.entity";
 
 @Table({ tableName: "requirements" })

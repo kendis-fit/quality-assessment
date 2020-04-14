@@ -1,8 +1,8 @@
 import math from "mathjs";
 import { Injectable } from "@nestjs/common";
 
-import IIndex from "src/requirement/interfaces/index.interface";
-import IMetric from "src/requirement/interfaces/metric.interface";
+import IIndex from "src/project/interfaces/index.interface";
+import IMetric from "src/project/interfaces/metric.interface";
 
 @Injectable()
 export class CalculateProfileService {

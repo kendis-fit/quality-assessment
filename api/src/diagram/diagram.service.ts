@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { DiagramProfile } from "./dto/diagram-profile.dto";
-import IIndex from "src/requirement/interfaces/index.interface";
+import IIndex from "src/project/interfaces/index.interface";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
 
 @Injectable()

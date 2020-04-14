@@ -6,11 +6,11 @@ import { RequirementListView } from "./dto/requirement-list-view.dto";
 import { RequirementView } from "./dto/requirement-view.dto";
 import { CreateProject } from "./dto/create-project.dto";
 import { CreatedRequirement } from "src/project/dto/created-requirement.dto";
-import { RequirementProfile } from "src/requirement/dto/requirement-profile.dto";
+import { RequirementProfile } from "src/project/dto/requirement-profile.dto";
 import { ResultIndex } from "src/project/dto/result-index.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { AuthGuard } from "@nestjs/passport";
-import IIndex from "src/requirement/interfaces/index.interface";
+import IIndex from "src/project/interfaces/index.interface";
 import { CreateRequirement } from "./dto/create-requirement.dto";
 
 @ApiBearerAuth()
