@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled, FormHelperText } from "@material-ui/core";
 
-import IProfile from "./Interfaces/IProfile";
 import sizes from "../../../Constants/sizes";
 import { IIndex } from "./Interfaces/IIndex";
 import { IMetric } from "./Interfaces/IMetric";
+import { IProfile } from "./Interfaces/IProfile";
 import { IPrimitive } from "./Interfaces/IPrimitive";
-import { ICoefficient } from "./Interfaces/ICoefficient";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { useDataApi } from "../../../Hooks/useDataApi";
+import { ICoefficient } from "./Interfaces/ICoefficient";
 import { IPrimitiveMeta } from "./Interfaces/IPrimitiveMeta";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
@@ -63,7 +63,7 @@ export const Profile = (props: IProfile) => {
     const [nameIndexDiagram, setNameIndexDiagram] = useState("");
     const [informationIndex, setInformationIndex] = useState<IIndex>();
     const api = new ProjectAPI();
-    const { data, error, loading } = useDataApi(() => api.findById(props.match.params.id));
+    const { data, error, loading } = useDataApi(() => api.findById(props.id));
 
     const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
 
@@ -84,7 +84,7 @@ export const Profile = (props: IProfile) => {
 
     const updateProfile = async (values: IIndex[]) => {
         try {
-            await api.update(props.match.params.id, values);
+            await api.update(props.id, values);
             dispatch(showAlert({
                 open: true,
                 message: "Project was succefully updated",
@@ -213,10 +213,10 @@ export const Profile = (props: IProfile) => {
             }
         </Formik>
         {
-            nameIndex && <DialogResultIndex id={props.match.params.id} nameIndex={nameIndex} handleClose={closeResultModal} />
+            nameIndex && <DialogResultIndex id={props.id} nameIndex={nameIndex} handleClose={closeResultModal} />
         }
         {
-            nameIndexDiagram && <DialogDiagramIndex id={props.match.params.id} nameIndex={nameIndexDiagram} handleClose={closeDiagramModal} />
+            nameIndexDiagram && <DialogDiagramIndex id={props.id} nameIndex={nameIndexDiagram} handleClose={closeDiagramModal} />
         }
         {
             informationIndex && <DialogInformationIndex index={informationIndex} handleClose={closeInformationModal} />

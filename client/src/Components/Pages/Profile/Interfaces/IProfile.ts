@@ -1,8 +1,3 @@
-export default interface IProfile {
-    isRequirement: boolean;
-    match: {
-        params: {
-            id: string
-        }
-    }
+export interface IProfile {
+    id: string;
 }

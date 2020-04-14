@@ -1,6 +1,5 @@
 export interface IProjectResponse {
-    id: number;
+    id: string;
     name: string;
-    parentId: string | null;
-    requirements: IProjectResponse[];
+    children: IProjectResponse[];
 }

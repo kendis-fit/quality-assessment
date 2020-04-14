@@ -16,7 +16,7 @@ export const App = () => {
             <Route path="/user" component={Navbar} />
             <Switch>
                 <Route exact path="/registration" component={Registration} />
-                <Route exact path="/user/projects/:id" render={props => <Profile {...props} isRequirement={false} />} />
+                <Route exact path="/user/projects/:id" render={props => <Profile id={props.match.params.id} />} />
                 <Route exact path="/user/projects" component={Projects} />
                 <Route exact path="/user/requirements/:id" />
                 <Route exact path="/user/profile" />

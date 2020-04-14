@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { Redirect, Link } from 'react-router-dom';
+import { Button, styled } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Button, styled, Grid } from '@material-ui/core';
-import { Redirect, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { showAlert } from '../../Reducers/Alert/AlertActions';
 

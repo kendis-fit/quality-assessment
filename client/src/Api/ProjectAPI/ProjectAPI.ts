@@ -90,7 +90,7 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public findRequirementsById(id: number): Promise<IProjectResponse> {    
+    public findRequirementsById(id: string): Promise<IProjectResponse> {    
         return new Promise<IProjectResponse>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}/requirements`, {
