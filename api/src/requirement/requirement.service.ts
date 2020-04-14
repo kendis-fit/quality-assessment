@@ -7,7 +7,7 @@ import { PROFILE } from "src/json/json.providers";
 import { Requirement } from "./requirement.entity";
 import { SEQUELIZE } from "src/database/database.providers";
 import { DiagramService } from "src/diagram/diagram.service";
-import { CreateRequirement } from "./dto/create-requirement.dto";
+import { CreateRequirement } from "../project/dto/create-requirement.dto";
 import { REQUIREMENT_REPOSITORY } from "./requirement.providers";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";

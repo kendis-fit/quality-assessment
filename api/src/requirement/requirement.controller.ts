@@ -20,9 +20,9 @@ import { AuthGuard } from "@nestjs/passport";
 
 import IIndex from "./interfaces/index.interface";
 import { RequirementService } from "./requirement.service";
-import { CreateRequirement } from "./dto/create-requirement.dto";
+import { CreateRequirement } from "../project/dto/create-requirement.dto";
 import { RequirementProfile } from "./dto/requirement-profile.dto";
-import { CreatedRequirement } from "./dto/created-requirement.dto";
+import { CreatedRequirement } from "../project/dto/created-requirement.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { ResultIndex } from "src/project/dto/result-index.dto";
 

@@ -5,12 +5,13 @@ import { ProjectService } from "./project.service";
 import { RequirementListView } from "./dto/requirement-list-view.dto";
 import { RequirementView } from "./dto/requirement-view.dto";
 import { CreateProject } from "./dto/create-project.dto";
-import { CreatedRequirement } from "src/requirement/dto/created-requirement.dto";
+import { CreatedRequirement } from "src/project/dto/created-requirement.dto";
 import { RequirementProfile } from "src/requirement/dto/requirement-profile.dto";
 import { ResultIndex } from "src/project/dto/result-index.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { AuthGuard } from "@nestjs/passport";
 import IIndex from "src/requirement/interfaces/index.interface";
+import { CreateRequirement } from "./dto/create-requirement.dto";
 
 @ApiBearerAuth()
 @ApiTags("projects")
@@ -52,7 +53,7 @@ export class ProjectController {
 		return new RequirementProfile(project);
 	}
 
-	@ApiOkResponse({ type: CreatedRequirement })
+	@ApiOkResponse({ type: RequirementListView })
 	@UseGuards(AuthGuard("jwt"))
 	@Post()
 	public async createProject(
@@ -61,6 +62,17 @@ export class ProjectController {
 	): Promise<RequirementListView> {
 		const newProject = await this.projectService.create(request.user.id, project);
 		return new RequirementListView(newProject.id, newProject.name, newProject.createdAt, newProject.typeProfile);
+	}
+
+	@ApiOkResponse({ type: CreatedRequirement })
+	@UseGuards(AuthGuard("jwt"))
+	@Post("/requirements")
+	public async createRequirement(
+		@Body() project: CreateRequirement,
+		@Req() request
+	): Promise<CreatedRequirement> {
+		const newProject = await this.projectService.createRequirement(request.user.id, project);
+		return new CreatedRequirement(newProject);
 	}
 
 	@ApiOkResponse({ type: ResultIndex })

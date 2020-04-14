@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-import IIndex from "../interfaces/index.interface";
+import IIndex from "../../requirement/interfaces/index.interface";
 
 export class CreatedRequirement {
 	@ApiProperty()
