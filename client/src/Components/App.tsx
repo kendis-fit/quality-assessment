@@ -9,7 +9,7 @@ import { Profile } from "./Pages/Profile";
 import Registration from "./Pages/Registration";
 import AlertContainer from "./Alert/AlertContainer";
 
-const App = () => {
+export const App = () => {
     return(
         <BrowserRouter>
             <AlertContainer />
@@ -25,5 +25,3 @@ const App = () => {
         </BrowserRouter>
     );
 }
-
-export default App;

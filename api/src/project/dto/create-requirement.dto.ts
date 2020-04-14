@@ -4,11 +4,7 @@ export class CreateRequirement {
 	@ApiProperty()
 	public name: string;
 
-	@ApiProperty()
-	public parentId: string;
-
-	public constructor({ name, parentId }: CreateRequirement) {
+	public constructor({ name }: CreateRequirement) {
 		this.name = name;
-		this.parentId = parentId;
 	}
 }

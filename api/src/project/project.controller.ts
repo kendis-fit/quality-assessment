@@ -66,12 +66,13 @@ export class ProjectController {
 
 	@ApiOkResponse({ type: CreatedRequirement })
 	@UseGuards(AuthGuard("jwt"))
-	@Post("/requirements")
+	@Post(":id/requirements")
 	public async createRequirement(
+		@Param("id") id: string,
 		@Body() project: CreateRequirement,
 		@Req() request
 	): Promise<CreatedRequirement> {
-		const newProject = await this.projectService.createRequirement(request.user.id, project);
+		const newProject = await this.projectService.createRequirement(request.user.id, id, project);
 		return new CreatedRequirement(newProject);
 	}
 

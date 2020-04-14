@@ -2,11 +2,12 @@ import { BaseAPI } from "../BaseAPI";
 import { ServerError } from "../Errors/ServerError";
 import { IProjectResponse } from "./Interfaces/IProjectResponse";
 import { IDiagramResponse } from "./Interfaces/IDiagramResponse";
+import { IProfileResponse } from "./Interfaces/IProfileResponse";
 import { IProjectListResponse } from "./Interfaces/IProjectListResponse";
 import { IResultIndexResponse } from "./Interfaces/IResultIndexResponse";
-import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
-import { IProfileResponse } from "./Interfaces/IProfileResponse";
 import { IIndex } from "../../Components/Pages/Profile/Interfaces/IIndex";
+import { IServerError } from "../Errors/ServerError/Interfaces/IServerError";
+import { ICreatedRequirementResponse } from "./Interfaces/ICreatedRequirementResponse";
 
 export class ProjectAPI extends BaseAPI {
     public constructor() {
@@ -27,6 +28,32 @@ export class ProjectAPI extends BaseAPI {
                 });
                 if (response.ok) {
                     const result: IProjectListResponse = await response.json();
+                    resolve(result);
+                } else if (this.isUsualError(response.status)) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                }
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public createRequirement(id: string, name: string): Promise<ICreatedRequirementResponse> {
+        return new Promise<ICreatedRequirementResponse>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}/requirements`, {
+                    method: "POST",
+                    body: JSON.stringify({ name }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                if (response.ok) {
+                    const result: ICreatedRequirementResponse = await response.json();
                     resolve(result);
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
@@ -85,8 +112,8 @@ export class ProjectAPI extends BaseAPI {
         });
     }
 
-    public update(id: string, profile: IIndex[]): Promise<boolean> {
-        return new Promise<boolean>(async (resolve, reject) => {
+    public update(id: string, profile: IIndex[]): Promise<void> {
+        return new Promise<void>(async (resolve, reject) => {
             try {
                 const response = await this.fetch(`${this.url}/${id}`, {
                     method: "PUT",
@@ -96,7 +123,28 @@ export class ProjectAPI extends BaseAPI {
                     }
                 });
                 if (response.ok) {
-                    resolve(true);
+                    resolve();
+                } else if (this.isUsualError(response.status)) {
+                    reject(ServerError.createError(response.status));
+                } else {
+                    const result: IServerError = await response.json();
+                    const error: ServerError = new ServerError("", result);
+                    reject(error);
+                } 
+            } catch {
+                reject(ServerError.createInternalError());
+            }
+        });
+    }
+
+    public deleteById(id: string): Promise<void> {
+        return new Promise<void>(async (resolve, reject) => {
+            try {
+                const response = await this.fetch(`${this.url}/${id}`, {
+                    method: "DELETE",
+                });
+                if (response.ok) {
+                    resolve();
                 } else if (this.isUsualError(response.status)) {
                     reject(ServerError.createError(response.status));
                 } else {

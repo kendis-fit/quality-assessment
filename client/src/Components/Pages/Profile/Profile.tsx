@@ -15,7 +15,6 @@ import { ICoefficient } from "./Interfaces/ICoefficient";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
 import { useDataApi } from "../../../Hooks/useDataApi";
 import { IPrimitiveMeta } from "./Interfaces/IPrimitiveMeta";
-import { RequirementAPI } from "../../../Api/RequirementAPI";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
@@ -56,14 +55,6 @@ const ProfileBlock = styled(Grid)({
     marginBottom: "10px",
     overflow: "auto",
 });
-
-const getApiByType = (isRequirement: boolean) => {
-    if (isRequirement) {
-        return new RequirementAPI();
-    } else {
-        return new ProjectAPI();
-    }
-}
 
 export const Profile = (props: IProfile) => {
     const dispatch = useDispatch();

@@ -108,11 +108,11 @@ export class ProjectService {
 		return newProject;
 	}
 
-	public async createRequirement(userId: string, requirement: CreateRequirement): Promise<Requirement> {
+	public async createRequirement(userId: string, id: string, requirement: CreateRequirement): Promise<Requirement> {
 		const transaction = await this.sequelize.transaction();
 
 		try {
-			const parentRequirement = await this.findById(userId, requirement.parentId);
+			const parentRequirement = await this.findById(userId, id);
 
 			let profile: IIndex[] = null;
 
