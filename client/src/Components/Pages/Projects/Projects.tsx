@@ -35,7 +35,6 @@ const ProjectTitle = styled(Grid)({
 });
 
 const AddProject = styled(IconButton)({
-    marginLeft: "25px",
     color: "white"
 });
 
@@ -61,6 +60,7 @@ const rowHeaders = [
 
 const Projects = () => {
     const dispatch = useDispatch();
+    const [searchProject, setSearchProject] = useState("");
     const [openModal, setOpenModal] = useState(false);
     const [isRedirect, setIsRedirect] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState("");
@@ -129,12 +129,19 @@ const Projects = () => {
                         <ProjectTitle>
                             <Typography>Projects</Typography>
                         </ProjectTitle>
-                        <AddProject onClick={handleOpen}>
-                            <PostAdd />
-                        </AddProject>
+                        <div>
+                            <input
+                                value={searchProject}
+                                onChange={e => setSearchProject(e.target.value)}
+                                placeholder="find a project..."
+                                />
+                            <AddProject onClick={handleOpen}>
+                                <PostAdd />
+                            </AddProject>
+                        </div>
                     </ProjectTitleBlock>
                     <DefaultTable 
-                        data={data}
+                        data={data.filter(item => item.name.includes(searchProject))}
                         isPagination={false}
                         columnTitles={rowHeaders}
                         selectable={selectable}
