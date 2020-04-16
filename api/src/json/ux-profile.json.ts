@@ -77,21 +77,16 @@ export const uxProfile: IIndex[] = [
 				value: null,
 				metric: {
 					name: "IM2",
-					nameMetric: "GLE",
+					nameMetric: "SSGF",
 					value: null,
-					description: "general level of excitation",
+					description: "(speed of search of goal in fixations)",
 					primitive: {
-						formula: "AF / AT",
+						formula: "1 / (F + 1)",
 						primitives: [
 							{
-								name: "AF",
+								name: "F",
 								value: null,
-								description: "общее количество фиксаций",
-							},
-							{
-								name: "AT",
-								value: null,
-								description: "общее время",
+								description: "количество фиксаций до первой фиксации в области интереса",
 							},
 						],
 					},
@@ -102,22 +97,17 @@ export const uxProfile: IIndex[] = [
 				value: null,
 				metric: {
 					name: "IM3",
-					nameMetric: "LEAI",
+					nameMetric: "SSGT",
 					value: null,
-					description: "level of excitation in area of interest",
+					description: "(speed of search of goal in time)",
 					primitive: {
-						formula: "IF / (IT + 1)",
+						formula: "1 / (T + 1)",
 						primitives: [
 							{
-								name: "IF",
+								name: "T",
 								value: null,
 								description:
-									"количество фиксация в области интереса",
-							},
-							{
-								name: "IT",
-								value: null,
-								description: "время в области интереса",
+									"время до первой фиксации в области интереса",
 							},
 						],
 					},
@@ -338,7 +328,7 @@ export const uxProfile: IIndex[] = [
 					value: null,
 					description: "cognitive processing speed",
 					primitive: {
-						formula: "AT / AF",
+						formula: "AT / (AF + AT)",
 						primitives: [
 							{
 								name: "AT",
@@ -370,7 +360,7 @@ export const uxProfile: IIndex[] = [
 					value: null,
 					description: "general level of excitation",
 					primitive: {
-						formula: "AF / AT",
+						formula: "AF / (AT + AF)",
 						primitives: [
 							{
 								name: "AF",
