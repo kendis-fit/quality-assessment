@@ -97,6 +97,12 @@ const Projects = () => {
         try {
             const response = await api.create(name, typeProfile);
             setData([...data, response]);
+            dispatch(showAlert({
+                open: true,
+                color: "success",
+                message: `Project ${name} was created`
+            }));
+            setSearchProject(name);
         } catch (error) {
             showError(error);
         } finally {
@@ -131,6 +137,7 @@ const Projects = () => {
                         </ProjectTitle>
                         <div>
                             <input
+                                style={{ width: "200px" }}
                                 value={searchProject}
                                 onChange={e => setSearchProject(e.target.value)}
                                 placeholder="find a project..."
