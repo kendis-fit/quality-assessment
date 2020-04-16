@@ -38,8 +38,9 @@ export const DialogCreateProject = (props: IDialogCreateProject) => (
                                     onChange={handleChange}
                                     fullWidth
                                     >
-                                    <MenuItem value="BASE_PROFILE">Software quality</MenuItem>
-                                    <MenuItem value="UX_PROFILE">UX quality</MenuItem>
+                                    <MenuItem value="BASE_PROFILE">Software requirements profile assessment</MenuItem>
+                                    <MenuItem value="UX_PROFILE">Human-computer interaction usability integrative quality</MenuItem>
+                                    <MenuItem value="VERBAL_PROFILE">Human-computer interaction usability verbal quality assessment</MenuItem>
                                 </Select>
                             </FormControl>
                         </DialogContent>

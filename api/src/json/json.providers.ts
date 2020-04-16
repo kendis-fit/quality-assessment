@@ -1,12 +1,14 @@
 import { profile } from "./profile.json";
+import { Profile } from "./profile.enum.js";
 import { uxProfile } from "./ux-profile.json.js";
 import { baseProfile } from "./base-profile.json.js";
-import { Profile } from "./profile.enum.js";
+import { verbalProfile } from "./verbal-profile.json";
 
 export const PROFILE = "PROFILE";
 export const UX_PROFILE = "UX_PROFILE";
 export const BASE_PROFILE = "BASE_PROFILE";
 export const TYPE_PROFILE = "TYPE_PROFILE";
+export const VERBAL_PROFILE = "VERBAL_PROFILE";
 
 export const jsonProviders = [
 	{
@@ -22,6 +24,10 @@ export const jsonProviders = [
 		useValue: baseProfile,
 	},
 	{
+		provide: VERBAL_PROFILE,
+		useValue: verbalProfile
+	},
+	{
 		provide: TYPE_PROFILE,
 		useValue: (prof: Profile) => {
 			switch (prof) {
@@ -31,6 +37,8 @@ export const jsonProviders = [
 					return uxProfile;
 				case BASE_PROFILE:
 					return baseProfile;
+				case VERBAL_PROFILE:
+					return verbalProfile;
 				default:
 					return [];
 			}
