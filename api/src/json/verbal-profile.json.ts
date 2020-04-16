@@ -52,10 +52,10 @@ export const verbalProfile: IIndex[] = [
                     value: null,
                     description: "negative feedbacks",
                     primitive: {
-                        formula: "1 / (СNF + 1)",
+                        formula: "1 / (CNF + 1)",
                         primitives: [
                             {
-                                name: "СNF",
+                                name: "CNF",
                                 description: "количество отрицательных отзывов респондентов",
                                 value: null
                             }
