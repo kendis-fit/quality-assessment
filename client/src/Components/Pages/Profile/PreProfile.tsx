@@ -34,7 +34,7 @@ export const PreProfile = (props: IProfile) => {
     return(
         <>
             {
-                data.isMultiple ? <Grid container direction="row" wrap="nowrap" >
+                data.isMultiple ? <Grid container direction="row" wrap="nowrap">
                     <TreeRequirements id={props.id} />
                     <Profile id={props.id} />
                 </Grid> : <Profile id={props.id} />
