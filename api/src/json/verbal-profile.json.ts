@@ -9,12 +9,12 @@ export const verbalProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "VP2",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "VP3",
-                value: null
+                value: undefined
             }
         ]
     },
@@ -25,11 +25,11 @@ export const verbalProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "VPM1",
                     nameMetric: "PF",
-                    value: null,
+                    value: undefined,
                     description: "positive feedbacks",
                     primitive: {
                         formula: "1 - 1 / (CPF + 1)",
@@ -37,7 +37,7 @@ export const verbalProfile: IIndex[] = [
                             {
                                 name: "CPF",
                                 description: "количество положительных отзывов респондентов",
-                                value: null
+                                value: undefined
                             }
                         ]
                     }
@@ -45,11 +45,11 @@ export const verbalProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "VPM2",
                     nameMetric: "NF",
-                    value: null,
+                    value: undefined,
                     description: "negative feedbacks",
                     primitive: {
                         formula: "1 / (CNF + 1)",
@@ -57,7 +57,7 @@ export const verbalProfile: IIndex[] = [
                             {
                                 name: "CNF",
                                 description: "количество отрицательных отзывов респондентов",
-                                value: null
+                                value: undefined
                             }
                         ]
                     }
@@ -65,11 +65,11 @@ export const verbalProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "VPM3",
                     nameMetric: "AF",
-                    value: null,
+                    value: undefined,
                     description: "all feedbacks",
                     primitive: {
                         formula: "1 - 1 / (CAF + 1)",
@@ -77,7 +77,7 @@ export const verbalProfile: IIndex[] = [
                             {
                                 name: "CAF",
                                 description: "общее количество отзывов респондентов",
-                                value: null
+                                value: undefined
                             }
                         ]
                     }
@@ -92,11 +92,11 @@ export const verbalProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "VPM4",
                     nameMetric: "RFA",
-                    value: null,
+                    value: undefined,
                     description: "respondent facial expression",
                     primitive: {
                         formula: "EPC * 0.1",
@@ -104,7 +104,7 @@ export const verbalProfile: IIndex[] = [
                             {
                                 name: "EPC",
                                 description: "количество баллов, которое устанавливает эксперт",
-                                value: null,
+                                value: undefined,
                             }
                         ]
                     }
@@ -112,11 +112,11 @@ export const verbalProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "VPM5",
                     nameMetric: "RFR",
-                    value: null,
+                    value: undefined,
                     description: "rating from respondent",
                     primitive: {
                         formula: "RPC * 0.1",
@@ -124,7 +124,7 @@ export const verbalProfile: IIndex[] = [
                             {
                                 name: "RPC",
                                 description: "количество баллов, которое устанавливает респондент",
-                                value: null,
+                                value: undefined,
                             }
                         ]
                     }

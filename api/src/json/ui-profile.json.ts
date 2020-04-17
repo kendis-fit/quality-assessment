@@ -9,12 +9,12 @@ export const uiProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "UI2",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "UI13",
-                value: null
+                value: undefined
             },
         ]
     },
@@ -26,62 +26,62 @@ export const uiProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "UI3",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "UI4",
-                value: null
+                value: undefined
             },
             {
                 name: "K3",
                 nameConnect: "UI5",
-                value: null
+                value: undefined
             },
             {
                 name: "K4",
                 nameConnect: "UI6",
-                value: null
+                value: undefined
             },
             {
                 name: "K5",
                 nameConnect: "UI7",
-                value: null
+                value: undefined
             },
             {
                 name: "K6",
                 nameConnect: "UI8",
-                value: null
+                value: undefined
             },
             {
                 name: "K7",
                 nameConnect: "UI9",
-                value: null
+                value: undefined
             },
             {
                 name: "K8",
                 nameConnect: "UI10",
-                value: null
+                value: undefined
             },
             {
                 name: "K9",
                 nameConnect: "UI11",
-                value: null
+                value: undefined
             },
             {
                 name: "K10",
                 nameConnect: "UI12",
-                value: null
+                value: undefined
             },
             {
                 name: "K11",
                 nameConnect: "UI13",
-                value: null
+                value: undefined
             },
             {
                 name: "K12",
                 nameConnect: "UI14",
-                value: null
+                value: undefined
             },
         ]
     },
@@ -92,23 +92,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM1",
                     nameMetric: "DECO",
-                    value: null,
+                    value: undefined,
                     description: "description completeness",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций (или типов функций), которые описаны понятно в описании программного обеспечении"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество функций (или типов функций)"
                             }
                         ]
@@ -117,23 +117,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM2",
                     nameMetric: "CODE",
-                    value: null,
+                    value: undefined,
                     description: "coverage of demonstration",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, реализованных с возможностью демонстрации"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество функций, для которых необходима демонстрация возможностей"
                             }
                         ]
@@ -142,23 +142,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM3",
                     nameMetric: "EPSD",
-                    value: null,
+                    value: undefined,
                     description: "entry point self-descriptiveness",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "число страниц веб-сайта, которые объясняют цель веб-сайта,"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "число страниц веб-сайта"
                             }
                         ]
@@ -174,23 +174,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM4",
                     nameMetric: "UGCO",
-                    value: null,
+                    value: undefined,
                     description: "user guidance completeness",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, которые описаны документации пользователя и/или документации и/или справочном средстве"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество реализованных функций, для которых требуется детальное объяснение"
                             }
                         ]
@@ -199,23 +199,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM5",
                     nameMetric: "EFDE",
-                    value: null,
+                    value: undefined,
                     description: "entry fields defaults",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество полей ввода информации, имеющих автоматическое заполнение по-умолчанию"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество полей, у которых могли быть значения по умолчанию"
                             }
                         ]
@@ -224,23 +224,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM6",
                     nameMetric: "EMUN",
-                    value: null,
+                    value: undefined,
                     description: "error messages understandability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество сообщений об ошибках, в которых объясняется причина появления ошибки"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "Количество сообщений об ошибках "
                             }
                         ]
@@ -249,23 +249,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K4",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM7",
                     nameMetric: "SEUI",
-                    value: null,
+                    value: undefined,
                     description: "self-explanatory user interface",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "число информационных элементов и переходов, которые представлены способом, который был бы понятен пользователю"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "Число информационных элементов и переходов,  которые должен выполнить новый пользователь для решения общих задач"
                             }
                         ]
@@ -281,23 +281,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM8",
                     nameMetric: "OPCO",
-                    value: null,
+                    value: undefined,
                     description: "operational consistency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество операций, которые ведут себя непоследовательно"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество операций, которые ведут себя подобно"
                             }
                         ]
@@ -306,23 +306,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM9",
                     nameMetric: "MECL",
-                    value: null,
+                    value: undefined,
                     description: "message clarity",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество сообщений, которые легко понять"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество реализованных сообщений"
                             }
                         ]
@@ -331,23 +331,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM10",
                     nameMetric: "FUCU",
-                    value: null,
+                    value: undefined,
                     description: "functional customizability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество реализованных функций, которые можно настроить во время работы"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, для которых требуется возможность настройки"
                             }
                         ]
@@ -356,23 +356,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K4",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM11",
                     nameMetric: "UICU",
-                    value: null,
+                    value: undefined,
                     description: "user interface customizability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество элементов интерфейса пользователя, которые могут быть настроены"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество элементов интерфейса пользователя, которые могли бы быть настраиваемыми"
                             }
                         ]
@@ -381,23 +381,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K5",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM12",
                     nameMetric: "MOCA",
-                    value: null,
+                    value: undefined,
                     description: "monitoring capability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, имеющих возможность мониторинга состояния"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, которые необходимо дополнить функцией мониторинга"
                             }
                         ]
@@ -406,23 +406,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K6",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM13",
                     nameMetric: "UNCA",
-                    value: null,
+                    value: undefined,
                     description: "undo capability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество задач, которые обеспечивают возможность отмены или запрашивают подтверждение"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество задач, для которых необходимо дополнить возможностью подтверждения или отмены"
                             }
                         ]
@@ -431,23 +431,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K7",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM14",
                     nameMetric: "UCIN",
-                    value: null,
+                    value: undefined,
                     description: "understandable categorization of information",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество информационных структур, которые знакомы и удобны для предполагаемых пользователей"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество информационных структур"
                             }
                         ]
@@ -456,23 +456,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K8",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM15",
                     nameMetric: "APCO",
-                    value: null,
+                    value: undefined,
                     description: "appearance consistency",
                     primitive: {
                         formula: "1 - A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество интерфейсов пользователя с подобными элементами, но по- разному появляющимися в интерфейсах пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество интерфейсов пользователя с подобными элементами"
                             }
                         ]
@@ -481,23 +481,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K9",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM16",
                     nameMetric: "IDSU",
-                    value: null,
+                    value: undefined,
                     description: "input device support)",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество задач, которые могут выполняться всем множеством устройств ввода"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество задач"
                             }
                         ]
@@ -513,23 +513,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM17",
                     nameMetric: "AUPE",
-                    value: null,
+                    value: undefined,
                     description: "avoidance of user operation error",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество действий пользователя, которые защищены от любого системного сбоя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество действий пользователя, которые должны быть защищены от любого системного сбоя"
                             }
                         ]
@@ -538,23 +538,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM18",
                     nameMetric: "UEEC",
-                    value: null,
+                    value: undefined,
                     description: "user entry error correction",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество ошибок входа пользователя, для которых система предлагает правильное значение"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество ошибок входа пользователя, которое было обнаружено"
                             }
                         ]
@@ -563,23 +563,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM19",
                     nameMetric: "UERE",
-                    value: null,
+                    value: undefined,
                     description: "user errors recoverability",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество ошибок пользователя, которые были проанализированы, чтобы быть парированы системой"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество ошибок пользователя, которые могут произойти во время функционирования программного обеспечения"
                             }
                         ]
@@ -595,23 +595,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM20",
                     nameMetric: "AAUI",
-                    value: null,
+                    value: undefined,
                     description: "appearance aesthetics of user interfaces",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество отображаемых интерфейсов, эстетически приятные при появлении"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество отображаемых интерфейсов"
                             }
                         ]
@@ -627,23 +627,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM21",
                     nameMetric: "AUDI",
-                    value: null,
+                    value: undefined,
                     description: "accessibility for users with disabilities",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций, адаптированных под пользователей с ограниченными возможностями"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество реализованных функций"
                             }
                         ]
@@ -652,23 +652,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM22",
                     nameMetric: "SLAD",
-                    value: null,
+                    value: undefined,
                     description: "supported languages adequacy",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество языков, которые поддерживаются"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество языков, которое должны поддерживаться"
                             }
                         ]
@@ -685,17 +685,17 @@ export const uiProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "UI10",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "UI11",
-                value: null
+                value: undefined
             },
             {
                 name: "K3",
                 nameConnect: "UI12",
-                value: null
+                value: undefined
             },
         ]
     },
@@ -706,23 +706,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM23",
                     nameMetric: "SFDC",
-                    value: null,
+                    value: undefined,
                     description: "software functionality documentation coverage",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций ПО, которые обеспечены документаций"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество функций ПО"
                             }
                         ]
@@ -731,23 +731,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM24",
                     nameMetric: "CSDS",
-                    value: null,
+                    value: undefined,
                     description: "coverage of search in user documentation of software",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество пользовательских документов, для которых предусмотрена возможность поиска"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество пользовательских документов"
                             }
                         ]
@@ -763,23 +763,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM25",
                     nameMetric: "VICO",
-                    value: null,
+                    value: undefined,
                     description: "visual consistency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество визуально согласованных элементов интерфейса пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество элементов интерфейса пользователя"
                             }
                         ]
@@ -788,23 +788,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM26",
                     nameMetric: "FUCO",
-                    value: null,
+                    value: undefined,
                     description: "functional consistency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество функционально согласованных элементов интерфейса пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество элементов интерфейса пользователя"
                             }
                         ]
@@ -813,23 +813,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM27",
                     nameMetric: "INCO",
-                    value: null,
+                    value: undefined,
                     description: "internal consistency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество визуально и функционально согласованных элементов интерфейса пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество элементов интерфейса пользователя"
                             }
                         ]
@@ -838,23 +838,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K4",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM28",
                     nameMetric: "EXCO",
-                    value: null,
+                    value: undefined,
                     description: "external consistency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество согласованных интерфейсов пользователя для разных систем или веб-страниц"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество интерфейсов пользователя для разных систем или веб-страниц"
                             }
                         ]
@@ -870,23 +870,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM29",
                     nameMetric: "IFCO",
-                    value: null,
+                    value: undefined,
                     description: "informative feedbacks coverage",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество обратных связей"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество функций системы, для которых необходимы обратные связи"
                             }
                         ]
@@ -903,17 +903,17 @@ export const uiProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "UI14",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "UI15",
-                value: null
+                value: undefined
             },
             {
                 name: "K3",
                 nameConnect: "UI16",
-                value: null
+                value: undefined
             },
         ]
     },
@@ -924,23 +924,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM30",
                     nameMetric: "TACC",
-                    value: null,
+                    value: undefined,
                     description: "task completed",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество выполненных задач"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество попыток"
                             }
                         ]
@@ -949,23 +949,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM31",
                     nameMetric: "TACC",
-                    value: null,
+                    value: undefined,
                     description: "task effectiveness",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "?"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "?"
                             }
                         ]
@@ -974,23 +974,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM32",
                     nameMetric: "ERFR",
-                    value: null,
+                    value: undefined,
                     description: "error frequency (failure frequency)",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество ошибок, сделанных пользователем"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество задач (или может быть время)"
                             }
                         ]
@@ -1006,23 +1006,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM33",
                     nameMetric: "TIEF",
-                    value: null,
+                    value: undefined,
                     description: "time efficiency (task time)",
                     primitive: {
                         formula: "(Tt - Ta) / Tt",
                         primitives: [
                             {
                                 name: "Tt",
-                                value: null,
+                                value: undefined,
                                 description: "целевое время"
                             },
                             {
                                 name: "Ta",
-                                value: null,
+                                value: undefined,
                                 description: "фактическое время"
                             }
                         ]
@@ -1031,23 +1031,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM34",
                     nameMetric: "RTTI",
-                    value: null,
+                    value: undefined,
                     description: "relative task time [relative work duration]",
                     primitive: {
                         formula: "B / A",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "время на выполнение задачи для обычного пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "время выполнения задачи для опытного пользователя"
                             }
                         ]
@@ -1056,23 +1056,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM35",
                     nameMetric: "TAEF",
-                    value: null,
+                    value: undefined,
                     description: "task efficiency",
                     primitive: {
                         formula: "M1 / T",
                         primitives: [
                             {
                                 name: "M1",
-                                value: null,
+                                value: undefined,
                                 description: "количество пользователей"
                             },
                             {
                                 name: "T",
-                                value: null,
+                                value: undefined,
                                 description: "единица времени для решения задачи"
                             }
                         ]
@@ -1081,23 +1081,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K4",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM36",
                     nameMetric: "RTEF",
-                    value: null,
+                    value: undefined,
                     description: "relative task efficiency",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "эффективность задачи обычного пользователя"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "эффективность задачи для эксперта"
                             }
                         ]
@@ -1106,23 +1106,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K5",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM37",
                     nameMetric: "ECPR",
-                    value: null,
+                    value: undefined,
                     description: "economic productivity",
                     primitive: {
                         formula: "M1 / C",
                         primitives: [
                             {
                                 name: "M1",
-                                value: null,
+                                value: undefined,
                                 description: "результативность задачи"
                             },
                             {
                                 name: "C",
-                                value: null,
+                                value: undefined,
                                 description: "общая стоимость задачи"
                             }
                         ]
@@ -1131,23 +1131,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K6",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM38",
                     nameMetric: "PRPR",
-                    value: null,
+                    value: undefined,
                     description: "productive proportion",
                     primitive: {
                         formula: "Ta / Tb",
                         primitives: [
                             {
                                 name: "Ta",
-                                value: null,
+                                value: undefined,
                                 description: "продуктивное время = время задачи - время помощи - время ошибки - время поиска"
                             },
                             {
                                 name: "Tb",
-                                value: null,
+                                value: undefined,
                                 description: "время задачи"
                             }
                         ]
@@ -1156,23 +1156,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K7",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM39",
                     nameMetric: "RNUA",
-                    value: null,
+                    value: undefined,
                     description: "relative number of user actions",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество действий, выполненных пользователем"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество фактически необходимых действий"
                             }
                         ]
@@ -1189,22 +1189,22 @@ export const uiProfile: IIndex[] = [
             {
                 name: "K1",
                 nameConnect: "UI17",
-                value: null
+                value: undefined
             },
             {
                 name: "K2",
                 nameConnect: "UI18",
-                value: null
+                value: undefined
             },
             {
                 name: "K3",
                 nameConnect: "UI19",
-                value: null
+                value: undefined
             },
             {
                 name: "K4",
                 nameConnect: "UI20",
-                value: null
+                value: undefined
             }
         ]
     },
@@ -1215,23 +1215,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM40",
                     nameMetric: "SASC",
-                    value: null,
+                    value: undefined,
                     description: "satisfaction scale",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество анкет (с психо-метрическими шкалами и вопросами), в которых пользователи были удовлетворены работой с системой"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество участников"
                             }
                         ]
@@ -1240,23 +1240,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K2",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM41",
                     nameMetric: "SAQU",
-                    value: null,
+                    value: undefined,
                     description: "satisfaction questionnaire",
                     primitive: {
                         formula: "A / n",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "ответ на вопрос"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество возможных ответов"
                             }
                         ]
@@ -1265,23 +1265,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K3",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM42",
                     nameMetric: "DIUS",
-                    value: null,
+                    value: undefined,
                     description: "discretionary usage",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество раз, когда используются определенные программные функции приложения системы"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество раз, которое они (определенные функции) предназначены для использования"
                             }
                         ]
@@ -1290,23 +1290,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K4",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM43",
                     nameMetric: "DUFU",
-                    value: null,
+                    value: undefined,
                     description: "discretionary utilization of functions",
                     primitive: {
                         formula: "A / n",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "доля пользователей, использующих функцию i"
                             },
                             {
                                 name: "n",
-                                value: null,
+                                value: undefined,
                                 description: "количество функций"
                             }
                         ]
@@ -1315,23 +1315,23 @@ export const uiProfile: IIndex[] = [
             },
             {
                 name: "K5",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM44",
                     nameMetric: "PCCO",
-                    value: null,
+                    value: undefined,
                     description: "proportion of customer complaints",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество пользователей, которые жалуются"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "общее количество пользователей"
                             }
                         ]
@@ -1347,23 +1347,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM45",
                     nameMetric: "TRSC",
-                    value: null,
+                    value: undefined,
                     description: "trust scale",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество анкет (с психо-метрическими шкалами и вопросами), в которых пользователи бы доверяли системе"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество участников"
                             }
                         ]
@@ -1379,23 +1379,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM46",
                     nameMetric: "PLSC",
-                    value: null,
+                    value: undefined,
                     description: "pleasure scale",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество анкет (с психо-метрическими шкалами и вопросами), в которых пользователи бы испытывали наслаждение от работы с системой"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество участников"
                             }
                         ]
@@ -1411,23 +1411,23 @@ export const uiProfile: IIndex[] = [
         coefficients: [
             {
                 name: "K1",
-                value: null,
+                value: undefined,
                 metric: {
                     name: "UM47",
                     nameMetric: "COSC",
-                    value: null,
+                    value: undefined,
                     description: "comfort scale",
                     primitive: {
                         formula: "A / B",
                         primitives: [
                             {
                                 name: "A",
-                                value: null,
+                                value: undefined,
                                 description: "количество анкет (с психо-метрическими шкалами и вопросами), в которых пользователи бы испытывали комфорт от работы с системой"
                             },
                             {
                                 name: "B",
-                                value: null,
+                                value: undefined,
                                 description: "количество участников"
                             }
                         ]

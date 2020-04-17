@@ -9,12 +9,12 @@ export const baseProfile: IIndex[] = [
 			{
 				name: "K1",
 				nameConnect: "I2",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K2",
 				nameConnect: "I8",
-				value: null,
+				value: undefined,
 			},
 		],
 	},
@@ -27,27 +27,27 @@ export const baseProfile: IIndex[] = [
 			{
 				name: "K1",
 				nameConnect: "I3",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K2",
 				nameConnect: "I4",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K3",
 				nameConnect: "I5",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K4",
 				nameConnect: "I6",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K5",
 				nameConnect: "I7",
-				value: null,
+				value: undefined,
 			},
 		],
 	},
@@ -58,11 +58,11 @@ export const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M1",
 					nameMetric: "SRPTN",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile taxons number\nFormula: SRPTN = SRPTRN / SRPTRQN\nPrimitives: SRPTRN, SRPTRQN",
 					primitive: {
@@ -70,13 +70,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPTRN",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile taxons real number",
 							},
 							{
 								name: "SRPTRQN",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile taxons required number",
 							},
@@ -86,11 +86,11 @@ export const baseProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M2",
 					nameMetric: "SRPCFN",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features number\nFormula: SRPCFN = SRPCFRN / SRPCFRQN\nPrimitives: SRPCFRN, SRPCFRQN",
 					primitive: {
@@ -98,13 +98,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPCFRN",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features real number",
 							},
 							{
 								name: "SRPCFRQN",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features required number",
 							},
@@ -122,77 +122,77 @@ export const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M3",
 					nameMetric: "SRPCC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile complete characteristic",
 				},
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M4",
 					nameMetric: "SRPCOC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile consistent characteristic",
 				},
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M5",
 					nameMetric: "SRPAC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile affordable characteristic",
 				},
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M6",
 					nameMetric: "SRPBC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile bounded characteristic",
 				},
 			},
 			{
 				name: "K5",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M7",
 					nameMetric: "SRPFC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile feasible characteristic",
 				},
 			},
 			{
 				name: "K6",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M8",
 					nameMetric: "SRPCOMC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile comprehensible characteristic",
 				},
 			},
 			{
 				name: "K7",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M9",
 					nameMetric: "SRPCQ",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile characteristics quality\nFormula: SRPCQ = SRPPCQ / SRPACQ\nPrimitives: SRPPCQ, SRPACQ",
 					primitive: {
@@ -200,13 +200,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPPCQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile performed characteristics quantity",
 							},
 							{
 								name: "SRPACQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile all characteristics quantity",
 							},
@@ -224,55 +224,55 @@ export const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M10",
 					nameMetric: "SRPCFAC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features all-sufficient characteristic",
 				},
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M11",
 					nameMetric: "SRPCFIC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features indivisibility characteristic",
 				},
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M12",
 					nameMetric: "SRPCFFC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features fullness characteristic",
 				},
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M13",
 					nameMetric: "SRPCFACC",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features accuracy characteristic",
 				},
 			},
 			{
 				name: "K5",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M14",
 					nameMetric: "SRPCFCQ",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features characteristics quality\nFormula: SRPCFCQ = SRPCFPCQ / SRPCFACQ\nPrimitives: SRPCFPCQ, SRPCFACQ",
 					primitive: {
@@ -280,13 +280,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPCFPCQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features performed characteristics quantity",
 							},
 							{
 								name: "SRPCFACQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features all characteristics quantity",
 							},
@@ -303,44 +303,44 @@ export const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M15",
 					nameMetric: "SRPVA",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile version attribute",
 				},
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M16",
 					nameMetric: "SRPCA",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile complexity attribute",
 				},
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M17",
 					nameMetric: "SRPIA",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile independence attribute",
 				},
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M18",
 					nameMetric: "SRPAQ",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile attributes quality\nFormula: SRPAQ = SRPPAQ / SRPAAQ\nPrimitives: SRPPAQ, SRPAAQ",
 					primitive: {
@@ -348,13 +348,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPPAQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile performed attributes",
 							},
 							{
 								name: "SRPAAQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile all attributes quantity",
 							},
@@ -372,33 +372,33 @@ export const baseProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M19",
 					nameMetric: "SRPCFSCA",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features structure complexity attribute",
 				},
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M20",
 					nameMetric: "SRPCFTTA",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features taxonomy type attribute",
 				},
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "M21",
 					nameMetric: "SRPCFAQ",
-					value: null,
+					value: undefined,
 					description:
 						"software requirements profile classification features attributes quality\nFormula: SRPCFAQ = SRPCFPAQ / SRPCFAAQ\nPrimitives: SRPCFPAQ, SRPCFAAQ",
 					primitive: {
@@ -406,13 +406,13 @@ export const baseProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "SRPCFPAQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features performed attributes quantity",
 							},
 							{
 								name: "SRPCFAAQ",
-								value: null,
+								value: undefined,
 								description:
 									"software requirements profile classification features all attributes quantity",
 							},

@@ -9,12 +9,12 @@ export const uxProfile: IIndex[] = [
 			{
 				name: "K1",
 				nameConnect: "II2",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K2",
 				nameConnect: "II6",
-				value: null,
+				value: undefined,
 			},
 		],
 	},
@@ -26,17 +26,17 @@ export const uxProfile: IIndex[] = [
 			{
 				name: "K1",
 				nameConnect: "II3",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K2",
 				nameConnect: "II4",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K3",
 				nameConnect: "II5",
-				value: null,
+				value: undefined,
 			},
 		],
 	},
@@ -47,11 +47,11 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM1",
 					nameMetric: "SSGU",
-					value: null,
+					value: undefined,
 					description:
 						"success of search of goal by users\nFormulas: SSGU=UI / AU\nPrimitives: UI, AU",
 					primitive: {
@@ -59,13 +59,13 @@ export const uxProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "UI",
-								value: null,
+								value: undefined,
 								description:
 									"количество пользователей, которые обращают внимание на область интереса",
 							},
 							{
 								name: "AU",
-								value: null,
+								value: undefined,
 								description: "общее количество пользователей",
 							},
 						],
@@ -74,18 +74,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM2",
 					nameMetric: "SSGF",
-					value: null,
+					value: undefined,
 					description: "(speed of search of goal in fixations)",
 					primitive: {
 						formula: "1 / (F + 1)",
 						primitives: [
 							{
 								name: "F",
-								value: null,
+								value: undefined,
 								description: "количество фиксаций до первой фиксации в области интереса",
 							},
 						],
@@ -94,18 +94,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM3",
 					nameMetric: "SSGT",
-					value: null,
+					value: undefined,
 					description: "(speed of search of goal in time)",
 					primitive: {
 						formula: "1 / (T + 1)",
 						primitives: [
 							{
 								name: "T",
-								value: null,
+								value: undefined,
 								description:
 									"время до первой фиксации в области интереса",
 							},
@@ -122,18 +122,18 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM4",
 					nameMetric: "TRC",
-					value: null,
+					value: undefined,
 					description: "target recognition complexity",
 					primitive: {
 						formula: "1 - 1 / (AV + 1)",
 						primitives: [
 							{
 								name: "AV",
-								value: null,
+								value: undefined,
 								description:
 									"общее количество посещений в области интереса",
 							},
@@ -143,18 +143,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM5",
 					nameMetric: "PTRC",
-					value: null,
+					value: undefined,
 					description: "primary target recognition complexity",
 					primitive: {
 						formula: "1 / (TFF + 1)",
 						primitives: [
 							{
 								name: "TFF",
-								value: null,
+								value: undefined,
 								description:
 									"продолжительность первой фиксации в области интереса",
 							},
@@ -171,24 +171,24 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM6",
 					nameMetric: "DMCP",
-					value: null,
+					value: undefined,
 					description: "decision making complexity in percentage",
 					primitive: {
 						formula: "IC / (AC + 1)",
 						primitives: [
 							{
 								name: "IC",
-								value: null,
+								value: undefined,
 								description:
 									"количество кликов мышкой на области интереса",
 							},
 							{
 								name: "AC",
-								value: null,
+								value: undefined,
 								description: "общее количество кликов мышкой",
 							},
 						],
@@ -197,24 +197,24 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM7",
 					nameMetric: "DMCC",
-					value: null,
+					value: undefined,
 					description: "decision making complexity in percentage",
 					primitive: {
 						formula: "T / (IC + 1)",
 						primitives: [
 							{
 								name: "T",
-								value: null,
+								value: undefined,
 								description:
 									"время до первого клика мышкой в области интереса",
 							},
 							{
 								name: "IC",
-								value: null,
+								value: undefined,
 								description:
 									"количество кликов мышкой в области интереса",
 							},
@@ -224,18 +224,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM8",
 					nameMetric: "DMR",
-					value: null,
+					value: undefined,
 					description: "decision making recognition",
 					primitive: {
 						formula: "1 / (T + 1)",
 						primitives: [
 							{
 								name: "T",
-								value: null,
+								value: undefined,
 								description:
 									"время до первого клика мышкой в области интереса",
 							},
@@ -245,18 +245,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM9",
 					nameMetric: "DMSTR",
-					value: null,
+					value: undefined,
 					description: "decision making recognition",
 					primitive: {
 						formula: "1 / (TFC + 1)",
 						primitives: [
 							{
 								name: "TFC",
-								value: null,
+								value: undefined,
 								description:
 									"время от первой фиксации на области интереса до первого клика мышкой в области интереса",
 							},
@@ -266,24 +266,24 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K5",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM10",
 					nameMetric: "EDM",
-					value: null,
+					value: undefined,
 					description: "easy decision making)",
 					primitive: {
 						formula: "IC / (IT + 1)",
 						primitives: [
 							{
 								name: "IC",
-								value: null,
+								value: undefined,
 								description:
 									"количество кликов мышкой в области интереса",
 							},
 							{
 								name: "IT",
-								value: null,
+								value: undefined,
 								description: "время в области интереса",
 							},
 						],
@@ -300,17 +300,17 @@ export const uxProfile: IIndex[] = [
 			{
 				name: "K1",
 				nameConnect: "II7",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K2",
 				nameConnect: "II8",
-				value: null,
+				value: undefined,
 			},
 			{
 				name: "K3",
 				nameConnect: "II9",
-				value: null,
+				value: undefined,
 			},
 		],
 	},
@@ -321,23 +321,23 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM11",
 					nameMetric: "CPS",
-					value: null,
+					value: undefined,
 					description: "cognitive processing speed",
 					primitive: {
 						formula: "AT / (AF + AT)",
 						primitives: [
 							{
 								name: "AT",
-								value: null,
+								value: undefined,
 								description: "общее время",
 							},
 							{
 								name: "AF",
-								value: null,
+								value: undefined,
 								description: "общее количество фиксаций",
 							},
 						],
@@ -353,23 +353,23 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM12",
 					nameMetric: "GLE",
-					value: null,
+					value: undefined,
 					description: "general level of excitation",
 					primitive: {
 						formula: "AF / (AT + AF)",
 						primitives: [
 							{
 								name: "AF",
-								value: null,
+								value: undefined,
 								description: "общее количество фиксаций",
 							},
 							{
 								name: "AT",
-								value: null,
+								value: undefined,
 								description: "общее время",
 							},
 						],
@@ -378,24 +378,24 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM13",
 					nameMetric: "LEAI",
-					value: null,
+					value: undefined,
 					description: "level of excitation in area of interest",
 					primitive: {
 						formula: "IF / (IT + 1)",
 						primitives: [
 							{
 								name: "IF",
-								value: null,
+								value: undefined,
 								description:
 									"количество фиксация в области интереса",
 							},
 							{
 								name: "IT",
-								value: null,
+								value: undefined,
 								description: "время в области интереса",
 							},
 						],
@@ -404,24 +404,24 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM14",
 					nameMetric: "LEOAI",
-					value: null,
+					value: undefined,
 					description: "level of excitation out of  area of interest",
 					primitive: {
 						formula: "OIF / (OIT + 1)",
 						primitives: [
 							{
 								name: "OIF",
-								value: null,
+								value: undefined,
 								description:
 									"количество фиксация вне области интереса",
 							},
 							{
 								name: "OIT",
-								value: null,
+								value: undefined,
 								description: "время вне области интереса",
 							},
 						],
@@ -430,11 +430,11 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM15",
 					nameMetric: "RIEAI",
-					value: null,
+					value: undefined,
 					description:
 						"relative increase in excitation in the area of interest",
 					primitive: {
@@ -442,13 +442,13 @@ export const uxProfile: IIndex[] = [
 						primitives: [
 							{
 								name: "LEAI",
-								value: null,
+								value: undefined,
 								description:
 									"уровень возбуждения в области интереса",
 							},
 							{
 								name: "GLE",
-								value: null,
+								value: undefined,
 								description: "общий уровень возбуждения",
 							},
 						],
@@ -464,18 +464,18 @@ export const uxProfile: IIndex[] = [
 		coefficients: [
 			{
 				name: "K1",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM16",
 					nameMetric: "ILF",
-					value: null,
+					value: undefined,
 					description: "interest level in fixations",
 					primitive: {
 						formula: "1 - 1 / (IF + 1)",
 						primitives: [
 							{
 								name: "IF",
-								value: null,
+								value: undefined,
 								description:
 									"количество фиксаций в области интереса",
 							},
@@ -485,18 +485,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K2",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM17",
 					nameMetric: "ILT",
-					value: null,
+					value: undefined,
 					description: "level of excitation in area of interest",
 					primitive: {
 						formula: "1 - 1 / (IT + 1)",
 						primitives: [
 							{
 								name: "IT",
-								value: null,
+								value: undefined,
 								description: "время в области интереса",
 							},
 						],
@@ -505,23 +505,23 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K3",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM18",
 					nameMetric: "PTA",
-					value: null,
+					value: undefined,
 					description: "interest level in percentage",
 					primitive: {
 						formula: "IT / AT",
 						primitives: [
 							{
 								name: "IT",
-								value: null,
+								value: undefined,
 								description: "время в области интереса",
 							},
 							{
 								name: "AT",
-								value: null,
+								value: undefined,
 								description: "общее время",
 							},
 						],
@@ -530,18 +530,18 @@ export const uxProfile: IIndex[] = [
 			},
 			{
 				name: "K4",
-				value: null,
+				value: undefined,
 				metric: {
 					name: "IM19",
 					nameMetric: "ASAI",
-					value: null,
+					value: undefined,
 					description: "attention sustainability to area of interest",
 					primitive: {
 						formula: "1 / (VC + 1)",
 						primitives: [
 							{
 								name: "VC",
-								value: null,
+								value: undefined,
 								description:
 									"количество посещений в области интереса",
 							},
