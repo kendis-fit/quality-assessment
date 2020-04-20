@@ -81,7 +81,7 @@ export const TreeRequirements = (props: IProfile) => {
                         onChange={e => setFilterProject(e.target.value)}
                         />
                 </Grid>
-                <Requirement {...data} addRequirement={parentId => setParentId(parentId)} removeRequirement={() => {}} />
+                <Requirement {...data} addRequirement={parentId => setParentId(parentId)} removeRequirement={() => {}} selectRequirement={() => {}} />
             </TreeView>
             {
                 parentId !== "" && 

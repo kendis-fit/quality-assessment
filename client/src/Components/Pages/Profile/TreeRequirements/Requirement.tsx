@@ -9,7 +9,7 @@ export const Requirement = (nodes: IRequirement) => (
     <Grid container direction="row">
         <Grid item xs={10}>
             <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
-                {Array.isArray(nodes.requirements) ? nodes.requirements.map((node) => <Requirement {...node} addRequirement={nodes.addRequirement} removeRequirement={nodes.removeRequirement} />) : null}
+                {Array.isArray(nodes.requirements) ? nodes.requirements.map((node) => <Requirement {...node} addRequirement={nodes.addRequirement} removeRequirement={nodes.removeRequirement} selectRequirement={nodes.selectRequirement} />) : null}
             </TreeItem>
         </Grid>
         <Grid container justify="space-between" item xs={2}>

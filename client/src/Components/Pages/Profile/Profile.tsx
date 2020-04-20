@@ -131,7 +131,7 @@ export const Profile = (props: IProfile) => {
     return(
         <>
         <Formik 
-            initialValues={{ indexes: data.profile }}
+            initialValues={{ indexes: data.profile || [] }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}
