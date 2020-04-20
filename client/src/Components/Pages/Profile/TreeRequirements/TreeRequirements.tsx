@@ -7,11 +7,12 @@ import { ExpandMore, ChevronRight } from '@material-ui/icons';
 
 import { Requirement } from "./Requirement";
 import sizes from '../../../../Constants/sizes';
-import { DialogeAddRequirement } from "./Dialogues";
 import { ProjectAPI } from "../../../../Api/ProjectAPI";
 import { useDataApi } from "../../../../Hooks/useDataApi";
 import { ITreeRequirements } from "./Interfaces/ITreeRequirements";
 import { showAlert } from '../../../../Reducers/Alert/AlertActions';
+import { IRemoveRequirementMeta } from "./Interfaces/IRemoveRequirementMeta";
+import { DialogueAddRequirement, DialogueRemoveRequirement } from "./Dialogues";
 import { IProjectResponse } from '../../../../Api/ProjectAPI/Interfaces/IProjectResponse';
 
 const useStyles = makeStyles({
@@ -37,6 +38,7 @@ export const TreeRequirements = (props: ITreeRequirements) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
     const [parentId, setParentId] = useState("");
+    const [removeInfo, setRemoveInfo] = useState<IRemoveRequirementMeta>();
     const [filterProject, setFilterProject] = useState("");
     const api = new ProjectAPI();
     const { data, setData, loading, error } = useDataApi<IProjectResponse>(() => api.findRequirementsById(props.id)); 
@@ -47,6 +49,10 @@ export const TreeRequirements = (props: ITreeRequirements) => {
 
     const closeAddRequirement = () => {
         setParentId("");
+    }
+
+    const closeRemoveRequirement = () => {
+        setRemoveInfo(undefined);
     }
 
     if (isRedirect) return <Redirect to="/login" />
@@ -81,15 +87,23 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                         onChange={e => setFilterProject(e.target.value)}
                         />
                 </Grid>
-                <Requirement {...data} addRequirement={parentId => setParentId(parentId)} removeRequirement={() => {}} selectRequirement={id => props.selectRequirement(id)} />
+                <Requirement 
+                    {...data}
+                    addRequirement={parentId => setParentId(parentId)}
+                    removeRequirement={(id, name) => setRemoveInfo({ id, name })}
+                    selectRequirement={id => props.selectRequirement(id)}
+                    />
             </TreeView>
             {
                 parentId !== "" && 
-                <DialogeAddRequirement 
+                <DialogueAddRequirement 
                     parentId={parentId} 
                     onCreatedElement={element => addRequirement(data, element)}
                     handleClose={closeAddRequirement} 
                     />
+            }
+            {
+                removeInfo && <DialogueRemoveRequirement {...removeInfo} handleClose={closeRemoveRequirement} />
             }
         </>
     );

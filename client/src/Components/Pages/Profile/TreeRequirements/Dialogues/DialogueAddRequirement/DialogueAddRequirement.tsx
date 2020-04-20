@@ -6,7 +6,7 @@ import { ProjectAPI } from "../../../../../../Api/ProjectAPI";
 import { IAddRequirement } from "../Interfaces/IAddRequirement";
 import { showAlert } from "../../../../../../Reducers/Alert/AlertActions";
 
-export const DialogeAddRequirement = (props: IAddRequirement) => {
+export const DialogueAddRequirement = (props: IAddRequirement) => {
     const api = new ProjectAPI();
     const dispatch = useDispatch();
     const [name, setName] = useState("");

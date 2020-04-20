@@ -1,3 +1,4 @@
-import { DialogeAddRequirement } from "./DialogueAddRequirement";
+import { DialogueAddRequirement } from "./DialogueAddRequirement";
+import { DialogueRemoveRequirement } from "./DialogueRemoveRequirement";
 
-export { DialogeAddRequirement };
+export { DialogueAddRequirement, DialogueRemoveRequirement };
