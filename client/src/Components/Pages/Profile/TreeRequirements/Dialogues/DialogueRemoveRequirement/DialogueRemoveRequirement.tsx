@@ -13,6 +13,7 @@ export const DialogueRemoveRequirement = (props: IRemoveRequirement) => {
     const removeRequirement = async () => {
         try {
             await api.deleteById(props.id);
+            props.onRemoveElement();
         } catch(error) {
             dispatch(showAlert({
                 open: true,

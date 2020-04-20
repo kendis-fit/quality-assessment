@@ -43,8 +43,50 @@ export const TreeRequirements = (props: ITreeRequirements) => {
     const api = new ProjectAPI();
     const { data, setData, loading, error } = useDataApi<IProjectResponse>(() => api.findRequirementsById(props.id)); 
 
-    const addRequirement = (requirements: IProjectResponse, requirement: IProjectResponse) => {
-        alert(JSON.stringify(requirement));
+    const addRequirementR = (data: IProjectResponse, requirement: IProjectResponse) => {
+        for (const element of data.requirements) {
+            if (element.id === requirement.parentId) {
+                element.requirements.push(requirement);
+                break;
+            }
+            if (element.requirements) {
+                addRequirementR(element, requirement);
+            }
+        }
+    }
+
+    const addRequirement = (element: IProjectResponse) => {
+        if (data.id === element.parentId) {
+            data.requirements.push(element);
+        } else {
+            addRequirementR(data, element);
+        }
+        setData(data);
+        dispatch(showAlert({
+            open: true,
+            message: `Requirement ${element.name} was created`,
+            color: "success"
+        }));
+    }
+
+    const removeRequirement = (dataset: IProjectResponse, info: IRemoveRequirementMeta) => {
+        const lengthRequirements = dataset.requirements.length;
+        const requirements = dataset.requirements.filter(element => element.id !== info.id);
+        if (lengthRequirements !== requirements.length) {
+            dataset.requirements = requirements;
+            setData(data);
+            dispatch(showAlert({
+                open: true,
+                message: `Requirement ${info.name} was removed`,
+                color: "success"
+            }));
+        } else {
+            for (const element of dataset.requirements) {
+                if (element.requirements.length > 0) {
+                    removeRequirement(element, info);
+                }
+            }
+        }
     }
 
     const closeAddRequirement = () => {
@@ -98,12 +140,16 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                 parentId !== "" && 
                 <DialogueAddRequirement 
                     parentId={parentId} 
-                    onCreatedElement={element => addRequirement(data, element)}
+                    onCreatedElement={element => addRequirement(element)}
                     handleClose={closeAddRequirement} 
                     />
             }
             {
-                removeInfo && <DialogueRemoveRequirement {...removeInfo} handleClose={closeRemoveRequirement} />
+                removeInfo && <DialogueRemoveRequirement
+                    {...removeInfo}
+                    onRemoveElement={() => removeRequirement(data, removeInfo)}
+                    handleClose={closeRemoveRequirement} 
+                    />
             }
         </>
     );
