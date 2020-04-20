@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
 import { Injectable, Inject, HttpException, HttpStatus } from "@nestjs/common";
 
@@ -12,6 +13,7 @@ import { CreateRequirement } from "./dto/create-requirement.dto";
 import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { REQUIREMENT_REPOSITORY } from "src/requirement/requirement.providers";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
+import { RequirementView } from "./dto/requirement-view.dto";
 
 @Injectable()
 export class ProjectService {
@@ -32,10 +34,21 @@ export class ProjectService {
 		return await this.requirements.findAll({
 			where: {
 				userId,
+				typeProfile: {
+					[Op.ne]: PROFILE
+				}
 			},
 			offset,
 			limit: size,
 		});
+	}
+
+	public async findByIdInDeapth(userId: string, id: string): Promise<RequirementView> {
+		const rootProject = new RequirementView(await this.findById(userId, id));
+		for (const project of rootProject.requirements) {
+			project.requirements = (await this.findByIdInDeapth(userId, project.id)).requirements;
+		}
+		return rootProject;
 	}
 
 	public async findById(userId: string, id: string): Promise<Requirement> {
@@ -109,14 +122,14 @@ export class ProjectService {
 	}
 
 	public async createRequirement(userId: string, id: string, requirement: CreateRequirement): Promise<Requirement> {
-		const transaction = await this.sequelize.transaction();
+		// const transaction = await this.sequelize.transaction();
 
 		try {
 			const parentRequirement = await this.findById(userId, id);
 
 			let profile: IIndex[] = null;
 
-			if (this.isGroup(parentRequirement)) {
+			if (!this.isGroup(parentRequirement)) {
 				profile = [...this.getProfile(Profile.PROFILE)];
 				const project = await this.getRoot(userId, parentRequirement);
 				const indexes = project.profile.find(
@@ -151,14 +164,15 @@ export class ProjectService {
 				...requirement,
 				userId,
 				profile,
+				parentId: id,
 				typeProfile: PROFILE
 			});
 			await newRequirement.save();
-			await transaction.commit();
+			// await transaction.commit();
 
 			return newRequirement;
 		} catch {
-			await transaction.rollback();
+			// await transaction.rollback();
 			throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -212,6 +226,6 @@ export class ProjectService {
 	}
 
 	private isGroup(requirement: Requirement): boolean {
-		return requirement.requirements.length > 0 && requirement.parentId === null
+		return requirement.requirements.length === 0 && requirement.parentId !== null;
 	}
 }

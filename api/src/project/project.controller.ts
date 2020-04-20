@@ -40,8 +40,8 @@ export class ProjectController {
 		@Param("id") id: string,
 		@Req() request
 	): Promise<RequirementView> {
-		const project = await this.projectService.findById(request.user.id, id);
-		return new RequirementView(project);
+		const project = await this.projectService.findByIdInDeapth(request.user.id, id);
+		return project;
 	}
 
 	@ApiOkResponse({ type: RequirementProfile })

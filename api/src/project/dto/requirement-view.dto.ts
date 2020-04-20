@@ -17,6 +17,6 @@ export class RequirementView {
 		this.id = id;
 		this.name = name;
 		this.parentId = parentId;
-		this.requirements = requirements;
+		this.requirements = requirements?.map(requirement => new RequirementView(requirement));
 	}
 }

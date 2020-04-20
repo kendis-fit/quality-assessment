@@ -18,11 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:migrate": "node node_modules/.bin/sequelize db:migrate",
-    "db:drop": "node node_modules/.bin/sequelize db:drop",
-    "db:create": "node node_modules/.bin/sequelize db:create",
-    "db:create:prod": "node node_modules/.bin/sequelize db:create --env production",
-    "migration:generate": "node node_modules/.bin/sequelize migration:generate"
+    "db:migrate": "npx db:migrate",
+    "db:drop": "npx sequelize db:drop",
+    "db:create": "npx sequelize db:create",
+    "db:create:prod": "npx sequelize db:create --env production",
+    "migration:generate": "npx sequelize migration:generate"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.14",
