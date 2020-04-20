@@ -13,10 +13,14 @@ export class RequirementView {
 	@ApiProperty()
 	public requirements: RequirementView[];
 
-	public constructor({ id, name, parentId, requirements }: RequirementView) {
+	@ApiProperty()
+	public createdAt: Date;
+
+	public constructor({ id, name, parentId, requirements, createdAt }: RequirementView) {
 		this.id = id;
 		this.name = name;
 		this.parentId = parentId;
+		this.createdAt = createdAt;
 		this.requirements = requirements?.map(requirement => new RequirementView(requirement));
 	}
 }

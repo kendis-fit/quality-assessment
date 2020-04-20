@@ -48,6 +48,7 @@ export class ProjectService {
 		for (const project of rootProject.requirements) {
 			project.requirements = (await this.findByIdInDeapth(userId, project.id)).requirements;
 		}
+		rootProject.requirements = rootProject.requirements.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
 		return rootProject;
 	}
 
