@@ -7,10 +7,10 @@ import { ExpandMore, ChevronRight } from '@material-ui/icons';
 
 import { Requirement } from "./Requirement";
 import sizes from '../../../../Constants/sizes';
-import { IProfile } from '../Interfaces/IProfile';
 import { DialogeAddRequirement } from "./Dialogues";
 import { ProjectAPI } from "../../../../Api/ProjectAPI";
 import { useDataApi } from "../../../../Hooks/useDataApi";
+import { ITreeRequirements } from "./Interfaces/ITreeRequirements";
 import { showAlert } from '../../../../Reducers/Alert/AlertActions';
 import { IProjectResponse } from '../../../../Api/ProjectAPI/Interfaces/IProjectResponse';
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const TreeRequirements = (props: IProfile) => {
+export const TreeRequirements = (props: ITreeRequirements) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
@@ -81,7 +81,7 @@ export const TreeRequirements = (props: IProfile) => {
                         onChange={e => setFilterProject(e.target.value)}
                         />
                 </Grid>
-                <Requirement {...data} addRequirement={parentId => setParentId(parentId)} removeRequirement={() => {}} selectRequirement={() => {}} />
+                <Requirement {...data} addRequirement={parentId => setParentId(parentId)} removeRequirement={() => {}} selectRequirement={id => props.selectRequirement(id)} />
             </TreeView>
             {
                 parentId !== "" && 

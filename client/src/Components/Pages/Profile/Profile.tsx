@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import * as math from "mathjs";
 import { Formik, Form, getIn } from "formik";
@@ -12,12 +12,12 @@ import { IMetric } from "./Interfaces/IMetric";
 import { IProfile } from "./Interfaces/IProfile";
 import { IPrimitive } from "./Interfaces/IPrimitive";
 import { ProjectAPI } from "../../../Api/ProjectAPI";
-import { useDataApi } from "../../../Hooks/useDataApi";
 import { ICoefficient } from "./Interfaces/ICoefficient";
 import { IPrimitiveMeta } from "./Interfaces/IPrimitiveMeta";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
 import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
+import { IProfileResponse } from "../../../Api/ProjectAPI/Interfaces/IProfileResponse";
 
 const schema = yup.object().shape({
     indexes: yup.array(yup.object({
@@ -48,6 +48,7 @@ const schema = yup.object().shape({
 
 const ProfileForm = styled(Form)({
     margin: "10px 10px 0 10px",
+    width: `calc(100vw - ${sizes.widthRequirements})`
 });
 
 const ProfileBlock = styled(Grid)({
@@ -62,8 +63,25 @@ export const Profile = (props: IProfile) => {
     const [nameIndex, setNameIndex] = useState("");
     const [nameIndexDiagram, setNameIndexDiagram] = useState("");
     const [informationIndex, setInformationIndex] = useState<IIndex>();
+    const [data, setData] = useState<IProfileResponse>();
+    const [error, setError] = useState<ServerError>();
+    const [loading, setLoading] = useState(false);
     const api = new ProjectAPI();
-    const { data, error, loading } = useDataApi(() => api.findById(props.id));
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                setData(await api.findById(props.id));
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        setLoading(true);
+        getData();
+
+    }, [props.id]);
 
     const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
 
@@ -131,7 +149,7 @@ export const Profile = (props: IProfile) => {
     return(
         <>
         <Formik 
-            initialValues={{ indexes: data.profile || [] }}
+            initialValues={{ indexes: data?.profile || [] }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}

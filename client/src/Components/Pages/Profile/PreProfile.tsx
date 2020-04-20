@@ -13,6 +13,7 @@ import { TreeRequirements } from "./TreeRequirements/TreeRequirements";
 export const PreProfile = (props: IProfile) => {
     const api = new ProjectAPI();
     const dispatch = useDispatch();
+    const [projectId, setProjectId] = useState(props.id);
     const [isRedirect, setIsRedirect] = useState(false);
     const { data, error, loading } = useDataApi(() => api.checkProject(props.id));
 
@@ -35,9 +36,9 @@ export const PreProfile = (props: IProfile) => {
         <>
             {
                 data.isMultiple ? <Grid container direction="row" wrap="nowrap">
-                    <TreeRequirements id={props.id} />
-                    <Profile id={props.id} />
-                </Grid> : <Profile id={props.id} />
+                    <TreeRequirements id={props.id} selectRequirement={id => setProjectId(id)} />
+                    <Profile id={projectId} />
+                </Grid> : <Profile id={projectId} />
             }
         </>
     );
