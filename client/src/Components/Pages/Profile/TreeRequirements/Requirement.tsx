@@ -1,29 +1,36 @@
 import React from "react";
 import { TreeItem } from "@material-ui/lab";
-import { Grid, IconButton } from "@material-ui/core";
-import { Add, Remove, Visibility } from "@material-ui/icons";
+import { Remove } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core";
 
 import { IRequirement } from "./Interfaces/IRequirement";
 
+const useStyles = makeStyles({
+    label: {
+        border: "2px solid #3f51b5",
+        background: "#3f51b5",
+        borderRadius: "2px",
+        color: "white"
+    }
+});
+
+const RenderLabel = (item: IRequirement) => {
+    const classes = useStyles();
+    
+    return <span
+        className={classes.label}
+        onClick={event => {
+            event.stopPropagation();
+            event.preventDefault();
+            item.selectRequirement(item.id, item.name, event.currentTarget);
+        }}
+    >
+      {item.name}
+    </span>
+};
+
 export const Requirement = (nodes: IRequirement) => (
-    <Grid container direction="row">
-        <Grid item xs={10}>
-            <TreeItem nodeId={nodes.id} label={nodes.name} onContextMenu={() => alert("test")}>
-                {Array.isArray(nodes.requirements) ? nodes.requirements.map((node, index) => <Requirement key={index} {...node} addRequirement={nodes.addRequirement} removeRequirement={nodes.removeRequirement} selectRequirement={nodes.selectRequirement} />) : null}
-            </TreeItem>
-        </Grid>
-        <Grid container justify="space-between" item xs={2}>
-            <IconButton size="small" onClick={() => nodes.selectRequirement(nodes.id)}>
-                <Visibility />
-            </IconButton>
-            <IconButton size="small" onClick={() => nodes.addRequirement(nodes.id)}>
-                <Add />
-            </IconButton>
-            {
-                nodes.parentId && <IconButton size="small" onClick={() => nodes.removeRequirement(nodes.id, nodes.name)}>
-                    <Remove />
-                </IconButton>
-            }
-        </Grid>
-    </Grid>
+    <TreeItem nodeId={nodes.id} label={<RenderLabel {...nodes} />} endIcon={<Remove />}>
+        {Array.isArray(nodes.requirements) ? nodes.requirements.map((node, index) => <Requirement key={index} {...node} selectRequirement={nodes.selectRequirement} />) : null}
+    </TreeItem>
 );
