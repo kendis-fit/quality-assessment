@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TreeView } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
-import { makeStyles, Grid, TextField, Popover, List, ListItem } from '@material-ui/core';
+import { makeStyles, Grid, TextField, Popover, List, ListItem, Typography } from '@material-ui/core';
 import { ExpandMore, ChevronRight } from '@material-ui/icons';
 
 import { Requirement } from "./Requirement";
@@ -150,9 +150,12 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                     }}
                     >
                     <List>
-                        <ListItem className={classes.menuItem} onClick={() => props.selectRequirement(requirement.id)}>Show</ListItem>
-                        <ListItem className={classes.menuItem} onClick={() => setShowAddRequirement(true)}>Add</ListItem>
-                        <ListItem className={classes.menuItem} onClick={() => setShowRemoveRequirement(true)}>Remove</ListItem>
+                        <ListItem className={classes.menuItem} onClick={() => {
+                            props.selectRequirement(requirement.id);
+                            setRequirement(undefined);
+                        }}><Typography>Show</Typography></ListItem>
+                        <ListItem className={classes.menuItem} onClick={() => setShowAddRequirement(true)}><Typography>Add</Typography></ListItem>
+                        <ListItem className={classes.menuItem} onClick={() => setShowRemoveRequirement(true)}><Typography>Remove</Typography></ListItem>
                     </List>
               </Popover>
             }
@@ -161,7 +164,10 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                 <DialogueAddRequirement 
                     parentId={requirement.id} 
                     onCreatedElement={element => addRequirement(element)}
-                    handleClose={() => setShowAddRequirement(false)} 
+                    handleClose={() => {
+                        setShowAddRequirement(false);
+                        setRequirement(undefined);
+                    }} 
                     />
             }
             {

@@ -147,8 +147,9 @@ export const Profile = (props: IProfile) => {
     
     return(
         <>
-        <Formik 
-            initialValues={{ indexes: data?.profile || [] }}
+        {
+            (data && data.profile) ? <Formik 
+            initialValues={{ indexes: data.profile }}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={schema}
@@ -228,7 +229,8 @@ export const Profile = (props: IProfile) => {
                     </ProfileForm>
                 )
             }
-        </Formik>
+        </Formik> : <div>Group doesn't have profile</div>
+        }
         {
             nameIndex && <DialogResultIndex id={props.id} nameIndex={nameIndex} handleClose={closeResultModal} />
         }
