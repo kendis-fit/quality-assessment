@@ -79,8 +79,8 @@ export const Profile = (props: IProfile) => {
         }
         setLoading(true);
         getData();
-
-    }, [props.id]);
+        // eslint-disable-next-line
+    }, [props.id]); 
 
     const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
 

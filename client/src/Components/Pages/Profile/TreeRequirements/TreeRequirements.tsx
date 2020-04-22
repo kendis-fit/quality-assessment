@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TreeView } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
-import { makeStyles, Grid, TextField, Popover, List, ListItem, Typography } from '@material-ui/core';
+import { makeStyles, Popover, List, ListItem, Typography } from '@material-ui/core';
 import { ExpandMore, ChevronRight } from '@material-ui/icons';
 
 import { Requirement } from "./Requirement";
@@ -47,7 +47,6 @@ export const TreeRequirements = (props: ITreeRequirements) => {
     const [showAddRequirement, setShowAddRequirement] = useState(false);
     const [showRemoveRequirement, setShowRemoveRequirement] = useState(false);
     const [requirement, setRequirement] = useState<IRequirementActions>();
-    const [filterProject, setFilterProject] = useState("");
     const api = new ProjectAPI();
     const { data, setData, loading, error } = useDataApi<IProjectResponse>(() => api.findRequirementsById(props.id)); 
 
@@ -119,16 +118,6 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                 defaultCollapseIcon={<ExpandMore />}
                 defaultExpandIcon={<ChevronRight />}
                 >
-                {/* <Grid container justify="center" className={classes.searchBlock}>
-                    <TextField 
-                        variant="standard"
-                        label="find a project..."
-                        className={classes.searchInput}
-                        fullWidth
-                        value={filterProject}
-                        onChange={e => setFilterProject(e.target.value)}
-                        />
-                </Grid> */}
                 <Requirement 
                     {...data}
                     selectRequirement={(id, name, element) => setRequirement({ id, name, element }) }
