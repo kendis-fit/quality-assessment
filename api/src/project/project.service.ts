@@ -14,10 +14,12 @@ import { DiagramProfile } from "src/diagram/dto/diagram-profile.dto";
 import { REQUIREMENT_REPOSITORY } from "src/requirement/requirement.providers";
 import { CalculateProfileService } from "src/calculate-profile/calculate-profile.service";
 import { RequirementView } from "./dto/requirement-view.dto";
+import { ProfileService } from "src/profile/profile.service";
 
 @Injectable()
 export class ProjectService {
 	public constructor(
+		private profileService: ProfileService,
 		@Inject(REQUIREMENT_REPOSITORY)
 		private requirements: typeof Requirement,
 		@Inject(SEQUELIZE)
@@ -184,6 +186,9 @@ export class ProjectService {
 		nameIndex: string,
 	): Promise<number> {
 		const project = await this.findById(userId, id);
+		if (!this.profileService.isValid(project.profile)) {
+			throw new HttpException({ reason: "Some value is empty or project wasn't saved" }, HttpStatus.BAD_REQUEST);
+		}
 		const result = this.calculateProfileService.calculate(
 			nameIndex,
 			project.profile,
@@ -197,6 +202,9 @@ export class ProjectService {
 		nameIndex: string
 	): Promise<DiagramProfile[]> {
 		const project = await this.findById(userId, id);
+		if (!this.profileService.isValid(project.profile)) {
+			throw new HttpException({ reason: "Some value is empty or project wasn't saved" }, HttpStatus.BAD_REQUEST);
+		}
 		const diagram = this.diagramService.create(nameIndex, project.profile);
 		return diagram;
 	}

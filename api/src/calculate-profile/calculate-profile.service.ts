@@ -34,7 +34,7 @@ export class CalculateProfileService {
 	private calculateMetric(metric: IMetric): number {
 		let result = 0;
 		const primitive = metric.primitive;
-		if (!primitive) {
+		if (primitive) {
 			const variables = primitive.primitives.reduce(
 				(obj, item) => Object.assign(obj, { [item.name]: item.value }),
 				{},
