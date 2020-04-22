@@ -197,7 +197,7 @@ export class ProjectService {
 		if (nameIndex === "I1" || nameIndex === "I8") {
 			let resultI8 = 0;
 			const coefficients = project.profile.find(index => index.name === "I8").coefficients;
-			const requirements = await this.findByIdInDepthI8(userId, id);
+			const requirements = await this.findByIdInDeapthI8(userId, id);
 
 			let idCoeff = 1;
 			for (const coeff of coefficients) {
@@ -206,7 +206,7 @@ export class ProjectService {
 				idCoeff++;
 			}
 			if (nameIndex === "I1") {
-				result *= resultI8;
+				result *= (resultI8 || 1);
 			} else {
 				return resultI8;
 			}
@@ -224,14 +224,42 @@ export class ProjectService {
 		if (!this.profileService.isValid(project.profile)) {
 			throw new HttpException({ reason: "Some value is empty or project wasn't saved" }, HttpStatus.BAD_REQUEST);
 		}
-		const diagram = this.diagramService.create(nameIndex, project.profile);
+		const diagram = this.diagramService.create(nameIndex, project.profile, ["I8"]);
+
+		if (nameIndex === "I1" || nameIndex === "I8") {
+			let resultI8 = 0;
+			const coefficients = project.profile.find(index => index.name === "I8").coefficients;
+			const requirements = await this.findByIdInDeapthI8(userId, id);
+
+			let idCoeff = 1;
+			let diagramI8: DiagramProfile[] = [];
+			for (const coeff of coefficients) {
+				const profileI9 = this.getProfileById(idCoeff, requirements, { i: 0 });
+				const result = this.calculateProfileService.calculate("I9", profileI9);
+				resultI8 = coeff.value * result + resultI8;
+				idCoeff++;
+				if (nameIndex === "I8") {
+					diagramI8.push({
+						nameIndex: `${coeff.name} (${coeff.value})`,
+						value: result
+					});
+				}
+			}
+			if (nameIndex === "I1") {
+				const dg = diagram.find(diagram => diagram.nameIndex.includes("K2"));
+				dg.value *= (resultI8 || 1);
+			} else {
+				return diagramI8;
+			}
+		}
+
 		return diagram;
 	}
 
-	private async findByIdInDepthI8(userId: string, id: string): Promise<Requirement> {
+	private async findByIdInDeapthI8(userId: string, id: string): Promise<Requirement> {
 		const rootProject = await this.findById(userId, id);
 		for (const project of rootProject.requirements) {
-			project.requirements = (await this.findByIdInDepthI8(userId, project.id)).requirements;
+			project.requirements = (await this.findByIdInDeapthI8(userId, project.id)).requirements;
 		}
 		rootProject.requirements = rootProject.requirements.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
 		return rootProject;

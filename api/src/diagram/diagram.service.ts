@@ -10,7 +10,10 @@ export class DiagramService {
 		private calculateProfileService: CalculateProfileService,
 	) {}
 
-	public create(nameIndex: string, profile: IIndex[]): DiagramProfile[] {
+	public create(nameIndex: string, profile: IIndex[], exclude?: string[]): DiagramProfile[] {
+		if (exclude && exclude.includes(nameIndex)) {
+			return [];
+		}
 		const index = profile.find(index => index.name === nameIndex);
 		if (!index) {
 			throw RangeError("index is not found");
@@ -31,6 +34,7 @@ export class DiagramService {
 					value: this.calculateProfileService.calculate(
 						coefficient.nameConnect,
 						profile,
+						["I8"]
 					),
 				};
 			}
