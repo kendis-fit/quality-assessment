@@ -6,7 +6,10 @@ import IMetric from "src/project/interfaces/metric.interface";
 
 @Injectable()
 export class CalculateProfileService {
-	public calculate(nameIndex: string, profile: IIndex[]): number {
+	public calculate(nameIndex: string, profile: IIndex[], exclude?: string[]): number {
+		if (exclude && exclude.includes(nameIndex)) {
+			return 1;
+		}
 		const index = profile.find(index => index.name === nameIndex);
 		if (!index) {
 			throw RangeError("index is not found");
@@ -24,7 +27,7 @@ export class CalculateProfileService {
 			} else {
 				result =
 					coefficient.value *
-						this.calculate(coefficient.nameConnect, profile) +
+						this.calculate(coefficient.nameConnect, profile, exclude) +
 					result;
 			}
 		}
