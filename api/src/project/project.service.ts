@@ -125,7 +125,7 @@ export class ProjectService {
 	}
 
 	public async createRequirement(userId: string, id: string, requirement: CreateRequirement): Promise<Requirement> {
-		// const transaction = await this.sequelize.transaction();
+		const transaction = await this.sequelize.transaction();
 
 		try {
 			const parentRequirement = await this.findById(userId, id);
@@ -135,27 +135,25 @@ export class ProjectService {
 			if (!this.isGroup(parentRequirement)) {
 				profile = [...this.getProfile(Profile.PROFILE)];
 				const project = await this.getRoot(userId, parentRequirement);
-				const indexes = project.profile.find(
-					index => index.name === "I8",
-				);
+				const indexes = project.profile.find(index => index.name === "I8");
 
 				const lengthCoeff = indexes.coefficients.length;
 				let coeff: any = {};
 				if (lengthCoeff === 0) {
 					coeff = {
 						name: "K1",
-						value: null,
+						value: undefined,
 					};
 				} else {
 					const lastCoeff =
 						indexes.coefficients[indexes.coefficients.length - 1];
 					coeff = {
 						name: `K${Number(lastCoeff.name.replace("K", "")) + 1}`,
-						value: null,
+						value: undefined,
 					};
 				}
 				indexes.coefficients.push(coeff);
-
+				project.profile = [...project.profile];
 				await project.save();
 			} else {
 				profile = [...parentRequirement.profile];
@@ -171,11 +169,11 @@ export class ProjectService {
 				typeProfile: PROFILE
 			});
 			await newRequirement.save();
-			// await transaction.commit();
+			await transaction.commit();
 
 			return newRequirement;
 		} catch {
-			// await transaction.rollback();
+			await transaction.rollback();
 			throw new HttpException("", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
