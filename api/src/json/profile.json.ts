@@ -692,7 +692,7 @@ export const profile: IIndex[] = [
 					description:
 						"software requirements profile software requirement syntactical structure variable elements\nFormula: SRPSRSSVE = 1 / 1 + RVSSEQ\nPrimitives: RVSSEQ",
 					primitive: {
-						formula: "1 / 1 + RVSSEQ",
+						formula: "1 / (1 + RVSSEQ)",
 						primitives: [
 							{
 								name: "RVSSEQ",
@@ -742,9 +742,9 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRMSS",
 					value: undefined,
 					description:
-						"software requirements profile software requirement mandatory semantic structures\nFormula: SRPSRMSS  = 1 - 1 / (1 + MSSQ)\nPrimitives: MSSQ",
+						"software requirements profile software requirement mandatory semantic structures\nFormula: SRPSRMSS  = 1 / MSSQ\nPrimitives: MSSQ",
 					primitive: {
-						formula: "1 - 1 / (1 + MSSQ)",
+						formula: "1 / MSSQ",
 						primitives: [
 							{
 								name: "MSSQ",
@@ -764,9 +764,9 @@ export const profile: IIndex[] = [
 					nameMetric: "SRPSRASS",
 					value: undefined,
 					description:
-						"software requirements profile software requirement admissible semantic structures\nFormula: SRPSRASS = 1 - 1 / (1 + ASSQ)\nPrimitives: ASSQ",
+						"software requirements profile software requirement admissible semantic structures\nFormula: SRPSRASS = 1 - 1 / (1 + 1 / ASSQ)\nPrimitives: ASSQ",
 					primitive: {
-						formula: "1 - 1 / (1 + ASSQ)",
+						formula: "1 - 1 / (1 + 1 / ASSQ)",
 						primitives: [
 							{
 								name: "ASSQ",

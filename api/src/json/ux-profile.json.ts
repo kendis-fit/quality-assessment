@@ -271,7 +271,7 @@ export const uxProfile: IIndex[] = [
 					name: "IM10",
 					nameMetric: "EDM",
 					value: undefined,
-					description: "easy decision making)",
+					description: "easy decision making",
 					primitive: {
 						formula: "IC / (IT + 1)",
 						primitives: [
@@ -324,6 +324,98 @@ export const uxProfile: IIndex[] = [
 				value: undefined,
 				metric: {
 					name: "IM11",
+					nameMetric: "ILF",
+					value: undefined,
+					description: "interest level in fixations",
+					primitive: {
+						formula: "1 - 1 / (IF + 1)",
+						primitives: [
+							{
+								name: "IF",
+								value: undefined,
+								description: "количество фиксаций в области интереса",
+							},
+						],
+					},
+				},
+			},
+		],
+	},
+	{
+		name: "II8",
+		nameIndex: "EMARI",
+		description: "Emotional arousal index",
+		coefficients: [
+			{
+				name: "K1",
+				value: undefined,
+				metric: {
+					name: "IM12",
+					nameMetric: "ILT",
+					value: undefined,
+					description: "interest level in time",
+					primitive: {
+						formula: "1 - 1 / (IT + 1)",
+						primitives: [
+							{
+								name: "IT",
+								value: undefined,
+								description: "время в области интереса",
+							}
+						],
+					},
+				},
+			},
+			{
+				name: "K2",
+				value: undefined,
+				metric: {
+					name: "IM13",
+					nameMetric: "PTA",
+					value: undefined,
+					description: "level of excitation in area of interest",
+					primitive: {
+						formula: "IT / AT",
+						primitives: [
+							{
+								name: "IT",
+								value: undefined,
+								description: "время в области интереса,",
+							},
+							{
+								name: "AT",
+								value: undefined,
+								description: "общее время",
+							},
+						],
+					},
+				},
+			},
+			{
+				name: "K3",
+				value: undefined,
+				metric: {
+					name: "IM14",
+					nameMetric: "ASAI",
+					value: undefined,
+					description: "attention sustainability to area of interest",
+					primitive: {
+						formula: "1 / (VC + 1)",
+						primitives: [
+							{
+								name: "VC",
+								value: undefined,
+								description: "количество посещений в области интереса",
+							}
+						],
+					},
+				},
+			},
+			{
+				name: "K4",
+				value: undefined,
+				metric: {
+					name: "IM15",
 					nameMetric: "CPS",
 					value: undefined,
 					description: "cognitive processing speed",
@@ -347,15 +439,15 @@ export const uxProfile: IIndex[] = [
 		],
 	},
 	{
-		name: "II8",
-		nameIndex: "EMARI",
-		description: "Emotional arousal index",
+		name: "II9",
+		nameIndex: "AAOII",
+		description: "Attention in AOI index",
 		coefficients: [
 			{
 				name: "K1",
 				value: undefined,
 				metric: {
-					name: "IM12",
+					name: "IM16",
 					nameMetric: "GLE",
 					value: undefined,
 					description: "general level of excitation",
@@ -380,7 +472,7 @@ export const uxProfile: IIndex[] = [
 				name: "K2",
 				value: undefined,
 				metric: {
-					name: "IM13",
+					name: "IM17",
 					nameMetric: "LEAI",
 					value: undefined,
 					description: "level of excitation in area of interest",
@@ -388,15 +480,14 @@ export const uxProfile: IIndex[] = [
 						formula: "IF / (IT + 1)",
 						primitives: [
 							{
-								name: "IF",
-								value: undefined,
-								description:
-									"количество фиксация в области интереса",
-							},
-							{
 								name: "IT",
 								value: undefined,
 								description: "время в области интереса",
+							},
+							{
+								name: "IF",
+								value: undefined,
+								description: "количество фиксация в области интереса,",
 							},
 						],
 					},
@@ -406,18 +497,17 @@ export const uxProfile: IIndex[] = [
 				name: "K3",
 				value: undefined,
 				metric: {
-					name: "IM14",
+					name: "IM18",
 					nameMetric: "LEOAI",
 					value: undefined,
-					description: "level of excitation out of  area of interest",
+					description: "level of excitation out of area of interest",
 					primitive: {
 						formula: "OIF / (OIT + 1)",
 						primitives: [
 							{
 								name: "OIF",
 								value: undefined,
-								description:
-									"количество фиксация вне области интереса",
+								description: "количество фиксация вне области интереса",
 							},
 							{
 								name: "OIT",
@@ -432,118 +522,22 @@ export const uxProfile: IIndex[] = [
 				name: "K4",
 				value: undefined,
 				metric: {
-					name: "IM15",
+					name: "IM19",
 					nameMetric: "RIEAI",
 					value: undefined,
-					description:
-						"relative increase in excitation in the area of interest",
+					description: "relative increase in excitation in the area of interest",
 					primitive: {
 						formula: "LEAI / GLE",
 						primitives: [
 							{
 								name: "LEAI",
 								value: undefined,
-								description:
-									"уровень возбуждения в области интереса",
+								description: "уровень возбуждения в области интереса",
 							},
 							{
 								name: "GLE",
 								value: undefined,
 								description: "общий уровень возбуждения",
-							},
-						],
-					},
-				},
-			},
-		],
-	},
-	{
-		name: "II9",
-		nameIndex: "AAOII",
-		description: "Attention in AOI index",
-		coefficients: [
-			{
-				name: "K1",
-				value: undefined,
-				metric: {
-					name: "IM16",
-					nameMetric: "ILF",
-					value: undefined,
-					description: "interest level in fixations",
-					primitive: {
-						formula: "1 - 1 / (IF + 1)",
-						primitives: [
-							{
-								name: "IF",
-								value: undefined,
-								description:
-									"количество фиксаций в области интереса",
-							},
-						],
-					},
-				},
-			},
-			{
-				name: "K2",
-				value: undefined,
-				metric: {
-					name: "IM17",
-					nameMetric: "ILT",
-					value: undefined,
-					description: "level of excitation in area of interest",
-					primitive: {
-						formula: "1 - 1 / (IT + 1)",
-						primitives: [
-							{
-								name: "IT",
-								value: undefined,
-								description: "время в области интереса",
-							},
-						],
-					},
-				},
-			},
-			{
-				name: "K3",
-				value: undefined,
-				metric: {
-					name: "IM18",
-					nameMetric: "PTA",
-					value: undefined,
-					description: "interest level in percentage",
-					primitive: {
-						formula: "IT / AT",
-						primitives: [
-							{
-								name: "IT",
-								value: undefined,
-								description: "время в области интереса",
-							},
-							{
-								name: "AT",
-								value: undefined,
-								description: "общее время",
-							},
-						],
-					},
-				},
-			},
-			{
-				name: "K4",
-				value: undefined,
-				metric: {
-					name: "IM19",
-					nameMetric: "ASAI",
-					value: undefined,
-					description: "attention sustainability to area of interest",
-					primitive: {
-						formula: "1 / (VC + 1)",
-						primitives: [
-							{
-								name: "VC",
-								value: undefined,
-								description:
-									"количество посещений в области интереса",
 							},
 						],
 					},

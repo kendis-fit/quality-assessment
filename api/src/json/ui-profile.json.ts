@@ -58,31 +58,6 @@ export const uiProfile: IIndex[] = [
                 nameConnect: "UI9",
                 value: undefined
             },
-            {
-                name: "K8",
-                nameConnect: "UI10",
-                value: undefined
-            },
-            {
-                name: "K9",
-                nameConnect: "UI11",
-                value: undefined
-            },
-            {
-                name: "K10",
-                nameConnect: "UI12",
-                value: undefined
-            },
-            {
-                name: "K11",
-                nameConnect: "UI13",
-                value: undefined
-            },
-            {
-                name: "K12",
-                nameConnect: "UI14",
-                value: undefined
-            },
         ]
     },
     {
@@ -1255,7 +1230,7 @@ export const uiProfile: IIndex[] = [
                                 description: "ответ на вопрос"
                             },
                             {
-                                name: "B",
+                                name: "n",
                                 value: undefined,
                                 description: "количество возможных ответов"
                             }
