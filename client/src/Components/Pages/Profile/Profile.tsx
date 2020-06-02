@@ -66,6 +66,7 @@ const BackButton = styled(Button)((props: { canBeVisible: boolean }) => ({
 export const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
+    const [showActions, setShowActions] = useState(false);
     const [nameIndex, setNameIndex] = useState("");
     const [nameIndexDiagram, setNameIndexDiagram] = useState("");
     const [informationIndex, setInformationIndex] = useState<IIndex>();
@@ -77,7 +78,13 @@ export const Profile = (props: IProfile) => {
     useEffect(() => {
         const getData = async () => {
             try {
-                setData(await api.findById(props.id));
+                const data = await api.findById(props.id);
+                setData(data);
+                if (isValid(data.profile)) {
+                    setShowActions(true);
+                } else {
+                    setShowActions(false);
+                }
             } catch (error) {
                 setError(error);
             } finally {
@@ -88,6 +95,25 @@ export const Profile = (props: IProfile) => {
         getData();
         // eslint-disable-next-line
     }, [props.id]); 
+
+    const isValid = (profile: IIndex[]) => {
+        for (const index of profile) {
+            for (const coeff of index.coefficients) {
+                if (someCoefficientUndefined(coeff)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    const someCoefficientUndefined = (coeff: ICoefficient) => {
+        const emptyCoeff = !coeff.value;
+        const emptyMetric = coeff.metric && !coeff.metric.value;
+        const emptyPrimitives = coeff.metric && coeff.metric.primitive && 
+            coeff.metric.primitive.primitives.filter(primitive => !primitive.value).length > 0;
+        return emptyCoeff || emptyMetric || emptyPrimitives;
+    }
 
     const checkPrimitives = (primitives: IPrimitive[]) => primitives.some(primitive => Number.isNaN(Number.parseFloat(primitive.value as any)));
 
@@ -114,6 +140,7 @@ export const Profile = (props: IProfile) => {
                 message: "Project was succefully updated",
                 color: "success"
             }));
+            setShowActions(true);
         } catch (error) {
             showError(error);
         }
@@ -164,7 +191,7 @@ export const Profile = (props: IProfile) => {
             >
             {
                 ({ values, handleChange, errors, setFieldValue }) => (
-                    <ProfileForm>
+                    <ProfileForm onInput={() => setShowActions(false)}>
                         <ProfileBlock>
                         {
                            values.indexes.map((item, indexId) => { 
@@ -219,7 +246,7 @@ export const Profile = (props: IProfile) => {
                                             </FormControl>)
                                     }
                                     </Grid>
-                                    <Grid>
+                                    <Grid style={{ visibility: showActions ? "visible" : "hidden"  }}>
                                         <Button color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
                                         <Button color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
                                         <Button color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
