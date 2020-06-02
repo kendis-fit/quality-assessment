@@ -56,12 +56,12 @@ const ProfileBlock = styled(Grid)({
     overflow: "auto",
 });
 
-const BackButton = styled(Button)({
+const BackButton = styled(Button)((props: { canBeVisible: boolean }) => ({
     visibility: "hidden",
     "@media screen and (max-width: 650px)": {
-        visibility: "visible"
+        visibility: props.canBeVisible ? "visible" : "hidden"
     }
-});
+}));
 
 export const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
@@ -231,7 +231,7 @@ export const Profile = (props: IProfile) => {
                         }
                         </ProfileBlock>
                         <Grid container justify="space-between">
-                            <BackButton onClick={props.handleBack} type="button" variant="contained" size="large" color="secondary">Back</BackButton>
+                            <BackButton canBeVisible={!!props.handleBack} onClick={props.handleBack} type="button" variant="contained" size="large" color="secondary">Back</BackButton>
                             <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
                         </Grid>
                     </ProfileForm>
