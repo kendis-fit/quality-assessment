@@ -22,7 +22,12 @@ const useStyles = makeStyles({
     maxWidth: 400,
     minWidth: 400,
     overflow: "scroll",
-    borderRight: "2px solid #3f51b5"
+    borderRight: "2px solid #3f51b5",
+    "@media screen and (max-width: 650px)": {
+        width: "100vw",
+        maxWidth: "100vw",
+        minWidth: "100vw"
+    }
   },
   searchBlock: {
     width: "100%",

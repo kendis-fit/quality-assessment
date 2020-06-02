@@ -56,6 +56,13 @@ const ProfileBlock = styled(Grid)({
     overflow: "auto",
 });
 
+const BackButton = styled(Button)({
+    visibility: "hidden",
+    "@media screen and (max-width: 650px)": {
+        visibility: "visible"
+    }
+});
+
 export const Profile = (props: IProfile) => {
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
@@ -223,7 +230,8 @@ export const Profile = (props: IProfile) => {
                            ) 
                         }
                         </ProfileBlock>
-                        <Grid container justify="flex-end">
+                        <Grid container justify="space-between">
+                            <BackButton onClick={props.handleBack} type="button" variant="contained" size="large" color="secondary">Back</BackButton>
                             <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
                         </Grid>
                     </ProfileForm>
