@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TreeView } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
-import { makeStyles, Popover, List, ListItem, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { ExpandMore, ChevronRight } from '@material-ui/icons';
 
 import { Requirement } from "./Requirement";
@@ -120,34 +120,17 @@ export const TreeRequirements = (props: ITreeRequirements) => {
                 >
                 <Requirement 
                     {...data}
-                    selectRequirement={(id, name, element) => setRequirement({ id, name, element }) }
+                    selectRequirement={id => props.selectRequirement(id) }
+                    addRequirement={(id, name) => {
+                        setRequirement({ id, name });
+                        setShowAddRequirement(true);
+                    }}
+                    removeRequirement={(id, name) => {
+                        setRequirement({ id, name });
+                        setShowRemoveRequirement(true);
+                    }}
                     />
             </TreeView>
-            {
-                requirement && 
-                <Popover
-                    open={true}
-                    onClose={() => setRequirement(undefined)}
-                    anchorEl={requirement.element}
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                    }}
-                    >
-                    <List>
-                        <ListItem className={classes.menuItem} onClick={() => {
-                            props.selectRequirement(requirement.id);
-                            setRequirement(undefined);
-                        }}><Typography>Show</Typography></ListItem>
-                        <ListItem className={classes.menuItem} onClick={() => setShowAddRequirement(true)}><Typography>Add</Typography></ListItem>
-                        <ListItem className={classes.menuItem} onClick={() => setShowRemoveRequirement(true)}><Typography>Remove</Typography></ListItem>
-                    </List>
-              </Popover>
-            }
             {
                 showAddRequirement && requirement &&
                 <DialogueAddRequirement 
