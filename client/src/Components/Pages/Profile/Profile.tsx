@@ -60,7 +60,7 @@ const BackButton = styled(Button)((props: { canBeVisible: boolean }) => ({
     visibility: "hidden",
     "@media screen and (max-width: 650px)": {
         visibility: props.canBeVisible ? "visible" : "hidden"
-    }
+    },
 }));
 
 export const Profile = (props: IProfile) => {
@@ -246,10 +246,10 @@ export const Profile = (props: IProfile) => {
                                             </FormControl>)
                                     }
                                     </Grid>
-                                    <Grid style={{ visibility: showActions ? "visible" : "hidden"  }}>
-                                        <Button color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
-                                        <Button color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
-                                        <Button color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
+                                    <Grid title={ showActions ? "" : "You need to save project with filled fields" }>
+                                        <Button disabled={!showActions} color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
+                                        <Button disabled={!showActions} color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
+                                        <Button disabled={!showActions} color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
                                     </Grid>
                                     <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
