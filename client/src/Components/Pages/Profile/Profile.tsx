@@ -38,7 +38,7 @@ const schema = yup.object().shape({
         }))
         .test("", "coefficients aren't equal 1", (values: ICoefficient[]) => {
             try {
-                return Number.parseInt(values.map(val => val.value).reduce((first, second) => (first as any) + (second as any)) as any) === 1;
+                return values.map(val => val.value).reduce((first, second) => math.evaluate((first as any) + (second as any))) === 1;
             } catch {
                 return false;
             }

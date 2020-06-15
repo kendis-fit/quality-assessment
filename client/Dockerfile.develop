@@ -2,9 +2,10 @@ FROM node:12.16.1-alpine3.11 AS build
 WORKDIR /app
 ARG REACT_APP_API
 
-COPY . .
+COPY package.json yarn.lock ./
 RUN yarn install
 
+COPY . .
 RUN REACT_APP_API=${REACT_APP_API} yarn build
 
 FROM nginx:stable-alpine
