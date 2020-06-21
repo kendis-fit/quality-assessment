@@ -38,7 +38,8 @@ const schema = yup.object().shape({
         }))
         .test("", "coefficients aren't equal 1", (values: ICoefficient[]) => {
             try {
-                return values.map(val => val.value).reduce((first, second) => math.evaluate((first as any) + (second as any))) === 1;
+                const coefficientSum = values.map(val => val.value).reduce((first, second) => math.evaluate((first as any) + (second as any)));
+                return Number.parseFloat(math.format(coefficientSum, 14)) === 1;
             } catch {
                 return false;
             }
@@ -200,6 +201,7 @@ export const Profile = (props: IProfile) => {
                                 <FormControl error={!!error}>
                                     <FormLabel>
                                         <Typography>{item.name}</Typography>
+                                        <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                     </FormLabel>
                                     <Grid container direction="row">
                                     {
@@ -251,7 +253,6 @@ export const Profile = (props: IProfile) => {
                                         <Button disabled={!showActions} color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
                                         <Button disabled={!showActions} color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
                                     </Grid>
-                                    <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
                                 </FormControl>
                             </Grid>}
                            ) 
