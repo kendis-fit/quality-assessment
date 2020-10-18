@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import * as yup from "yup";
 import * as math from "mathjs";
-import { Formik, Form, getIn } from "formik";
 import { useDispatch } from "react-redux";
+import { object, array, number, string } from "yup";
 import { Redirect } from "react-router-dom";
-import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled, FormHelperText } from "@material-ui/core";
+import { useVanillaForm } from "vanilla-hooks";
+import React, { useState, useEffect } from "react";
+import { Grid, FormControl, TextField, FormLabel, Typography, Button, styled, makeStyles, FormHelperText } from "@material-ui/core";
 
 import sizes from "../../../Constants/sizes";
 import { IIndex } from "./Interfaces/IIndex";
@@ -16,19 +16,23 @@ import { ICoefficient } from "./Interfaces/ICoefficient";
 import { IPrimitiveMeta } from "./Interfaces/IPrimitiveMeta";
 import { ServerError } from "../../../Api/Errors/ServerError";
 import { showAlert } from "../../../Reducers/Alert/AlertActions";
-import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
 import { IProfileResponse } from "../../../Api/ProjectAPI/Interfaces/IProfileResponse";
+import { DialogResultIndex, DialogInformationIndex, DialogDiagramIndex } from "./Dialogues";
 
-const schema = yup.object().shape({
-    indexes: yup.array(yup.object({
-        coefficients: yup.array(yup.object({
-            value: yup.number()
+const schema = object().shape({
+    indexes: array(object({
+        name: string(),
+        coefficients: array(object({
+            name: string(),
+            value: number()
                 .required(),
-            metric: yup.object({
-                value: yup.number(),
-                primitive: yup.object({
-                    primitives: yup.array(yup.object({
-                        value: yup.number()
+            metric: object({
+                name: string(),
+                value: number(),
+                primitive: object({
+                    primitives: array(object({
+                        name: string(),
+                        value: number()
                             .required()
                     }))
                 })
@@ -47,8 +51,10 @@ const schema = yup.object().shape({
     })
 )});
 
-const ProfileForm = styled(Form)({
-    margin: "10px 10px 0 10px"
+const useStyles = makeStyles({
+    profileForm: {
+        margin: "10px 10px 0 10px"
+    }
 });
 
 const ProfileBlock = styled(Grid)({
@@ -65,6 +71,7 @@ const BackButton = styled(Button)((props: { canBeVisible: boolean }) => ({
 }));
 
 export const Profile = (props: IProfile) => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const [isRedirect, setIsRedirect] = useState(false);
     const [showActions, setShowActions] = useState(false);
@@ -75,6 +82,19 @@ export const Profile = (props: IProfile) => {
     const [error, setError] = useState<ServerError>();
     const [loading, setLoading] = useState(false);
     const api = new ProjectAPI();
+    const { errors, handleSubmit } = useVanillaForm<any>({
+        schema,
+        validateChange: true,
+        onSubmit: (isValid, values, errors) => {
+            if (isValid) {
+                console.log("values", values.indexes);
+                updateProfile(values.indexes);
+            }
+            console.log("isValid", isValid);
+            console.log("erorrs", errors);
+        },
+        allFieldsExisted: false
+    });
 
     useEffect(() => {
         const getData = async () => {
@@ -183,89 +203,80 @@ export const Profile = (props: IProfile) => {
     return(
         <>
         {
-            (data && data.profile) ? <Formik 
-            initialValues={{ indexes: data.profile }}
-            validateOnChange={false}
-            validateOnBlur={false}
-            validationSchema={schema}
-            onSubmit={values => updateProfile(values.indexes)}
-            >
-            {
-                ({ values, handleChange, errors, setFieldValue }) => (
-                    <ProfileForm onInput={() => setShowActions(false)}>
-                        <ProfileBlock>
-                        {
-                           values.indexes.map((item, indexId) => { 
-                                const error = getIn(errors, `indexes[${indexId}].coefficients`);
-                                return <Grid key={indexId}>
-                                <FormControl error={!!error}>
-                                    <FormLabel>
-                                        <Typography>{item.name}</Typography>
-                                        <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
-                                    </FormLabel>
-                                    <Grid container direction="row">
-                                    {
-                                        item.coefficients.map((coefficient, coeffId) => 
-                                            <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].value`)} key={coeffId}>
-                                                <FormLabel>
-                                                    <Typography>{coefficient.name}</Typography>
-                                                </FormLabel>
-                                                <TextField value={coefficient.value} name={`indexes[${indexId}].coefficients[${coeffId}].value`} onChange={handleChange} />
+            (data && data.profile) ?
+            <form className={classes.profileForm} onSubmit={e => { e.preventDefault(); handleSubmit(); }} onInput={() => setShowActions(false)}>
+                <ProfileBlock>
+                {
+                    data.profile.map((item, indexId) => { 
+                        return <Grid key={indexId}>
+                        <FormControl error={!!errors[`indexes[${indexId}].coefficients`]}>
+                            <FormLabel>
+                                <Typography>{item.name}</Typography>
+                                <input type="hidden" name={`indexes[${indexId}].name`} value={item.name} />
+                                <FormHelperText>{typeof error === "string" ? error : " "}</FormHelperText>
+                            </FormLabel>
+                            <Grid container direction="row">
+                            {
+                                item.coefficients.map((coefficient, coeffId) => 
+                                    <FormControl error={!!errors[`indexes[${indexId}].coefficients[${coeffId}].value`]} key={coeffId}>
+                                        <FormLabel>
+                                            <Typography>{coefficient.name}</Typography>
+                                            <input type="hidden" name={`indexes[${indexId}].coefficients[${coeffId}].name`} value={coefficient.name} />
+                                        </FormLabel>
+                                        <TextField defaultValue={coefficient.value} name={`indexes[${indexId}].coefficients[${coeffId}].value`} />
+                                        {
+                                            coefficient.metric && <Grid>
+                                                <FormControl error={!!errors[`indexes[${indexId}].coefficients[${coeffId}].metric.value`]}>
+                                                    <FormLabel>
+                                                        <Typography>{coefficient.metric.name}</Typography>
+                                                        <input type="hidden" name={`indexes[${indexId}].coefficients[${coeffId}].metric.name`} value={coefficient.metric.name} />
+                                                    </FormLabel>
+                                                    <TextField disabled={!!coefficient.metric.primitive} defaultValue={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`}  />
+                                                </FormControl>
                                                 {
-                                                    coefficient.metric && <Grid>
-                                                        <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].metric.value`)}>
-                                                            <FormLabel>
-                                                                <Typography>{coefficient.metric.name}</Typography>
-                                                            </FormLabel>
-                                                            <TextField disabled={!!coefficient.metric.primitive} value={coefficient.metric.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.value`} onChange={handleChange} />
-                                                        </FormControl>
+                                                    coefficient.metric.primitive && <Grid>
                                                         {
-                                                            coefficient.metric.primitive && <Grid>
-                                                                {
-                                                                    coefficient.metric.primitive.primitives.map((primitive, primitiveId) =>
-                                                                        <FormControl error={!!getIn(errors, `indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`)} key={primitiveId}>
-                                                                            <FormLabel>
-                                                                                <Typography>{primitive.name}</Typography>
-                                                                            </FormLabel>
-                                                                            <TextField value={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={(e) => {
-                                                                                handleChange(e);
-                                                                                if (coefficient.metric) {
-                                                                                    coefficient.metric.primitive?.primitives.forEach(p => {
-                                                                                        if (p.name === primitive.name) {
-                                                                                            p.value = Number.parseFloat(e.target.value);
-                                                                                        }
-                                                                                    });
-                                                                                    setFieldValue(`indexes[${indexId}].coefficients[${coeffId}].metric.value`, getValueOfMetric(coefficient.metric));
+                                                            coefficient.metric.primitive.primitives.map((primitive, primitiveId) =>
+                                                                <FormControl error={!!errors[`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`]} key={primitiveId}>
+                                                                    <FormLabel>
+                                                                        <Typography>{primitive.name}</Typography>
+                                                                        <input type="hidden" name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].name`} value={primitive.name} />
+                                                                    </FormLabel>
+                                                                    <TextField defaultValue={primitive.value} name={`indexes[${indexId}].coefficients[${coeffId}].metric.primitive.primitives[${primitiveId}].value`} onChange={(e) => {
+                                                                        if (coefficient.metric) {
+                                                                            coefficient.metric.primitive?.primitives.forEach(p => {
+                                                                                if (p.name === primitive.name) {
+                                                                                    p.value = Number.parseFloat(e.target.value);
                                                                                 }
-                                                                            }} />
-                                                                        </FormControl>
-                                                                    )
-                                                                }
-                                                            </Grid>
+                                                                            });
+                                                                        }
+                                                                        (document.querySelector(`[name="indexes[${indexId}].coefficients[${coeffId}].metric.value"]`) as any).value = 1;
+                                                                    }} />
+                                                                </FormControl>
+                                                            )
                                                         }
                                                     </Grid>
                                                 }
-                                            </FormControl>)
-                                    }
-                                    </Grid>
-                                    <Grid title={ showActions ? "" : "You need to save project with filled fields" }>
-                                        <Button disabled={!showActions} color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
-                                        <Button disabled={!showActions} color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
-                                        <Button disabled={!showActions} color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
-                                    </Grid>
-                                </FormControl>
-                            </Grid>}
-                           ) 
-                        }
-                        </ProfileBlock>
-                        <Grid container justify="space-between">
-                            <BackButton canBeVisible={!!props.handleBack} onClick={props.handleBack} type="button" variant="contained" size="large" color="secondary">Back</BackButton>
-                            <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
-                        </Grid>
-                    </ProfileForm>
-                )
-            }
-        </Formik> : <div>Group doesn't have profile</div>
+                                            </Grid>
+                                        }
+                                    </FormControl>)
+                            }
+                            </Grid>
+                            <Grid title={ showActions ? "" : "You need to save project with filled fields" }>
+                                <Button disabled={!showActions} color="primary" onClick={() => setNameIndex(item.name)}>Calculate</Button>
+                                <Button disabled={!showActions} color="primary" onClick={() => setNameIndexDiagram(item.name)}>Show chart</Button>
+                                <Button disabled={!showActions} color="primary" onClick={() => setInformationIndex(item)}>Information</Button>
+                            </Grid>
+                        </FormControl>
+                    </Grid>}
+                    ) 
+                }
+                </ProfileBlock>
+                <Grid container justify="space-between">
+                    <BackButton canBeVisible={!!props.handleBack} onClick={props.handleBack} type="button" variant="contained" size="large" color="secondary">Back</BackButton>
+                    <Button type="submit" variant="contained" size="large" color="primary">Save</Button>
+                </Grid>
+            </form> : <div>Group doesn't have profile</div>
         }
         {
             nameIndex && <DialogResultIndex id={props.id} nameIndex={nameIndex} handleClose={closeResultModal} />
