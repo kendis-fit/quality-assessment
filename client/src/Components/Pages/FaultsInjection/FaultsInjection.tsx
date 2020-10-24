@@ -157,6 +157,8 @@ const FaultsInjection = () => {
         link.download = `injected-${nameFile}`;
         link.href = URL.createObjectURL(blob);
         link.click();
+        URL.revokeObjectURL(link.href);
+        link.remove();
     }
 
     const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {

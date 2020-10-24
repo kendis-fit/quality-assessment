@@ -53,7 +53,7 @@ const mockString = (
 }
 
 const mockText = (text: string, options: IMockOptions, getMockedStringCallback?: GetMockedStringCallback): string => {
-    const logicalOperations = ["!", "||", "&&"];
+    const logicalOperations = [" ! ", " || ", " && "];
     const mathOperations = ["+", "/", "*", "-"];
 
     let mathOperationCount = 0;
@@ -68,11 +68,10 @@ const mockText = (text: string, options: IMockOptions, getMockedStringCallback?:
             mathOperationCount += result.count;
         }
         if (logicalOperationCount !== options.logicalOperations) {
-            const result = mockString(string, mockedString, options.logicalOperations, /!/g, logicalOperations, codeNumber + 1, getMockedStringCallback);
+            const result = mockString(string, mockedString, options.logicalOperations, /(!|(\s&{2}\s)|(\s\|{2}\s))/g, logicalOperations, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             logicalOperationCount += result.count;
         }
-        console.log('mocked', mockedString);
         return mockedString;
     });
 
