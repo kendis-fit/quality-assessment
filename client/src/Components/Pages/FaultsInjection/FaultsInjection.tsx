@@ -59,6 +59,49 @@ const useStyles = makeStyles({
     buttonContainer: {
         display: "flex",
         justifyContent: "flex-end"
+    },
+    mockedStrings: {
+        height: "100%",
+        width: "100%",
+        listStyle: "none"
+    },
+    mockedString: {
+        marginBottom: "10px"
+    },
+    codeNumberPositive: {
+        width: "50px",
+        display: "flex",
+        paddingRight: "10px",
+        justifyContent: "flex-end",
+        background: "#cdffd8"
+    },
+    symbolBlock: {
+        display: "flex",
+        justifyContent: "center",
+        width: "50px"
+    },
+    stringPositive: {
+        background: "#e6ffed",
+        width: "100%",
+        display: "flex"
+    },
+    codeNumberNegative: {
+        width: "50px",
+        paddingRight: "10px",
+        display: "flex",
+        justifyContent: "flex-end",
+        background: "#ffdce0"
+    },
+    stringNegative: {
+        background: "#ffeef0",
+        width: "100%",
+        display: "flex"
+    },
+    string: {
+        display: "flex",
+    },
+    title: {
+
     }
 });
 
@@ -209,12 +252,39 @@ const FaultsInjection = () => {
             </div>
             <div className={classes.rightBlock}>
                 <div className={classes.reportContainer}>
-                    <ul>
+                    <Typography align="center" variant="h3">Title</Typography>
+                    <ul className={classes.mockedStrings}>
                         {
                             mockedStrings.map((mockedString) => (
-                                <li key={mockedString.id}>
-                                    <p>{mockedString.previousString}</p>
-                                    <p>{mockedString.mockedString}</p>
+                                <li key={mockedString.id} className={classes.mockedString}>
+                                    <p className={classes.string}>
+                                        <div className={classes.codeNumberNegative}>
+                                            <Typography>
+                                                {mockedString.codeNumber}
+                                            </Typography>
+                                        </div>
+                                        <div className={classes.stringNegative}>
+                                            <Typography className={classes.symbolBlock}>-</Typography>
+                                            {' '}
+                                            <Typography>
+                                                {mockedString.previousString}
+                                            </Typography>
+                                        </div>
+                                    </p>
+                                    <p className={classes.string}>
+                                        <div className={classes.codeNumberPositive}>
+                                            <Typography>
+                                                {mockedString.codeNumber}
+                                            </Typography>
+                                        </div>
+                                        <div className={classes.stringPositive}>
+                                            <Typography className={classes.symbolBlock}>+</Typography>
+                                            {' '}
+                                            <Typography>
+                                                {mockedString.mockedString}
+                                            </Typography>
+                                        </div>
+                                    </p>
                                 </li>
                             ))
                         }
