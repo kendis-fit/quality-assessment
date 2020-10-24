@@ -1,8 +1,26 @@
+import { nanoid } from "nanoid";
 import { useFormik } from "formik";
 import React, { useRef, useState } from "react";
 import { makeStyles, TextField, Button, RadioGroup, Radio, FormControlLabel, styled, Typography } from "@material-ui/core";
 
 import sizes from "../../../Constants/sizes";
+import mockText from "../../../Helpers/mockText";
+import { isStringNumber } from "../../../Helpers/regExpressions";
+
+interface IFaultsInjectionsForm {
+    programmingLanguage: string;
+    mathOperations: number;
+    logicalOperations: number;
+    valueConstants: number;
+    nameVariables: number;
+};
+
+interface IMockedString {
+    id: string;
+    codeNumber: number;
+    mockedString: string;
+    previousString: string;
+}
 
 const useStyles = makeStyles({
     mainPage: {
@@ -48,23 +66,30 @@ const Title = styled(Typography)({
     marginBottom: 9
 });
 
-const initialValues = {
+const initialValues: IFaultsInjectionsForm = {
     programmingLanguage: "",
     mathOperations: 0,
     logicalOperations: 0,
     valueConstants: 0,
     nameVariables: 0,
-}
+};
 
 const FaultsInjection = () => {
     const classes = useStyles();
     const fileRef = useRef<HTMLInputElement>(null);
     const [nameFile, setNameFile] = useState("");
     const [contentFile, setContentFile] = useState("");
-    const [injectedContentFile] = useState("");
+    const [mockedContentFile, setMockedContentFile] = useState("");
+    const [mockedStrings, setMockedStrings] = useState<IMockedString[]>([]);
     const formik = useFormik({
         initialValues,
-        onSubmit: () => {}
+        onSubmit: (values: IFaultsInjectionsForm) => {
+            setMockedStrings([]);
+            const mockedContent = mockText(contentFile, values, (codeNumber: number, mockedString: string, previousString: string) => {
+                setMockedStrings((previousState) => [...previousState, { id: nanoid(), codeNumber, mockedString, previousString }]);
+            });
+            setMockedContentFile(mockedContent);
+        }
     });
 
     const getFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,9 +100,18 @@ const FaultsInjection = () => {
             reader.readAsText(file);
     
             reader.onload = () => {
-                setNameFile(file.name);
-                setContentFile(reader.result as string);
+                if (typeof reader.result === "string") {
+                    setNameFile(file.name);
+                    setContentFile(reader.result);
+                }
             }
+        }
+    }
+
+    const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const number = e.target.value;
+        if (isStringNumber(number)) {
+            formik.handleChange(e);
         }
     }
 
@@ -132,30 +166,59 @@ const FaultsInjection = () => {
                     <div>
                         <div>
                             <Typography>Math operations</Typography>
-                            <TextField type="number" name="mathOperations" value={formik.values.mathOperations} onChange={formik.handleChange} />
+                            <TextField 
+                                type="number"
+                                name="mathOperations"
+                                value={formik.values.mathOperations}
+                                onChange={handleChangeNumber}
+                            />
                         </div>
                         <div>
                             <Typography>Logical operations</Typography>
-                            <TextField type="number" name="logicalOperations" value={formik.values.logicalOperations} onChange={formik.handleChange} />
+                            <TextField
+                                type="number"
+                                name="logicalOperations"
+                                value={formik.values.logicalOperations}
+                                onChange={handleChangeNumber}
+                            />
                         </div>
                         <div>
                             <Typography>Value of constants</Typography>
-                            <TextField type="number" name="valueConstants" value={formik.values.valueConstants} onChange={formik.handleChange} />
+                            <TextField
+                                type="number"
+                                name="valueConstants"
+                                value={formik.values.valueConstants}
+                                onChange={handleChangeNumber}
+                            />
                         </div>
                         <div>
                             <Typography>Replacing of names of variables</Typography>
-                            <TextField type="number" name="nameVariables" value={formik.values.nameVariables} onChange={formik.handleChange} />
+                            <TextField
+                                type="number"
+                                name="nameVariables"
+                                value={formik.values.nameVariables}
+                                onChange={handleChangeNumber}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className={classes.buttonContainer}>
-                    <Button disabled={!!injectedContentFile} className={classes.wrapperButton} variant="contained">Save injected file</Button>
-                    <Button variant="contained" color="primary">Inject faults and show a report</Button>
+                    <Button disabled={!mockedContentFile || !mockedStrings.length} className={classes.wrapperButton} variant="contained">Save injected file</Button>
+                    <Button disabled={!contentFile} onClick={() => formik.handleSubmit()} variant="contained" color="primary">Inject faults and show a report</Button>
                 </div>
             </div>
             <div className={classes.rightBlock}>
                 <div className={classes.reportContainer}>
-
+                    <ul>
+                        {
+                            mockedStrings.map((mockedString) => (
+                                <li key={mockedString.id}>
+                                    <p>{mockedString.previousString}</p>
+                                    <p>{mockedString.mockedString}</p>
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
