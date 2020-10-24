@@ -151,6 +151,14 @@ const FaultsInjection = () => {
         }
     }
 
+    const downloadFile = () => {
+        const blob = new Blob([mockedContentFile]);
+        const link = document.createElement('a');
+        link.download = `injected-${nameFile}`;
+        link.href = URL.createObjectURL(blob);
+        link.click();
+    }
+
     const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         const number = e.target.value;
         if (isStringNumber(number)) {
@@ -246,7 +254,7 @@ const FaultsInjection = () => {
                     </div>
                 </div>
                 <div className={classes.buttonContainer}>
-                    <Button disabled={!mockedContentFile || !mockedStrings.length} className={classes.wrapperButton} variant="contained">Save injected file</Button>
+                    <Button disabled={!mockedContentFile || !mockedStrings.length} onClick={() => downloadFile()} className={classes.wrapperButton} variant="contained">Save injected file</Button>
                     <Button disabled={!contentFile} onClick={() => formik.handleSubmit()} variant="contained" color="primary">Inject faults and show a report</Button>
                 </div>
             </div>
@@ -257,7 +265,7 @@ const FaultsInjection = () => {
                         {
                             mockedStrings.map((mockedString) => (
                                 <li key={mockedString.id} className={classes.mockedString}>
-                                    <p className={classes.string}>
+                                    <div className={classes.string}>
                                         <div className={classes.codeNumberNegative}>
                                             <Typography>
                                                 {mockedString.codeNumber}
@@ -270,8 +278,8 @@ const FaultsInjection = () => {
                                                 {mockedString.previousString}
                                             </Typography>
                                         </div>
-                                    </p>
-                                    <p className={classes.string}>
+                                    </div>
+                                    <div className={classes.string}>
                                         <div className={classes.codeNumberPositive}>
                                             <Typography>
                                                 {mockedString.codeNumber}
@@ -284,7 +292,7 @@ const FaultsInjection = () => {
                                                 {mockedString.mockedString}
                                             </Typography>
                                         </div>
-                                    </p>
+                                    </div>
                                 </li>
                             ))
                         }

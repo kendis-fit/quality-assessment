@@ -25,7 +25,7 @@ const mockString = (
     getMockedStringCallback?: GetMockedStringCallback
 ): IMockStringResult => {
     let mockedString = string;
-    let modifiedMockedString = string;
+    let modifiedMockedString = modifiedString;
     let counterOfMockedSymbols = 0;
     const countMatchedSymbols = string.match(regExp)?.length || 0;
     if (countMatchedSymbols === 0) {
@@ -37,7 +37,7 @@ const mockString = (
     do {
         const randIndex = rand(0, replacedSelection.length);
         mockedString = replaceFrom(string, counterOfMockedSymbols, regExp, replacedSelection[randIndex]);
-        modifiedString = replaceFrom(modifiedString, counterOfMockedSymbols, regExp, replacedSelection[randIndex]);
+        modifiedMockedString = replaceFrom(modifiedMockedString, counterOfMockedSymbols, regExp, replacedSelection[randIndex]);
         if (mockedString !== string) {
             ++counterOfMockedSymbols;
             getMockedStringCallback?.(codeNumber as number, mockedString, string);
@@ -72,6 +72,7 @@ const mockText = (text: string, options: IMockOptions, getMockedStringCallback?:
             mockedString = result.modifiedMockedString;
             logicalOperationCount += result.count;
         }
+        console.log('mocked', mockedString);
         return mockedString;
     });
 
