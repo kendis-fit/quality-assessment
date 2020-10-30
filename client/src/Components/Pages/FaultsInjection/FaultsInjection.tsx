@@ -61,9 +61,10 @@ const useStyles = makeStyles({
         justifyContent: "flex-end"
     },
     mockedStrings: {
-        height: "100%",
+        height: "calc(100vh - 200px)",
         width: "100%",
-        listStyle: "none"
+        listStyle: "none",
+        overflowY: "scroll"
     },
     mockedString: {
         marginBottom: "10px"

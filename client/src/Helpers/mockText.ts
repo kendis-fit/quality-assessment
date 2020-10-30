@@ -53,25 +53,29 @@ const mockString = (
 }
 
 const mockText = (text: string, options: IMockOptions, getMockedStringCallback?: GetMockedStringCallback): string => {
-    const logicalOperations = [" ! ", " || ", " && "];
+    const logicalOperations = ["!", "||", "&&"];
     const mathOperations = ["+", "/", "*", "-"];
 
     let mathOperationCount = 0;
     let logicalOperationCount = 0;
+    let valueConstantsCount = 0;
 
     const splitedText = text.split('\n');
     const mockedText = splitedText.map((string, codeNumber) => {
         let mockedString = string;
-        if (mathOperationCount !== options.mathOperations) {
-            const result = mockString(string, mockedString, options.mathOperations, /[+-/*]/g, mathOperations, codeNumber + 1, getMockedStringCallback);
+        if (mathOperationCount < options.mathOperations) {
+            const result = mockString(string, mockedString, options.mathOperations - mathOperationCount, /[+-/*]/g, mathOperations, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             mathOperationCount += result.count;
         }
-        if (logicalOperationCount !== options.logicalOperations) {
-            const result = mockString(string, mockedString, options.logicalOperations, /(!|(\s&{2}\s)|(\s\|{2}\s))/g, logicalOperations, codeNumber + 1, getMockedStringCallback);
+        if (logicalOperationCount < options.logicalOperations) {
+            const result = mockString(string, mockedString, options.logicalOperations - logicalOperationCount, /(!|(\s&{2}\s)|(\s\|{2}\s))/g, logicalOperations, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             logicalOperationCount += result.count;
         }
+        // if (valueConstantsCount !== options.valueConstants) {
+        //     const result = mockString(string, mockedString, options.valueConstants, /const\s(unsigned|signed|short)?\s+(int|string|bool|char|long|double|float)\s+\w+\s*=\s*(("|').*("|')|false|true|-?\d*\.?\d*);/g, ['test'], codeNumber + 1, getMockedStringCallback);
+        // }
         return mockedString;
     });
 
