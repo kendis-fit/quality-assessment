@@ -17,4 +17,4 @@ jobs:
             docker_build_args: |
               REACT_APP_API
           env:
-            REACT_APP_API=https://quality-assessment-back-end.herokuapp.com
+            REACT_APP_API: https://quality-assessment-back-end.herokuapp.com
