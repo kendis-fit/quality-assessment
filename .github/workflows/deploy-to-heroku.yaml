@@ -14,7 +14,7 @@ jobs:
             heroku_app_name: "quality-assessment1"
             heroku_email: "kendis_it@hotmail.com"
             usedocker: true
-            docker_build_args:
-              | REACT_APP_API
+            docker_build_args: |
+              REACT_APP_API
           env:
             REACT_APP_API=https://quality-assessment-back-end.herokuapp.com
