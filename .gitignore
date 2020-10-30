@@ -1,0 +1,5 @@
+.vscode
+deploy.sh
+start.sh
+Dockerfile.prod
+Dockerfile

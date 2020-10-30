@@ -1,0 +1,17 @@
+# build dependencies
+node_modules
+dist
+
+# git
+.git
+.gitignore
+
+# linter and format
+.prettierc
+.eslintrc
+
+# markdown
+*.md
+
+# environmants
+.env*
