@@ -1,0 +1,20 @@
+name: Deploy to Heroku
+on:
+	push:
+		branches:
+			- master
+jobs:
+		build:
+			runs-on: ubuntu-latest
+			steps:
+				- uses: actions/checkout@v2
+				- uses: akhileshns/heroku-deploy@v3.6.8
+					with:
+						heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+						heroku_app_name: "quality-assessment1"
+						heroku_email: "kendis_it@hotmail.com"
+						usedocker: true
+						docker_build_args:
+							| REACT_APP_API
+					env:
+						REACT_APP_API=https://quality-assessment-back-end.herokuapp.com
