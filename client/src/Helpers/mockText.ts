@@ -83,7 +83,7 @@ const mockText = (text: string, options: IMockOptions, getMockedStringCallback?:
             valueConstantsCount += result.count;
         }
         if (nameVariablesCount < options.nameVariables) {
-            const result = mockString(string, mockedString, options.nameVariables - nameVariablesCount, /(int|string|bool|char|long|double|float)\s+[^\d][a-z\d]+(?=[\s=,])/g, nameVariables, replaceLastWordFrom, codeNumber + 1, getMockedStringCallback);
+            const result = mockString(string, mockedString, options.nameVariables - nameVariablesCount, /(?<!const\s+)(int|string|bool|char|long|double|float)\s+[^\d][a-z\d]+(?=[\s=,])/g, nameVariables, replaceLastWordFrom, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             nameVariablesCount += result.count;
         }
