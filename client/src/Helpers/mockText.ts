@@ -56,7 +56,7 @@ const mockString = (
 const mockText = (text: string, options: IMockOptions, getMockedStringCallback?: GetMockedStringCallback): string => {
     const logicalOperations = ["!", "||", "&&"];
     const mathOperations = ["+", "/", "*", "-"];
-    const valuesConstants = randArrayOfValues(50).map((value) => `${value};`);
+    const valuesConstants = randArrayOfValues(50).map((value) => /^\d+$/.test(value) ? `${value};` : `"${value}";`);
     const nameVariables = randArrayOfValues(50, true);
 
     let mathOperationCount = 0;
