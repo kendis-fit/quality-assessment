@@ -42,6 +42,7 @@ export const DialogCreateProject = (props: IDialogCreateProject) => (
                                     <MenuItem value="UX_PROFILE">Human-computer interaction usability integrative quality</MenuItem>
                                     <MenuItem value="VERBAL_PROFILE">Human-computer interaction usability verbal quality assessment</MenuItem>
                                     <MenuItem value="UI_PROFILE">Human-computer interaction usability quality assessment</MenuItem>
+                                    <MenuItem value="FAULTS_INJECTION_PROFILE">Fautls injection</MenuItem>
                                 </Select>
                             </FormControl>
                         </DialogContent>
