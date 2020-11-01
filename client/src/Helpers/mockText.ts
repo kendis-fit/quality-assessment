@@ -68,7 +68,7 @@ const mockText = (text: string, options: IMockOptions, getMockedStringCallback?:
     const mockedText = splitedText.map((string, codeNumber) => {
         let mockedString = string;
         if (mathOperationCount < options.mathOperations) {
-            const result = mockString(string, mockedString, options.mathOperations - mathOperationCount, /(?<![+\-/*])[+\-/*](?![+\-/*])/g, mathOperations, replaceFrom, codeNumber + 1, getMockedStringCallback);
+            const result = mockString(string, mockedString, options.mathOperations - mathOperationCount, /(?<![+\-/*]|(\/{2}.*))[+\-/*](?![+\-/*>])/g, mathOperations, replaceFrom, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             mathOperationCount += result.count;
         }
