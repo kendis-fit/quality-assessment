@@ -31,7 +31,7 @@ const schema = yup.object().shape({
         .min(8, "Password has to have length more or equal 8"),
     confirmPassword: yup.string()
         .required("Confirm Password is required")
-        .test("password-match", "Passwords must match", function(value: string) {
+        .test("password-match", "Passwords must match", function(value: any) {
             return this.parent.password === value;
         })
 });
