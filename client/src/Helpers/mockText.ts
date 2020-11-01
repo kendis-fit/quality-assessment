@@ -73,7 +73,7 @@ const mockText = (text: string, options: IMockOptions, getMockedStringCallback?:
             mathOperationCount += result.count;
         }
         if (logicalOperationCount < options.logicalOperations) {
-            const result = mockString(string, mockedString, options.logicalOperations - logicalOperationCount, /(!|(\s&{2}\s)|(\s\|{2}\s))/g, logicalOperations, replaceFrom, codeNumber + 1, getMockedStringCallback);
+            const result = mockString(string, mockedString, options.logicalOperations - logicalOperationCount, /(!=|(&{2})|(\|{2}))/g, logicalOperations, replaceFrom, codeNumber + 1, getMockedStringCallback);
             mockedString = result.modifiedMockedString;
             logicalOperationCount += result.count;
         }
