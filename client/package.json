@@ -10,7 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/chart.js": "^2.9.19",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "faker": "^5.1.0",
     "formik": "^2.1.4",
     "mathjs": "^6.6.2",
